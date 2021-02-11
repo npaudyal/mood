@@ -1,17 +1,33 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {FaMagento, FaTimes, FaBars} from 'react-icons/fa'
 import styled from 'styled-components';
-import {Container} from './globalStyles';
+import {Button, Container} from './globalStyles';
 import {IconContext} from 'react-icons/lib';
 
 const NavBar = () => {
 
     const[click, setClick] = useState(false);
+    const[button, setButton] = useState(true);
 
     const handleClick = () => {
        setClick(!click); 
     }
+
+    const showButton = () => {
+        if(window.innerWidth <=960) {
+            setButton(false);
+        } else {
+            setButton(true);
+        }
+    }
+
+    useEffect(() => {
+        showButton();
+    } , []);
+
+    window.addEventListener('resize', showButton)
+
     return (
         <>
         <IconContext.Provider value ={{color: '#fff'}}>
@@ -25,11 +41,21 @@ const NavBar = () => {
             <MobileIcon onClick={handleClick}>
                 {click ? <FaTimes /> : <FaBars />}
             </MobileIcon>
-            <NavMenu onClick={handleClick}>
+            <NavMenu onClick={handleClick} click={click}>
                 <NavItem>
                     <NavLinks to ="/">Home</NavLinks>
                 </NavItem>
-
+            <NavItemBtn>
+                { button ? (
+                    <NavBtnLink to ="/modal"> 
+                        <Button primary>Sign In</Button>
+                    </NavBtnLink>
+                ): (
+                    <NavBtnLink to ="/modal"> 
+                    <Button fontBig primary>Sign In</Button>
+                </NavBtnLink>
+                )}
+                 </NavItemBtn>
             </NavMenu>
             </NavBarContainer>
 
@@ -40,7 +66,7 @@ const NavBar = () => {
 }
 
 const Nav = styled.nav`
-    background:#101522;
+    background:#3A731A;
     height:80px;
     display:flex;
     justify-content: center;
@@ -74,6 +100,28 @@ const NavMenu = styled.ul`
 
     }
 `
+const NavItemBtn = styled.li`
+    @media screen and (max-width:960px) {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        width:100%;
+        height:120px;
+    }
+
+`
+const NavBtnLink = styled(Link)`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    padding:8px 16px;
+    height:100%;
+    width:100%;
+    border:none;
+    outline:none;
+`
+
 const NavItem = styled.li`
 
     height:80px;
@@ -117,7 +165,7 @@ const NavLinks = styled(Link)`
 
 const NavBarContainer = styled(Container)`
     display:flex;
-    justify-content: left;
+    justify-content: space-between;
     height: 80px;
 
     ${Container}

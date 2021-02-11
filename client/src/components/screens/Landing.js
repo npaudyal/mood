@@ -22,7 +22,7 @@ const Landing = () => {
             <motion.h1
                 initial={{opacity:0}}
                 animate={{opacity:1}}
-                transition={{duration:1}}
+                transition={{duration:2}}
             >Welcome to mood</motion.h1>
             <motion.p
                 variants={fadeLeft}
@@ -73,13 +73,21 @@ const Landing = () => {
 }
 
 const Section = styled.section`
-    height: 100vh;
+    height: 100vh ;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: #E0EAFC;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #ADA996;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+@media screen and (max-width:768px) {
+    background: #ADA996;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
 
 `
 
@@ -105,12 +113,24 @@ const ColumnLeft = styled.div`
     h1{
         margin-bottom:0.5rem;
         font-size:2rem;
+        @media screen and (max-width: 960px) {
+        align-items:center;
+        justify-content: center;
+    }
     }
 
     p{
         margin: 2rem 0;
         font-size: 4rem;
         line-height: 1.1;
+        @media screen and (max-width: 960px) {
+        align-items:center;
+        justify-content: center;
+    }
+    }
+    @media screen and (max-width: 960px) {
+        align-items:center;
+        justify-content: center;
     }
 
 `
@@ -119,7 +139,7 @@ const Button = styled(motion.button)`
     padding:1rem 3rem;
     font-size:1rem;
     border:2px solid #085630;
-    border-radius:4px;
+    border-radius:30px;
     outline:none;
     cursor:pointer;
     background: transparent;
@@ -133,6 +153,10 @@ const Image = styled(motion.img)`
     width:100%;
     max-width:250px;
     max-height:250px;
+
+    @media screen and (max-width: 960px) {
+        display:none;
+    }
   
 `
 
