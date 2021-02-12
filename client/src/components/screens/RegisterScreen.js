@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import './RegisterScreen.css'
 import {IoLogoFacebook, IoLogoGoogle} from 'react-icons/io' 
+import {useDispatch} from 'react-redux';
+import {signUpClicked} from '../../actions/signUpAction'
 const RegisterScreen = () => {
 const [username, setUsername] = useState("");
 
@@ -13,6 +15,7 @@ const registerHandler = () => {
     console.log('registerHandler');
 }
 
+const dispatch = useDispatch();
 
     return (
       <>
@@ -81,9 +84,9 @@ const registerHandler = () => {
            <Padding />
            <Padding />
            
-           Already have an account?
+           <h5> Already have an account? </h5>
 
-           <Link>Sign In</Link>
+           <h4 style={{color:"grey", textDecoration:"underline", cursor:"pointer"}} onClick={() => dispatch(signUpClicked())}>Sign In</h4>
 
       </>
     )

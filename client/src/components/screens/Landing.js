@@ -7,11 +7,13 @@ import netflix from '../../images/netflix.svg'
 import chat from '../../images/chat.svg'
 import book from '../../images/book.svg'
 import NavBar from './NavBar'
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Modal from './Modal'
+import {modal} from '../../actions/modalAction'
 const Landing = () => {
 
-    const modal = useSelector(state => state.modal);
+    const modals = useSelector(state => state.modal);
+    const dispatch = useDispatch();
 
     const fadeLeft = {
         hidden:{opacity:0, x:-100},
@@ -41,7 +43,7 @@ const Landing = () => {
             whileTap={{scale:0.95, backgroundColor:'#085630', border:'none', color:"#000"}}
             initial={{opacity:0}}
             animate={{opacity:1, transition:{duration:1.5}}}
-            
+            onClick ={ () => dispatch(modal())}
             >Sign In</Button>
             </ColumnLeft>
             <ColumnRight>
@@ -73,7 +75,7 @@ const Landing = () => {
             </ColumnRight>  
            
             </Container>
-            <Modal showModal ={modal} />
+            <Modal showModal ={modals} />
       </Section>
       </>
     )
@@ -152,6 +154,7 @@ const Button = styled(motion.button)`
     background: transparent;
     color:#D85548;
     font-weight:700;
+    
 `
 
 const Image = styled(motion.img)`

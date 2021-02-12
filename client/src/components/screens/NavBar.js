@@ -4,7 +4,6 @@ import {FaMagento, FaTimes, FaBars} from 'react-icons/fa'
 import styled from 'styled-components';
 import {Button, Container} from './globalStyles';
 import {IconContext} from 'react-icons/lib';
-import Modal from './Modal'
 import {modal} from '../../actions/modalAction'
 import {useDispatch} from 'react-redux';
 const NavBar = () => {

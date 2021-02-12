@@ -1,12 +1,17 @@
-import React, {useRef, useEffect, useCallback } from 'react'
+import React, {useRef, useEffect, useCallback,useState } from 'react'
 import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import {MdClose} from 'react-icons/md'
 import {useDispatch, useSelector} from 'react-redux'
 import {modal} from '../../actions/modalAction'
 import RegisterScreen from './RegisterScreen'
+import LoginScreen from './LoginScreen';
+
 
 const Modal = ({showModal}) => {
+
+    const isSignUpClicked = useSelector(state => state.signUpClicked);
+
     const modalRef  = useRef();
     const animation = useSpring ({
         config:{
@@ -16,6 +21,7 @@ const Modal = ({showModal}) => {
         transform: showModal ? `translateY(0%)` : `translateY(-100%)`
     })
     const dispatch = useDispatch();
+
 
     const closeModal = e => {
         if(modalRef.current === e.target) {
@@ -42,7 +48,11 @@ const Modal = ({showModal}) => {
                  <animated.div style={animation}>
                  <ModalWrapper>
                      <ModalContent>
-                         <RegisterScreen /> 
+                         {isSignUpClicked ? 
+                         (
+                            <RegisterScreen /> ) : ( <LoginScreen />  
+                            )}
+                         
                      </ModalContent>
                      <CloseModal onClick={() => dispatch(modal())} />
                       </ModalWrapper>

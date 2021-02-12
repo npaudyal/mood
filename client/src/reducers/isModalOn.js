@@ -11,4 +11,7 @@ const isModalOnReducer = (state = false, action) => {
 
 }
 
+
+
+
 export default isModalOnReducer;
