@@ -7,7 +7,12 @@ import netflix from '../../images/netflix.svg'
 import chat from '../../images/chat.svg'
 import book from '../../images/book.svg'
 import NavBar from './NavBar'
+import {useSelector} from 'react-redux';
+import Modal from './Modal'
 const Landing = () => {
+
+    const modal = useSelector(state => state.modal);
+
     const fadeLeft = {
         hidden:{opacity:0, x:-100},
         visible:{opacity:1, x:0}
@@ -15,8 +20,9 @@ const Landing = () => {
     return (
         <>
         <NavBar />
+       
       <Section>
-          
+         
           <Container>
             <ColumnLeft>
             <motion.h1
@@ -67,6 +73,7 @@ const Landing = () => {
             </ColumnRight>  
            
             </Container>
+            <Modal showModal ={modal} />
       </Section>
       </>
     )
@@ -153,6 +160,7 @@ const Image = styled(motion.img)`
     width:100%;
     max-width:250px;
     max-height:250px;
+    z-index:1;
 
     @media screen and (max-width: 960px) {
         display:none;

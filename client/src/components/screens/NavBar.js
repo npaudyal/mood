@@ -4,12 +4,15 @@ import {FaMagento, FaTimes, FaBars} from 'react-icons/fa'
 import styled from 'styled-components';
 import {Button, Container} from './globalStyles';
 import {IconContext} from 'react-icons/lib';
-
+import Modal from './Modal'
+import {modal} from '../../actions/modalAction'
+import {useDispatch} from 'react-redux';
 const NavBar = () => {
+
 
     const[click, setClick] = useState(false);
     const[button, setButton] = useState(true);
-
+    const dispatch =useDispatch();
     const handleClick = () => {
        setClick(!click); 
     }
@@ -22,6 +25,12 @@ const NavBar = () => {
         }
     }
 
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal(prev => !prev);
+    }
+
     useEffect(() => {
         showButton();
     } , []);
@@ -30,8 +39,11 @@ const NavBar = () => {
 
     return (
         <>
+        
         <IconContext.Provider value ={{color: '#fff'}}>
+            
       <Nav>
+          
             <NavBarContainer>
             <NavLogo to ="/">
                 <NavIcon>
@@ -47,14 +59,16 @@ const NavBar = () => {
                 </NavItem>
             <NavItemBtn>
                 { button ? (
-                    <NavBtnLink to ="/modal"> 
-                        <Button primary>Sign In</Button>
-                    </NavBtnLink>
+                   
+                        <Button onClick ={ () => dispatch(modal())} primary>Sign In</Button>
+                       
+                   
                 ): (
-                    <NavBtnLink to ="/modal"> 
+                   
                     <Button fontBig primary>Sign In</Button>
-                </NavBtnLink>
+               
                 )}
+               
                  </NavItemBtn>
             </NavMenu>
             </NavBarContainer>

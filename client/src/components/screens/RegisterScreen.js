@@ -1,180 +1,176 @@
 import React from 'react'
+import {useState} from 'react'
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import bgImg from '../../images/background.png'
-import logo from '../../images/logo.svg'
+import './RegisterScreen.css'
+import {IoLogoFacebook, IoLogoGoogle} from 'react-icons/io' 
 const RegisterScreen = () => {
-    return (
-       <Container>
-           <Wrapper>
-               <SideBar />
-               <Main />
-           <h1>Test</h1>
-           </Wrapper>
-       </Container>
-    )
+const [username, setUsername] = useState("");
+
+    
+const registerHandler = () => {
+    console.log('registerHandler');
 }
 
-const SideBar = () => {
+
     return (
-        <SideBarContainer>
-            <LogoWrapper>
-                <img src={logo} alt="" />
-                <h3>
-                  mood  
-                </h3>
-            </LogoWrapper>
+      <>
+      
+        <h3>Sign Up</h3>
+        {/* <label htmlFor="name">Username:</label> */}
+        <Padding />
+        <StyledInput 
+            type="text"
+            required
+            id="name"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
 
-            <Form>
-                <h3>Sign Up</h3>
-                <Input placeholder = "Full Name"/>
-                <Input type="email" placeholder = "Email"/>
-                <Input type="password" placeholder = "Password"/>
-                <Input type="password" placeholder = "Confirm Password"/>
+            />
+             {/* <label htmlFor="email">Email:</label> */}
+        <StyledInput 
+            type="text"
+            required
+            id="name"
+            placeholder="Email"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
 
-            </Form>
+            />
+
+{/* <label htmlFor="password">Password:</label> */}
+        <StyledInput 
+            type="text"
+            required
+            id="name"
+            placeholder="Password"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+
+            />
+
+{/* <label htmlFor="password">Confirm Password:</label> */}
+        <StyledInput 
+            type="text"
+            required
+            id="name"
+            placeholder="Confirm Password"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+
+            />
+            <Padding />
+            <MyButton> Sign Up</MyButton>
+            <Padding />
+           <Divider>Or</Divider>
+
+           <Padding />
+           <SocialMediaButton facebook>
+            <FacebookIcon></FacebookIcon> Continue with Facebook
+           </SocialMediaButton>
+
+           <Padding />
+           <SocialMediaButton>
+            <GoogleLogo></GoogleLogo> Continue with Google
+           </SocialMediaButton>
+
+           <Padding />
+           <Padding />
+           <Padding />
+           <Padding />
            
-        </SideBarContainer>
+           Already have an account?
+
+           <Link>Sign In</Link>
+
+      </>
     )
 }
 
-const Input = ({type, placeholder}) => {
-    return (
-        <div>
-            <InputContainer>
-            <StyledInput placeholder={placeholder && placeholder}type = {type ? type:"text"} required autoComplete="off" />
-            <Status />
-            </InputContainer>
-        </div>
-    )
-}
-
-
-
-const InputContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+const FacebookIcon = styled(IoLogoFacebook)`
+   font-size:1.6rem; 
+`
+const GoogleLogo = styled(IoLogoGoogle)`
+    font-size:1.6rem;
 `
 
-const StyledInput = styled.input`
-    width:80%;
-    max-width:350px;
-    min-width:250px;
+const Divider = ({ children }) => {
+    return (
+      <div className="container">
+        <div className="border" />
+        <span className="content">
+          {children}
+        </span>
+        <div className="border" />
+      </div>
+    );
+  };
+  
+
+const MyButton = styled.button`
+    display:block;
+    background-color:#0D7E1A;
+    color:#fff;
+    font-size:.9rem;
+    border:0;
+    width:100%;
+    border-radius:5px;
     height:40px;
-    border:none;
-    margin:0.5rem 0;
-    background-color:#f5f5f5;
-    box-shadow:0px 14px 9px -15px rgba(0,0,0,0.25);
-    border-radius:8px;
-    padding:0 1rem;
-    transition:0.2s ease-in;
+    padding:0 20px;
+    cursor:pointer;
+    box-sizing:border-box;
 
     &:hover {
-        transform: translateY(-3px);
-    }
-`
-
-const Form = styled.div`
-    width:100%;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    h3 {
-        color:#666666;
-        margin-bottom:2rem;
-    }
-
-`
-const Status = styled.div`
-    height:10px;
-    width:10px;
-    background:#9d9d9d;
-    border-radius:10px;
-    margin-left:1rem;
-
-    ${StyledInput}:focus + & {
-        background:#ffa689;
-    }
-
-    ${StyledInput}:invalid + & {
-        background:#fe2f75;
-    }
-
-    ${StyledInput}:valid + & {
-        background:#70edb9;
-    }
-
-`
-
-const SideBarContainer = styled.div`
-    min-width: 400px;
-    backdrop-filter: blur(35px);
-    background-color: rgba(255,255,255,0.8);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content:space-evenly;
-    padding:0 20rem;
-`
-
-const Main = () => {
-    return (
-        <MainContainer>
-            <h1>Join the <br /> Team</h1>
-        </MainContainer>
-    )
+   background-color:black;
+    
+   
 }
 
-const MainContainer = styled.div`
-    
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    h1{
-        font-size:60px;
-        font-weight:900;
-        color:#343434;
-
-        @media (max-width: 900px) {
-            display:none;
-        }
-    }
-   `
-
-
-const LogoWrapper = styled.div`
-
-    img{
-        height:6rem;
-
-    }
-
-    h3{
-        text-align:center;
-        color: #ff8d8d;
-        font-size:30px;
-    }
-
 `
-const Container = styled.div`
-    background: #eefcff;
-    position:absolute;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-`
-const Wrapper = styled.div`
-    background-image:url(${bgImg});
-    background-position:center;
-    background-size:cover;
-    background-repeat:no-repeat;
+
+const SocialMediaButton = styled.button`
+  display:flex;
+    background-color:${({facebook}) => (facebook ? '#0D65BE': '#F50319')};
+    color:#fff;
+    font-size:.9rem;
+    border:0;
     width:100%;
-    height:100%;
-    display: flex;
+    border-radius:5px;
+    height:40px;
+    padding:0 20px;
+    padding-right:150px;
+    cursor:pointer;
+    box-sizing:border-box;
+    align-items:center;
+    justify-content: space-between;
+    &:hover {
+   background-color:black;
+    
+   
+}
 `
-export default RegisterScreen;
+
+const Padding = styled.div`
+    padding-bottom:20px;
+    
+
+
+`
+const StyledInput = styled.input`
+    display:block;
+    
+    width:100%;
+    background-color:#eee;
+    height:40px;
+    border-radius:5px;
+    border:1px solid #ddd;
+    
+    margin:5px 0 5px 0;
+    padding:20px;
+    box-sizing:border-box;
+
+`
+
+export default RegisterScreen
