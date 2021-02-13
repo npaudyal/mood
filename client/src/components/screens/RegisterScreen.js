@@ -9,6 +9,9 @@ import {useDispatch} from 'react-redux';
 import {signUpClicked} from '../../actions/signUpAction'
 const RegisterScreen = () => {
 const [username, setUsername] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [confirmPassword, setConfirmPassword] = useState("");
 
     
 const registerHandler = () => {
@@ -38,30 +41,30 @@ const dispatch = useDispatch();
             required
             id="name"
             placeholder="Email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
 
             />
 
 {/* <label htmlFor="password">Password:</label> */}
         <StyledInput 
-            type="text"
+            type="password"
             required
-            id="name"
-            placeholder="Password"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
 
             />
 
 {/* <label htmlFor="password">Confirm Password:</label> */}
         <StyledInput 
-            type="text"
+            type="password"
             required
-            id="name"
+            id="password"
             placeholder="Confirm Password"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
 
             />
             <Padding />

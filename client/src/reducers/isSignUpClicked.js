@@ -1,6 +1,8 @@
+import {CHECKED} from '../actions/types'
+
 const isSignUpClicked = (state = false, action) => {
     switch(action.type) {
-        case 'CHECKED':
+        case CHECKED:
             return !state;
         
             default:

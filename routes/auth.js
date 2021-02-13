@@ -1,14 +1,57 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const auth = require('../middleware/auth');
+//User model
+const User = require('../models/User')
 
-const {register, login, forgotPassword, resetPassword} = require('../controllers/auth');
+router.post('/', (req,res) => {
+   const {email, password} = req.body;
 
-router.route("/register").post(register);
+   if( !email || !password)  {
+       return res.status(400).json({msg: 'Please enter all fields'});
+   }
 
-router.route("/login").post(login);
+   //Check for existing
+   User.findOne({email}).then(user => {
+       if(!user) {
+           return res.status(400).json({msg:"User does not exist!"})
+       }
 
-router.route("/forgotPassword").post(forgotPassword);
+    //Validate password
+       console.log(user)
+     bcrypt.compare(password, user.password)
+     .then(isMatch => {
+         if(!isMatch) return res.status(400).json({msg:'Invalid credentials'})
 
-router.route("/resetPassword/:resetToken").put(resetPassword);
+         jwt.sign({id:user.id}, 
+            process.env.JWT_SECRET,
+            {expiresIn:3600}, 
+            (err, token) => {
+                if(err) throw err;
+                res.json({
+                    token,
+                    user:{
+                        id:user.id,
+                        email:user.email,
+                        name:user.name,
+                    }
+                })
+            }
+            )
+        
+
+
+     } )
+
+   })
+});
+
+router.get('/user', auth, (req, res) => {
+    User.findById(req.user.id)
+        .select('-password')
+        .then(user => res.json(user));
+});
 
 module.exports = router;
