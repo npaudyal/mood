@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {MdClose} from 'react-icons/md'
 import {useDispatch, useSelector} from 'react-redux'
 import {modal} from '../../actions/modalAction'
+import {clearErrors} from '../../actions/errorActions'
 import RegisterScreen from './RegisterScreen'
 import LoginScreen from './LoginScreen';
 
@@ -26,12 +27,14 @@ const Modal = ({showModal}) => {
     const closeModal = e => {
         if(modalRef.current === e.target) {
             dispatch(modal());
+            dispatch(clearErrors());
         }
     }
 
     const KeyPress = useCallback(e => {
         if(e.key === 'Escape' && showModal) {
             dispatch(modal());
+            dispatch(clearErrors());
         }
     }, [showModal]);
 
@@ -54,7 +57,10 @@ const Modal = ({showModal}) => {
                             )}
                          
                      </ModalContent>
-                     <CloseModal onClick={() => dispatch(modal())} />
+                     <CloseModal onClick={() => {
+                          dispatch(modal());
+                          dispatch(clearErrors());
+                     }} />
                       </ModalWrapper>
                       </animated.div>
              </Background>

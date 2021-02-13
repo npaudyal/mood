@@ -7,8 +7,6 @@ import {IconContext} from 'react-icons/lib';
 import {modal} from '../../actions/modalAction'
 import {useDispatch} from 'react-redux';
 const NavBar = () => {
-
-
     const[click, setClick] = useState(false);
     const[button, setButton] = useState(true);
     const dispatch =useDispatch();

@@ -4,12 +4,11 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import PrivateScreen from './components/screens/PrivateScreen';
 import LoginScreen from './components/screens/LoginScreen';
 import RegisterScreen from './components/screens/RegisterScreen';
-import ForgotPasswordScreen from './components/screens/ForgotPasswordScreen';
-import ResetPasswordScreen from './components/screens/ResetPasswordScreen';
 import Landing from './components/screens/Landing';
 import {loadUser} from './actions/authActions';
 import {useEffect} from 'react'
 import store from './store'
+import Header from './components/screens/header'
 const App = () => {
 
   useEffect(() => {
@@ -17,24 +16,18 @@ const App = () => {
   })
 
   return (
-  //  <Router>
-  //     <div className="app">
-  //       <Switch>
-  //         <PrivateRoute rxact path="/" component = {PrivateScreen} />
-  //         <Route exact path="/login" component = {LoginScreen} />
-  //         <Route exact path="/register" component = {RegisterScreen} />
-  //         <Route exact path="/forgotPassword" component = {ForgotPasswordScreen} />
-  //         <Route exact path="/passwordreset/:resetToken" component = {ResetPasswordScreen} />
-  //       </Switch>
-  //     </div>
-  //  </Router>
+   <Router>
+     
+        <Switch>
+          <PrivateRoute exact path="/" component = {PrivateScreen} />
+          
+         
+          <Route path = "*" component={() => "404 not found!"} />
+        </Switch>
+     
+   </Router>
   
-    <Router>
-      <Switch>
-  <Landing />
-  </Switch>
-  </Router>
-
+  
   );
 }
 

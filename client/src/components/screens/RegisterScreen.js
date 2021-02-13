@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,39 +7,72 @@ import './RegisterScreen.css'
 import {IoLogoFacebook, IoLogoGoogle} from 'react-icons/io' 
 import {useDispatch} from 'react-redux';
 import {signUpClicked} from '../../actions/signUpAction'
+import{useSelector} from 'react-redux';
+import {register} from '../../actions/authActions'
+import {modal} from '../../actions/modalAction'
+import {Redirect} from 'react-router';
+
 const RegisterScreen = () => {
-const [username, setUsername] = useState("");
+
+  const isAuthenticated = useSelector(state => state.auth.user);
+  const error =  useSelector(state => state.error);
+  const id =  useSelector(state => state.error.id);
+
+
+
+
+const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
+// const [msg, setMsg] = useState(null);
 
     
 const registerHandler = () => {
-    console.log('registerHandler');
+ 
+  const newUser = {
+    name, email,password
+  }
+  
+  console.log(newUser)
+  dispatch(register(newUser));
+  
+ 
+ 
 }
 
+
 const dispatch = useDispatch();
+  console.log(error)
+
+  if(isAuthenticated) {
+    return <Redirect to ="/" />
+  }
+
 
     return (
       <>
+
+      
       
         <h3>Sign Up</h3>
         {/* <label htmlFor="name">Username:</label> */}
         <Padding />
+        {id ==="REGISTER_FAIL" ? <Warning>{error.msg.msg}</Warning>  : null}
+        
         <StyledInput 
             type="text"
             required
             id="name"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
 
             />
              {/* <label htmlFor="email">Email:</label> */}
         <StyledInput 
             type="text"
             required
-            id="name"
+            id="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,18 +90,8 @@ const dispatch = useDispatch();
 
             />
 
-{/* <label htmlFor="password">Confirm Password:</label> */}
-        <StyledInput 
-            type="password"
-            required
-            id="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-
-            />
             <Padding />
-            <MyButton> Sign Up</MyButton>
+            <MyButton onClick={registerHandler}> Sign Up</MyButton>
             <Padding />
            <Divider>Or</Divider>
 
@@ -113,6 +136,22 @@ const Divider = ({ children }) => {
       </div>
     );
   };
+
+const Warning = styled.button`
+    width: 100%;
+   border-radius:8px;
+    background:#DF5A62;
+    margin-bottom:20px;
+    white-space:nowrap;
+    padding: 12px 64px;
+    color: white;
+    font-size: 15px;
+    outline:none;
+    border:none;
+    cursor:pointer;
+    font-weight:100;
+
+`
   
 
 const MyButton = styled.button`
