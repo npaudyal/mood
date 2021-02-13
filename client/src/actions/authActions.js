@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {returnErrors} from './errorActions';
 import {
     USER_LOADED,
     USER_LOADING,
@@ -18,8 +19,35 @@ export const loadUser = () => (dispatch,getState) => {
         type:USER_LOADING,
     });
     
-    const token = getState().auth.token;
-    
+  
+    axios.get('api/auth/user',tokenConfig(getState))
+        .then(res => dispatch({
+            type:USER_LOADED,
+            payload:res.data
+        }))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({
+                type: AUTH_ERROR
+            })
+        })
+}
 
-    axios.get('api/auth/register')
+//Setup config headers and token
+
+export const tokenConfig = getState => {
+      //get token from local storage
+      const token = getState().auth.token;
+
+      //Headers
+      const config ={
+          headers:{
+              "Content-Type": "application/json"
+          }
+      }
+  
+      if(token) {
+          config.headers['x-auth-token'] = token;
+      }
+      return config;
 }

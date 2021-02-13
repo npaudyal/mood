@@ -7,9 +7,15 @@ import RegisterScreen from './components/screens/RegisterScreen';
 import ForgotPasswordScreen from './components/screens/ForgotPasswordScreen';
 import ResetPasswordScreen from './components/screens/ResetPasswordScreen';
 import Landing from './components/screens/Landing';
-
-
+import {loadUser} from './actions/authActions';
+import {useEffect} from 'react'
+import store from './store'
 const App = () => {
+
+  useEffect(() => {
+    store.dispatch(loadUser());
+  })
+
   return (
   //  <Router>
   //     <div className="app">
