@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Header from './header';
 import styled from 'styled-components';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Slider} from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {ImSad} from 'react-icons/im';
@@ -9,6 +9,7 @@ import {RiEmotionUnhappyLine} from 'react-icons/ri'
 import {HiOutlineEmojiHappy} from 'react-icons/hi'
 import {BiHappy, BiHappyBeaming} from 'react-icons/bi'
 import {ContinueButton} from './globalStyles'
+import {emojiState} from '../../actions/moodActions'
 const useStyles = makeStyles((theme) => ({
     root: {
       width: 400,
@@ -29,7 +30,7 @@ const PrivateScreen = () => {
 
 
     const classes = useStyles();
-
+    const dispatch = useDispatch();
 
   const[value, setValue] = useState(0);
 
@@ -71,7 +72,7 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
                 
                 }
                 />
-                <ContinueButton> Continue </ContinueButton>
+                <ContinueButton onClick = { () => dispatch(emojiState(value))}> Continue </ContinueButton>
              </CardWrapper>
              
            </Wrapper>
