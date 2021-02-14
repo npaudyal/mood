@@ -52,3 +52,36 @@ export const Button = styled.button`
         }
 
 `
+
+
+export const ContinueButton = styled.button`
+
+ border-radius:34px;
+ margin-top:50px;
+    background: transparent;
+    white-space:nowrap;
+    padding: 12px 64px;
+    color: white;
+    font-size: 20px;
+    outline:none;
+    border:none;
+    cursor:pointer;
+    font-weight:500;
+    border:2px solid #fff;
+
+
+    &:hover {
+        transition: all 0.3s ease-out;
+       background:white;
+
+        color:black;
+        
+      
+    }
+
+    @media screen and (max-width: 960px) {
+            width: 100%;
+        }
+
+
+`
