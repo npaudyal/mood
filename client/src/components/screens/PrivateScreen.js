@@ -4,12 +4,17 @@ import styled from 'styled-components';
 import {useSelector, useDispatch} from 'react-redux';
 import {Slider} from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import {ImSad} from 'react-icons/im';
-import {RiEmotionUnhappyLine} from 'react-icons/ri'
-import {HiOutlineEmojiHappy} from 'react-icons/hi'
-import {BiHappy, BiHappyBeaming} from 'react-icons/bi'
 import {ContinueButton} from './globalStyles'
-import {emojiState} from '../../actions/moodActions'
+import {emojiState, cause, result} from '../../actions/moodActions'
+import
+{Terrible, Sad, Okay, Happy, Awesome, EmojiWrapper, EmojiButtonWrapper,  Work, School, Family, Music, Excercise, Travel,
+ Health, Relationship, Weather, Food, Sleep, Festival, ImaHappy, ImaGood, ImaLucky, ImaBored, ImaStressed, ImaAngry, ImaSad,
+ Romantic, Blessed, Awkward, Pumped, Curious
+
+
+} from '../emoticons'
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
       width: 400,
@@ -33,6 +38,11 @@ const PrivateScreen = () => {
     const dispatch = useDispatch();
 
   const[value, setValue] = useState(0);
+  const[causeValue, setCauseValue] = useState('');
+  const[resultValue, setResultValue] = useState('');
+  const[emojiContinueClicked, setEmojiContinueClicked] = useState(false);
+  const[causeContinueClicked, setCauseContinueClicked] = useState(false);
+
 
  let emoji;
 if(value === 0) emoji = <><Terrible /> <p>Terrible</p></>
@@ -42,6 +52,113 @@ if(value === 75) emoji = <><Happy /> <p>Happy</p></>
 if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
 
     const user = useSelector(state => state.auth.user);
+    const emojiStateSelector = useSelector(state => state.emojiState);
+
+
+    const QuestionRenderer = () => {
+
+        if(!emojiContinueClicked && !causeContinueClicked ) {
+            return (
+                <>
+            <Question>
+            <p>How are you doing today?</p>
+            </Question>
+        <EmojiWrapper>
+        
+
+       {emoji}
+       
+        </EmojiWrapper>
+        
+           <Slider
+           style={{width:400,color:'white' }}
+            aria-label="pretto slider"
+            defaultValue={50}
+            value ={value}
+            step={25}
+            onChange={ (e, v) => 
+                    setValue(v)
+            
+            }
+            />
+            <ContinueButton onClick = { () => { 
+                dispatch(emojiState(value));
+                setEmojiContinueClicked(true);
+                }}> Continue </ContinueButton>
+            
+            </>
+            
+            )
+        }
+
+
+
+        if(emojiContinueClicked && !causeContinueClicked) {
+            return ( <>
+                <Question>
+            <p>Why are you feeling this way?</p>
+            </Question>
+            <EmojiButtonWrapper>
+            <EmojiButton onClick={() => {setCauseValue('Work');}}><Work/><p>Work</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('School')}><School/><p>School</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Family')}><Family/><p>Family</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Relationship')}><Relationship/><p>Relation</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Excercise')}><Excercise/><p>Excercise</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Food')}><Food/><p>Food</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Travel')}><Travel/><p>Travel</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Health')}><Health/><p>Health</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Weather')}><Weather/><p>Weather</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Music')}><Music/><p>Music</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Sleep')}><Sleep/><p>Sleep</p></EmojiButton>
+            <EmojiButton onClick={() => setCauseValue('Festival')}><Festival/><p>Festival</p></EmojiButton>
+           
+            </EmojiButtonWrapper>
+
+            <ContinueButton onClick ={() => {
+
+                dispatch(cause(causeValue));
+                setCauseContinueClicked(true);  
+
+            }}>Continue</ContinueButton>
+
+            </>)
+        } 
+
+
+        else {
+
+            return (<> 
+            
+            <Question>
+            <p>Interesting. How are you feeling about this?</p>
+            </Question>
+            <EmojiButtonWrapper>
+            <EmojiButton onClick={() => setResultValue('Happy')}><ImaHappy/><p>Happy</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Sad')}><ImaSad/><p>Sad</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Good')}><ImaGood/><p>Good</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Lucky')}><ImaLucky/><p>Lucky</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Bored')}><ImaBored/><p>Bored</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Stressed')}><ImaStressed/><p>Stressed</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Angry')}><ImaAngry/><p>Angry</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Romantic')}><Romantic/><p>Romantic</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Blessed')}><Blessed/><p>Blessed</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Awkward')}><Awkward/><p>Awkward</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Pumped')}><Pumped/><p>Pumped</p></EmojiButton>
+            <EmojiButton onClick={() => setResultValue('Curious')}><Curious/><p>Curious</p></EmojiButton>
+           
+            </EmojiButtonWrapper>
+
+            <ContinueButton onClick = { () => { 
+                dispatch(result(resultValue));
+                
+                }}> Continue </ContinueButton>
+
+            </>)
+
+        }
+
+
+    }
     
     return (
         <>
@@ -51,28 +168,9 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
            <Welcome><p>Let's personalize your mood</p></Welcome>
 
             <CardWrapper>
-            <Question>
-                <p>How are you doing today?</p>
-                </Question>
-            <EmojiWrapper>
-            
 
-           {emoji}
-           
-            </EmojiWrapper>
+              <QuestionRenderer />
             
-               <Slider
-               style={{width:400,color:'white' }}
-                aria-label="pretto slider"
-                defaultValue={50}
-                value ={value}
-                step={25}
-                onChange={ (e, v) => 
-                        setValue(v)
-                
-                }
-                />
-                <ContinueButton onClick = { () => dispatch(emojiState(value))}> Continue </ContinueButton>
              </CardWrapper>
              
            </Wrapper>
@@ -80,6 +178,44 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
         </>
     )
 }
+ const EmojiButton = styled.button`
+
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   
+    width:70px;
+    height:70px;
+  
+    margin:5px 5px;
+    border-radius:7px;
+    outline:none;
+    cursor:pointer;
+    border:none;
+    background:transparent;
+    color:white;
+
+    &:focus{
+        border: 3px solid white;
+    }
+
+    p{
+        color:white;
+        font-size:12px;
+    }
+
+    
+
+  
+
+
+
+`
+
+
+
+
  const CardWrapper = styled.div`
   overflow: hidden;
   display:flex;
@@ -102,18 +238,6 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
     }
 `;
 
-const EmojiWrapper = styled.div`
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    
-    margin-top:5rem;
-    margin-bottom:50px;
-    p{
-        color:#fff;
-    }
-`
 const Question = styled.div`
     
     margin-bottom:50px;
@@ -123,36 +247,6 @@ const Question = styled.div`
     }
 `
 
-const Sad = styled(ImSad)`
-
-    margin-bottom: 1rem;
-    font-size:4rem;
-    color:white;
-`
-const Happy = styled(BiHappy)`
-
-    margin-bottom: 1rem;
-    font-size:4rem;
-    color:white;
-`
-const Terrible = styled(RiEmotionUnhappyLine)`
-
-    margin-bottom: 1rem;
-    font-size:4rem;
-    color:white;
-`
-const Okay = styled(HiOutlineEmojiHappy)`
-
-    margin-bottom: 1rem;
-    font-size:4rem;
-    color:white;
-`
-const Awesome = styled(BiHappyBeaming)`
-
-    margin-bottom: 1rem;
-    font-size:4rem;
-    color:white;
-`
 
 const Wrapper = styled.div`
     height: 90vh;
