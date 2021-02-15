@@ -6,7 +6,7 @@ import spotify from '../../images/spotify.svg'
 import netflix from '../../images/netflix.svg'
 import chat from '../../images/chat.svg'
 import book from '../../images/book.svg'
-import NavBar from './NavBar'
+import Navbar from '../Nav/Nav'
 import {useSelector, useDispatch} from 'react-redux';
 import Modal from './Modal'
 import {modal} from '../../actions/modalAction'
@@ -21,7 +21,7 @@ const Landing = () => {
     }
     return (
         <>
-        <NavBar />
+        <Navbar />
        
       <Section>
          

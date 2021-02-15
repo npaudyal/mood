@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {FaMagento, FaTimes, FaBars} from 'react-icons/fa'
+import mainLogo from '../../images/mainLogo.svg'; 
 import styled from 'styled-components';
 import {Button, Container} from './globalStyles';
 import {IconContext} from 'react-icons/lib';
@@ -43,9 +44,7 @@ const NavBar = () => {
           
             <NavBarContainer>
             <NavLogo to ="/">
-                <NavIcon>
-                    MOOD
-                </NavIcon>
+                <NavIcon src={mainLogo} />
             </NavLogo>
             <MobileIcon onClick={handleClick}>
                 {click ? <FaTimes /> : <FaBars />}
@@ -76,8 +75,8 @@ const NavBar = () => {
     )
 }
 
-const Nav = styled.nav`
-    background:#3A731A;
+export const Nav = styled.nav`
+    background:#242526;
     height:80px;
     display:flex;
     justify-content: center;
@@ -91,7 +90,7 @@ const Nav = styled.nav`
 
 `
 
-const NavMenu = styled.ul`
+export const NavMenu = styled.ul`
     display:flex;
     align-items:center;
     list-style: none;
@@ -111,7 +110,7 @@ const NavMenu = styled.ul`
 
     }
 `
-const NavItemBtn = styled.li`
+export const NavItemBtn = styled.li`
     @media screen and (max-width:960px) {
         display:flex;
         justify-content:center;
@@ -121,7 +120,7 @@ const NavItemBtn = styled.li`
     }
 
 `
-const NavBtnLink = styled(Link)`
+ export const NavBtnLink = styled(Link)`
     display:flex;
     justify-content:center;
     align-items:center;
@@ -133,7 +132,7 @@ const NavBtnLink = styled(Link)`
     outline:none;
 `
 
-const NavItem = styled.li`
+export const NavItem = styled.li`
 
     height:80px;
     border-bottom:2px solid transparent;
@@ -153,7 +152,7 @@ const NavItem = styled.li`
     }
 `
 
-const NavLinks = styled(Link)`
+export const NavLinks = styled(Link)`
     color:#fff;
     display:flex;
     align-items: center;
@@ -174,7 +173,7 @@ const NavLinks = styled(Link)`
     }
 `
 
-const NavBarContainer = styled(Container)`
+export const NavBarContainer = styled(Container)`
     display:flex;
     justify-content: space-between;
     height: 80px;
@@ -183,22 +182,25 @@ const NavBarContainer = styled(Container)`
 
 `
 
- const NavLogo = styled(Link)`
+ export const NavLogo = styled(Link)`
     color:#fff;
-    justify-self:flex-start;
+    justify-self:left;
     cursor:pointer;
     text-decoration:none;
     font-size:2rem;
     display:flex;
+    margin-right:10%;
     align-items: center;
 
 `
 
-const NavIcon = styled(FaMagento)`
+export const NavIcon = styled.img`
     margin-right:0.5rem;
+    height:100px;
+    width:80px;
 `
 
-const MobileIcon = styled.div`
+export const MobileIcon = styled.div`
     display:none;
 
     @media screen and (max-width:960px) {

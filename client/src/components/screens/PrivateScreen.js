@@ -6,6 +6,7 @@ import {Slider} from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {ContinueButton} from './globalStyles'
 import {emojiState, cause, result} from '../../actions/moodActions'
+import {useHistory} from 'react-router-dom'
 import
 {Terrible, Sad, Okay, Happy, Awesome, EmojiWrapper, EmojiButtonWrapper,  Work, School, Family, Music, Excercise, Travel,
  Health, Relationship, Weather, Food, Sleep, Festival, ImaHappy, ImaGood, ImaLucky, ImaBored, ImaStressed, ImaAngry, ImaSad,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PrivateScreen = () => {
 
-
+    const history = useHistory();
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -54,7 +55,9 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
     const user = useSelector(state => state.auth.user);
     const emojiStateSelector = useSelector(state => state.emojiState);
 
-
+    const handleRedirect = () => {
+       history.push('/home');
+    }
     const QuestionRenderer = () => {
 
         if(!emojiContinueClicked && !causeContinueClicked ) {
@@ -150,7 +153,7 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
 
             <ContinueButton onClick = { () => { 
                 dispatch(result(resultValue));
-                
+                handleRedirect();
                 }}> Continue </ContinueButton>
 
             </>)
@@ -225,7 +228,7 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
  
   width: 600px;
   height:600px;
- 
+  
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
   p{
@@ -249,14 +252,15 @@ const Question = styled.div`
 
 
 const Wrapper = styled.div`
-    height: 90vh;
+    height: 83vh;
+    max-height:100vh;
     display: flex;
     flex-direction:column;
     align-items:center;
     width: 100%;
-    background: #159957;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #155799, #159957);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #155799, #159957); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #BBD2C5;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #292E49, #536976, #BBD2C5);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #292E49, #536976, #BBD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     
 `
