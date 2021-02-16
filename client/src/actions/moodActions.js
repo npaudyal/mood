@@ -1,4 +1,4 @@
-import {EMOJI, CAUSE, RESULT} from './types'
+import {EMOJI, CAUSE, RESULT, CLEAR_MOOD} from './types'
 
 export const emojiState = (emojiValue) => {
     return {
@@ -18,5 +18,11 @@ export const result = (resultValue) => {
     return {
         type: RESULT,
         payload: resultValue
+    }
+}
+
+export const clearMood = () => {
+    return {
+        type:CLEAR_MOOD
     }
 }

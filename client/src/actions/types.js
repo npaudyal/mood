@@ -1,5 +1,6 @@
 export const CLICKED = 'CLICKED';
 export const CHECKED = 'CHECKED';
+export const REMOVED = 'REMOVED'
 
 //Auth
 export const USER_LOADING = 'USER_LOADING';
@@ -20,3 +21,4 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const EMOJI = "EMOJI";
 export const CAUSE ="CAUSE";
 export const RESULT ="RESULT";
+export const CLEAR_MOOD="CLEAR_MOOD"

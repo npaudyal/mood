@@ -1,20 +1,44 @@
 import React from 'react'
 import {useState} from 'react'
+import {useSelector} from 'react-redux'
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router';
+import {useHistory} from 'react-router-dom'
 import styled from 'styled-components';
 import {IoLogoFacebook, IoLogoGoogle} from 'react-icons/io' 
 import {useDispatch} from 'react-redux';
 import {Button} from './globalStyles'
+import {login} from '../../actions/authActions'
 import {signUpClicked} from '../../actions/signUpAction'
-
-
+import {clearModal} from '../../actions/modalAction'
+import {clearErrors} from '../../actions/errorActions'
 const LoginScreen = () => {
-    const [username, setUsername] = useState("");
 
+  const isAuthenticated = useSelector(state => state.auth.user);
+    const error =  useSelector(state => state.error);
+    const id =  useSelector(state => state.error.id);
+  const history = useHistory();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
+    const loginHandler = () => {
+      const user = {
+       email,password
+      }
+        dispatch(login(user));
+       
+
+    }
+
     
+  if(isAuthenticated) {
+    dispatch(clearErrors());
+    dispatch(clearModal());
+  
+    history.push("/");
+  }
+
 
 
     return (
@@ -25,32 +49,33 @@ const LoginScreen = () => {
           <h3>Sign In</h3>
           {/* <label htmlFor="name">Username:</label> */}
           <Padding />
-         
+          {id ==="LOGIN_FAIL" ? <Warning>{error.msg.msg}</Warning>  : null}
+
                {/* <label htmlFor="email">Email:</label> */}
           <StyledInput 
-              type="text"
+              type="email"
               required
-              id="name"
+              id="email"
               placeholder="Email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
   
               />
   
   {/* <label htmlFor="password">Password:</label> */}
           <StyledInput 
-              type="text"
+              type="password"
               required
-              id="name"
+              id="password"
               placeholder="Password"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
   
               />
   
   
               <Padding />
-              <MyButton> Sign In</MyButton>
+              <MyButton onClick={loginHandler}> Sign In</MyButton>
               <Padding />
              <Divider>Or</Divider>
   
@@ -83,6 +108,21 @@ const LoginScreen = () => {
   const GoogleLogo = styled(IoLogoGoogle)`
       font-size:1.6rem;
   `
+  const Warning = styled.button`
+  width: 100%;
+ border-radius:8px;
+  background:#DF5A62;
+  margin-bottom:20px;
+  white-space:nowrap;
+  padding: 12px 64px;
+  color: white;
+  font-size: 15px;
+  outline:none;
+  border:none;
+  cursor:pointer;
+  font-weight:100;
+
+`
   
   const Divider = ({ children }) => {
       return (

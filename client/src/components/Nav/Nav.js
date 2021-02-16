@@ -10,9 +10,12 @@ import {ReactComponent as Book} from '../../images/book.svg'
 import {NavLogo, NavIcon} from '../screens/NavBar'
 import mainLogo from '../../images/mainLogo.svg'
 import {useSelector, useDispatch} from 'react-redux'
-import {modal} from '../../actions/modalAction'
+import {clearModal, modal} from '../../actions/modalAction'
 import styled from 'styled-components';
+import {logout} from '../../actions/authActions';
 import './Nav.css'
+import { clearMood } from '../../actions/moodActions';
+import { Redirect, useHistory } from 'react-router-dom';
 
 
 const Nav = () => {
@@ -75,6 +78,8 @@ export default Nav
 
 function DropdownMenu  ()  {
 
+    const dispatch = useDispatch();
+    const history = useHistory();
     function DropdownItem(props) {
     return (
         <a href= "#" className="menu-item">
@@ -91,8 +96,14 @@ return (
           <DropdownItem>My Profile</DropdownItem>
           <DropdownItem
             leftIcon={<CogIcon />}
-           >
-            Logout
+          >
+           <p  onClick={ () => {
+               dispatch(logout());
+               dispatch(clearMood());
+               dispatch(clearModal());
+               history.push('/');
+               //clear continue button as well....TODO
+           }}>  Logout</p>
           </DropdownItem>
           
 

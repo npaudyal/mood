@@ -16,26 +16,13 @@ import
 } from '../emoticons'
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: 400,
-   
-     alignSelf:"center",
-     padding:"10px 10px",
-     '@media screen and (max-width: 960px)': {
-        padding:'10px 30px'
-    }
-    },
-    margin: {
-      height: theme.spacing(3),
-    },
-  }));
+
 
 
 const PrivateScreen = () => {
 
     const history = useHistory();
-    const classes = useStyles();
+ 
     const dispatch = useDispatch();
 
   const[value, setValue] = useState(0);
@@ -55,8 +42,15 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
     const user = useSelector(state => state.auth.user);
     const emojiStateSelector = useSelector(state => state.emojiState);
 
+
+   
     const handleRedirect = () => {
+        
+      dispatch(result(resultValue));
+     
+
        history.push('/home');
+      
     }
     const QuestionRenderer = () => {
 
@@ -86,7 +80,7 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
             />
             <ContinueButton onClick = { () => { 
                 dispatch(emojiState(value));
-                setEmojiContinueClicked(true);
+                setEmojiContinueClicked((prev) => !prev);
                 }}> Continue </ContinueButton>
             
             </>
@@ -120,7 +114,7 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
             <ContinueButton onClick ={() => {
 
                 dispatch(cause(causeValue));
-                setCauseContinueClicked(true);  
+                setCauseContinueClicked((prev) => !prev);  
 
             }}>Continue</ContinueButton>
 
@@ -151,10 +145,14 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
            
             </EmojiButtonWrapper>
 
-            <ContinueButton onClick = { () => { 
-                dispatch(result(resultValue));
+            <ContinueButton onClick = { () => {
+              
                 handleRedirect();
-                }}> Continue </ContinueButton>
+                setCauseContinueClicked(false);
+                setEmojiContinueClicked(false);
+            }
+                
+                }> Continue </ContinueButton>
 
             </>)
 

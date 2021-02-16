@@ -1,5 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
+
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,8 +11,9 @@ import {useDispatch} from 'react-redux';
 import {signUpClicked} from '../../actions/signUpAction'
 import{useSelector} from 'react-redux';
 import {register} from '../../actions/authActions'
-import {modal} from '../../actions/modalAction'
+import {clearModal} from '../../actions/modalAction'
 import {Redirect} from 'react-router';
+import { clearErrors } from '../../actions/errorActions';
 
 const RegisterScreen = () => {
 
@@ -18,6 +21,7 @@ const RegisterScreen = () => {
   const error =  useSelector(state => state.error);
   const id =  useSelector(state => state.error.id);
 
+  const history = useHistory();
 
 
 
@@ -33,7 +37,7 @@ const registerHandler = () => {
     name, email,password
   }
   
-  console.log(newUser)
+ 
   dispatch(register(newUser));
   
  
@@ -42,10 +46,12 @@ const registerHandler = () => {
 
 
 const dispatch = useDispatch();
-  console.log(error)
+
 
   if(isAuthenticated) {
-    return <Redirect to ="/" />
+    dispatch(clearErrors());
+    dispatch(clearModal());
+     history.push("/");
   }
 
 

@@ -1,4 +1,4 @@
-import {EMOJI, CAUSE, RESULT} from '../actions/types';
+import {EMOJI, CAUSE, RESULT, CLEAR_MOOD} from '../actions/types';
 
 
 const initialState = {
@@ -26,6 +26,13 @@ const mood = (state=initialState, action) => {
                 ...state,
                 result: action.payload
             }
+
+            case CLEAR_MOOD:
+                return {
+                    emojiState:0,
+                    cause:"",
+                    result:""
+                }
 
             default:
             return state;
