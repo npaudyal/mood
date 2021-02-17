@@ -19,6 +19,5 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 //mood
 
 export const EMOJI = "EMOJI";
-export const CAUSE ="CAUSE";
-export const RESULT ="RESULT";
+export const KEYWORDS ="KEYWORDS";
 export const CLEAR_MOOD="CLEAR_MOOD"

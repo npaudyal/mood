@@ -1,10 +1,9 @@
-import {EMOJI, CAUSE, RESULT, CLEAR_MOOD} from '../actions/types';
+import {EMOJI, KEYWORDS,  CLEAR_MOOD} from '../actions/types';
 
 
 const initialState = {
     emojiState: 0,
-    cause:'',
-    result:''
+    keywords:[]
 }
 
 
@@ -16,22 +15,16 @@ const mood = (state=initialState, action) => {
                ...state,
                emojiState: action.payload
            }
-           case CAUSE:
+           case KEYWORDS:
             return {
                 ...state,
-                cause: action.payload
-            }
-            case RESULT:
-            return {
-                ...state,
-                result: action.payload
+                keywords:[...(state.keywords || []), action.payload]
             }
 
             case CLEAR_MOOD:
                 return {
                     emojiState:0,
-                    cause:"",
-                    result:""
+                    keywords:[]
                 }
 
             default:

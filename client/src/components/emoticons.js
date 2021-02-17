@@ -81,7 +81,7 @@ export const School = styled(MdSchool)`
 export const EmojiButtonWrapper = styled.div`
   display:flex;
   flex-wrap:wrap;
-    justify-content: flex-start;
+    justify-content: center;
   flex-direction: row;
   
  padding:5px 5px;

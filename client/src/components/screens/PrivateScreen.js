@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Slider} from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {ContinueButton} from './globalStyles'
-import {emojiState, cause, result} from '../../actions/moodActions'
+import {emojiState,keyword} from '../../actions/moodActions'
 import {useHistory} from 'react-router-dom'
 import
 {Terrible, Sad, Okay, Happy, Awesome, EmojiWrapper, EmojiButtonWrapper,  Work, School, Family, Music, Excercise, Travel,
@@ -26,10 +26,47 @@ const PrivateScreen = () => {
     const dispatch = useDispatch();
 
   const[value, setValue] = useState(0);
-  const[causeValue, setCauseValue] = useState('');
-  const[resultValue, setResultValue] = useState('');
+
+    const[keyWords, setKeyWords] = useState([]);
+
   const[emojiContinueClicked, setEmojiContinueClicked] = useState(false);
   const[causeContinueClicked, setCauseContinueClicked] = useState(false);
+
+  const[feelGoodButtonColor, setFeelGoodButtonColor] = useState(false);
+  const[feelGoodFontColor, setFeelGoodFontColor] = useState(false);
+
+  const[emotionalButtonColor, setEmotionalGoodButtonColor] = useState(false);
+  const[emotionalFontColor, setEmotionalFontColor] = useState(false);
+
+  const[thoughtfulButtonColor, setThoughtfulButtonColor] = useState(false);
+  const[thoughtfulFontColor, setThoughtfulFontColor] = useState(false);
+
+  const[intenseButtonColor, setIntenseButtonColor] = useState(false);
+  const[intenseFontColor, setIntenseFontColor] = useState(false);
+
+  const[touchingButtonColor, setTouchingButtonColor] = useState(false);
+  const[touchingFontColor, setTouchingFontColor] = useState(false);
+
+  const[romanticButtonColor, setRomanticButtonColor] = useState(false);
+  const[romanticFontColor, setRomanticFontColor] = useState(false);
+
+  const[depressingButtonColor, setDepressingButtonColor] = useState(false);
+  const[depressingFontColor, setDepressingFontColor] = useState(false);
+
+  const[thrillingButtonColor, setThrillingButtonColor] = useState(false);
+  const[thrillingFontColor, setThrillingFontColor] = useState(false);
+
+  const[funnyButtonColor, setFunnyButtonColor] = useState(false);
+  const[funnyFontColor, setFunnyFontColor] = useState(false);
+
+  const[pumpedButtonColor, setPumpedButtonColor] = useState(false);
+  const[pumpedFontColor, setPumpedFontColor] = useState(false);
+
+  const[darkButtonColor, setDarkButtonColor] = useState(false);
+  const[darkFontColor, setDarkFontColor] = useState(false);
+
+  const[inspiringButtonColor, setInspiringButtonColor] = useState(false);
+  const[inspiringFontColor, setInspiringFontColor] = useState(false);
 
 
  let emoji;
@@ -46,12 +83,318 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
    
     const handleRedirect = () => {
         
-      dispatch(result(resultValue));
-     
+          
 
        history.push('/home');
       
     }
+    
+const FeelGoodEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${feelGoodButtonColor ? 'white': 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${feelGoodFontColor ? 'black' : 'white'};;
+     font-size:12px;
+ }
+
+`
+const EmotionalEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${emotionalButtonColor ? 'white': 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${emotionalFontColor ? 'black': 'white'};;
+     font-size:12px;
+ }
+
+`
+const ThoughtfulEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${thoughtfulButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${thoughtfulFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+const IntenseEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${intenseButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+    color:${intenseFontColor ? 'black':'white'};
+
+     font-size:12px;
+ }
+
+`
+const TouchingEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${touchingButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+    color:${touchingFontColor ? 'black':'white'};
+
+     font-size:12px;
+ }
+
+`
+const RomanticEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${romanticButtonColor ? 'white': 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+    color:${romanticFontColor ? 'black':'white'};
+
+     font-size:12px;
+ }
+
+`
+const DepressingEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${depressingButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+    color:${depressingFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+const ThrillingEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${thrillingButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+    color:${thrillingFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+const FunnyEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${funnyButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${funnyFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+const InspiringEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${inspiringButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${inspiringFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+const PumpedEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${pumpedButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${pumpedFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+const DarkEmojiButton = styled.button`
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ width:100px;
+ height:50px;
+ margin:5px 5px;
+ border-radius:7px;
+ outline:none;
+ cursor:pointer;
+ border:solid 2px white;
+ background:${darkButtonColor ? 'white' : 'transparent'};
+ color:white;
+
+ &:focus{
+     border: 3px solid white;
+ }
+
+ p{
+     color:${darkFontColor ? 'black':'white'};
+     font-size:12px;
+ }
+
+`
+
+
+
     const QuestionRenderer = () => {
 
         if(!emojiContinueClicked && !causeContinueClicked ) {
@@ -93,70 +436,41 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
         if(emojiContinueClicked && !causeContinueClicked) {
             return ( <>
                 <Question>
-            <p>Why are you feeling this way?</p>
+            <p> What kind of mood based content would you prefer?</p>
             </Question>
             <EmojiButtonWrapper>
-            <EmojiButton onClick={() => {setCauseValue('Work');}}><Work/><p>Work</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('School')}><School/><p>School</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Family')}><Family/><p>Family</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Relationship')}><Relationship/><p>Relation</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Excercise')}><Excercise/><p>Excercise</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Food')}><Food/><p>Food</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Travel')}><Travel/><p>Travel</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Health')}><Health/><p>Health</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Weather')}><Weather/><p>Weather</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Music')}><Music/><p>Music</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Sleep')}><Sleep/><p>Sleep</p></EmojiButton>
-            <EmojiButton onClick={() => setCauseValue('Festival')}><Festival/><p>Festival</p></EmojiButton>
+            <FeelGoodEmojiButton onClick={() => {dispatch(keyword('feelgood')); setFeelGoodButtonColor((prev) => !prev); setFeelGoodFontColor((prev) => !prev) }}><p>Feel-Good</p></FeelGoodEmojiButton>
+            <EmotionalEmojiButton onClick={() => {dispatch(keyword('emotional')); setEmotionalGoodButtonColor((prev) => !prev); setEmotionalFontColor((prev) => !prev) }}><p>Emotional</p></EmotionalEmojiButton>
+            <ThoughtfulEmojiButton onClick={() => {dispatch(keyword('thoughtful')); setThoughtfulButtonColor((prev) => !prev); setThoughtfulFontColor((prev) => !prev) }}><p>Thoughtful</p></ThoughtfulEmojiButton>
+            <IntenseEmojiButton onClick={() => {dispatch(keyword('intense'));setIntenseButtonColor((prev) => !prev); setIntenseFontColor((prev) => !prev) }}><p>Intense</p></IntenseEmojiButton>
+            <TouchingEmojiButton onClick={() => {dispatch(keyword('touching'));setTouchingButtonColor((prev) => !prev); setTouchingFontColor((prev) => !prev) }}><p>Touching</p></TouchingEmojiButton>
+            <RomanticEmojiButton onClick={() => {dispatch(keyword('romantic'));setRomanticButtonColor((prev) => !prev); setRomanticFontColor((prev) => !prev) }}><p>Romantic</p></RomanticEmojiButton>
+            <DepressingEmojiButton onClick={() => {dispatch(keyword('depressing'));setDepressingButtonColor((prev) => !prev); setDepressingFontColor((prev) => !prev) }}><p>Depressing</p></DepressingEmojiButton>
+            <ThrillingEmojiButton onClick={() => {dispatch(keyword('thrilling'));setThrillingButtonColor((prev) => !prev); setThrillingFontColor((prev) => !prev) }}><p>Thrilling</p></ThrillingEmojiButton>
+            <FunnyEmojiButton onClick={() => {dispatch(keyword('funny'));setFunnyButtonColor((prev) => !prev); setFunnyFontColor((prev) => !prev) }}><p>Funny</p></FunnyEmojiButton>
+            <InspiringEmojiButton onClick={() => {dispatch(keyword('inspiring'));setInspiringButtonColor((prev) => !prev); setInspiringFontColor((prev) => !prev) }}><p>Inspiring</p></InspiringEmojiButton>
+            <PumpedEmojiButton onClick={() => {dispatch(keyword('pumped'));setPumpedButtonColor((prev) => !prev); setPumpedFontColor((prev) => !prev) }}><p>Pumped-up</p></PumpedEmojiButton>
+            <DarkEmojiButton onClick={() => {dispatch(keyword('dark'));setDarkButtonColor((prev) => !prev); setDarkFontColor((prev) => !prev) }}><p>Dark</p></DarkEmojiButton>
            
             </EmojiButtonWrapper>
 
             <ContinueButton onClick ={() => {
 
-                dispatch(cause(causeValue));
-                setCauseContinueClicked((prev) => !prev);  
+               
+                
+                handleRedirect();
+                setCauseContinueClicked(false);
+                setEmojiContinueClicked(false);
 
             }}>Continue</ContinueButton>
 
             </>)
         } 
 
-
         else {
-
-            return (<> 
-            
-            <Question>
-            <p>Interesting. How are you feeling about this?</p>
-            </Question>
-            <EmojiButtonWrapper>
-            <EmojiButton onClick={() => setResultValue('Happy')}><ImaHappy/><p>Happy</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Sad')}><ImaSad/><p>Sad</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Good')}><ImaGood/><p>Good</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Lucky')}><ImaLucky/><p>Lucky</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Bored')}><ImaBored/><p>Bored</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Stressed')}><ImaStressed/><p>Stressed</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Angry')}><ImaAngry/><p>Angry</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Romantic')}><Romantic/><p>Romantic</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Blessed')}><Blessed/><p>Blessed</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Awkward')}><Awkward/><p>Awkward</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Pumped')}><Pumped/><p>Pumped</p></EmojiButton>
-            <EmojiButton onClick={() => setResultValue('Curious')}><Curious/><p>Curious</p></EmojiButton>
-           
-            </EmojiButtonWrapper>
-
-            <ContinueButton onClick = { () => {
-              
-                handleRedirect();
-                setCauseContinueClicked(false);
-                setEmojiContinueClicked(false);
-            }
-                
-                }> Continue </ContinueButton>
-
-            </>)
-
+            handleRedirect();
         }
+       
 
 
     }
@@ -177,43 +491,9 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
            </Wrapper>
 
         </>
-    )
+    );
+
 }
- const EmojiButton = styled.button`
-
-   display:flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   
-    width:70px;
-    height:70px;
-  
-    margin:5px 5px;
-    border-radius:7px;
-    outline:none;
-    cursor:pointer;
-    border:none;
-    background:transparent;
-    color:white;
-
-    &:focus{
-        border: 3px solid white;
-    }
-
-    p{
-        color:white;
-        font-size:12px;
-    }
-
-    
-
-  
-
-
-
-`
-
 
 
 

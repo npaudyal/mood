@@ -1,4 +1,4 @@
-import {EMOJI, CAUSE, RESULT, CLEAR_MOOD} from './types'
+import {EMOJI, KEYWORDS,  CLEAR_MOOD} from './types'
 
 export const emojiState = (emojiValue) => {
     return {
@@ -7,19 +7,13 @@ export const emojiState = (emojiValue) => {
     }
 }
 
-export const cause = (causeValue) => {
+export const keyword = (keywordValue) => {
     return {
-        type: CAUSE,
-        payload: causeValue
+        type: KEYWORDS,
+        payload: keywordValue
     }
 }
 
-export const result = (resultValue) => {
-    return {
-        type: RESULT,
-        payload: resultValue
-    }
-}
 
 export const clearMood = () => {
     return {
