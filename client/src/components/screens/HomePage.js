@@ -5,19 +5,26 @@ import Nav from '../Nav/Nav'
 import dotenv from 'dotenv'
 import styled from 'styled-components';
 import Spotify from '../../images/spotify-brands.svg'
+import Card from '../Card/Card';
 const HomePage = () => {
 
     const[token, setToken] = useState('');
     
-    const[musicList, setMusicList] = useState([])
+    const[musicList, setMusicList] = useState({selectedTrack:'', listofTracksFromAPI:[]})
+
+    const musicObject = [];    
+
+    const [categoryOne, setCategoryOne] = useState([]);
+    const [categoryTwo, setCategoryTwo] = useState([]);
+    const [categoryThree, setCategoryThree] = useState([]);
+
+    
 
     var tags = useSelector(state => state.mood.keywords)
 
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
      });
-
-     let musicObject;
 
   
 
@@ -36,7 +43,8 @@ const HomePage = () => {
          if(val ==='romantic') return "5KbTzqKBqxQRD8OBtJTZrS";
 
      }
-     
+
+
 
     useEffect(() => {
       
@@ -56,37 +64,39 @@ const HomePage = () => {
                 
                 tags.map((tag) => {
                    
-                    axios(`https://open.spotify.com/playlist/${keysF(tag)}&limit=10`, {
+                    axios(`https://api.spotify.com/v1/playlists/${keysF(tag)}/tracks?limit=20`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
                             
                         }
                     }).then((trackResponse) => {
-                      setMusicList(trackResponse.data.tracks.items)
-                       
-                    }
-                        
+                      
 
+                    //   setMusicList( {
+                        
+                    //       listofTracksFromAPI:trackResponse.data.items
+                             
+                          
+                    //   });
+                     
+                    //   musicObject.push(musicList.listofTracksFromAPI)
+                    //   console.log(musicObject)
+                    }
                     ).catch((e) => console.log(e))
 
                 })
 
-                
-
+     
             }).catch((error)=> console.log(error))
         } catch (error) {
             console.log(error.response.data);
         }
-
-        
       
     }, [])
-    
-  
-    console.log(musicList)
-    
-   
+
+const track = musicList.listofTracksFromAPI.map((item) => item.track)
+
 
     
     return (
@@ -95,16 +105,11 @@ const HomePage = () => {
             <MainWrapper>
             <MainContent>
                 <h1>Good evening,</h1>
-                <CardsWrap>
-                    <Card>
-                        <CardImage src={Spotify}>
-
-                        </CardImage>
-                        <CardContent>
-                           <h3>Hey</h3>
-                        </CardContent>
-                    </Card>
-                    <Card>
+                {track.map((item) => 
+                      <Card image={item.album.images[0].url} name={item.name}/>      
+                )}
+                
+                    {/* <Card>
                         <CardImage src={Spotify}>
 
                         </CardImage>
@@ -119,8 +124,10 @@ const HomePage = () => {
                         <CardContent>
                            <h3>Liked Songs</h3>
                         </CardContent>
-                    </Card>
-                </CardsWrap>
+                    </Card> */}
+               
+               
+            
             </MainContent>
             </MainWrapper>
         </>
@@ -143,7 +150,7 @@ const MainWrapper = styled.div`
     margin-left:5rem;
     padding-top:80px;
    height:100vh;
-   
+  
    
     
     
@@ -151,6 +158,9 @@ const MainWrapper = styled.div`
 
 const MainContent = styled.div`
     color: white;
+    display: flex;
+   flex-direction: row;
+   flex-wrap:wrap;
    
     padding:0.5rem 2rem;
 
@@ -160,42 +170,3 @@ const MainContent = styled.div`
     }
     
 `
-const CardsWrap = styled.div`
-    display: flex;
-    padding:5px;
-    flex-direction:row;
-    flex-wrap:wrap;
-    
-    
-  
-
-`
-const Card = styled.div`
-    background: #282828;
-    border-radius:10px;
-    width:180px;
-    overflow:hidden;
-    padding:.88rem;
-    box-shadow: 0 10px 30px 0 rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
-    margin:5px;
-
-`
-
-const CardImage = styled.img`
-    height:160px;
-    box-shadow: 0 10px 30px 0 rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
-    img{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-    }
-
-
-`
-
-const CardContent = styled.div`
-    padding:0.4rem 0;
-h3{
-    font-weight: 600;
-    font-size:0.9rem;
-}`

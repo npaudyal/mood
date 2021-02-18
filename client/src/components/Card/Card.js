@@ -1,0 +1,56 @@
+import React from 'react'
+import styled from 'styled-components'
+const Card = (props) => {
+    return (
+        <>
+            <CardsWrap>
+                <CardBody>
+                    <CardImage src={props.image} />
+                    <CardContent> {props.name}</CardContent>
+                </CardBody>
+            </CardsWrap>
+        </>
+    )
+}
+
+export default Card
+
+const CardsWrap = styled.div`
+    display: flex;
+    padding:5px;
+    flex-direction:row;
+    flex-wrap:wrap;
+    
+    
+  
+
+`
+const CardBody = styled.div`
+    background: #282828;
+    border-radius:10px;
+    width:180px;
+    overflow:hidden;
+    padding:.88rem;
+    box-shadow: 0 10px 30px 0 rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
+    margin:5px;
+
+`
+
+const CardImage = styled.img`
+    height:160px;
+    box-shadow: 0 10px 30px 0 rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
+    img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+
+`
+
+const CardContent = styled.div`
+    padding:0.4rem 0;
+h3{
+    font-weight: 600;
+    font-size:0.9rem;
+}`
