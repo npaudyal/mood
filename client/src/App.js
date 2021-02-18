@@ -18,8 +18,9 @@ const App = () => {
   })
 
   return (
+    
    <Router>
-     
+   
         <Switch>
           <PrivateRoute exact path="/" component = {PrivateScreen} />
           <PrivateRoute exact path="/home" component = {HomePage} />

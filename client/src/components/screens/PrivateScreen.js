@@ -8,12 +8,7 @@ import {ContinueButton} from './globalStyles'
 import {emojiState,keyword} from '../../actions/moodActions'
 import {useHistory} from 'react-router-dom'
 import
-{Terrible, Sad, Okay, Happy, Awesome, EmojiWrapper, EmojiButtonWrapper,  Work, School, Family, Music, Excercise, Travel,
- Health, Relationship, Weather, Food, Sleep, Festival, ImaHappy, ImaGood, ImaLucky, ImaBored, ImaStressed, ImaAngry, ImaSad,
- Romantic, Blessed, Awkward, Pumped, Curious
-
-
-} from '../emoticons'
+{Terrible, Sad, Okay, Happy, Awesome, EmojiWrapper, EmojiButtonWrapper} from '../emoticons'
 
 
 

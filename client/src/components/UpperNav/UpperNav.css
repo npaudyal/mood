@@ -1,0 +1,23 @@
+.upperNav {
+    background: transparent;
+    height: 80px;
+    width:100%;
+    display:flex;
+    align-items: center;
+    color:white;
+    padding:0.5rem 2rem;
+    /* margin-left:5rem; */
+    position:absolute;
+    
+}
+
+.profileButton{
+    width:120px;
+    height:40px;
+    background:white;
+    position:absolute;
+    top:30%;
+    right:5%;
+    border-radius:20px;
+    padding: 5px;
+}

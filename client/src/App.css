@@ -5,4 +5,17 @@
     margin: 0;
     padding: 0;
     font-family: 'Varela Round', sans-serif;
+    
 }
+
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+body::-webkit-scrollbar-track{
+    background:#1e1e24;
+}
+

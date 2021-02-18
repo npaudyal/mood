@@ -10,6 +10,26 @@
     overflow:hidden;
 
 }
+.logo {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+    color:#ececec;
+    background: #141418;
+    letter-spacing:0.3ch;
+    width:100%;
+}
+
+.logo svg {
+    transform:translateX(0deg);
+    transition:transform 600ms;
+
+}
+.navbar:hover .logo svg{
+    transform: rotate(-180deg);
+}
+
 
 .menu-item{
     height:50px;
@@ -52,3 +72,18 @@
     height:30px;
 }
 
+
+
+
+.fa-primary{
+    color:#ff7eee;
+}
+
+.fa-secondary {
+    color:#df49a6;
+}
+
+.fa-primary,
+.fa-secondary{
+    transition: 600ms;
+}
