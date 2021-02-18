@@ -5,6 +5,7 @@ import Nav from '../Nav/Nav'
 import dotenv from 'dotenv'
 import styled from 'styled-components';
 import Spotify from '../../images/spotify-brands.svg'
+import ListBox from '../ListBox';
 const HomePage = () => {
 
     const[token, setToken] = useState('');
@@ -17,9 +18,8 @@ const HomePage = () => {
         return inputArray.indexOf(item) == index;
      });
 
-     let musicObject;
+     let musicObject = [];
 
-  
 
      const keysF = (val) => {
          if(val ==='feelgood') return "37i9dQZF1DX3rxVfibe1L0";
@@ -51,22 +51,21 @@ const HomePage = () => {
                 data:'grant_type=client_credentials',
                 method:"POST"
             }).then(tokenResponse => {
-              
+                
                 setToken(tokenResponse.data.access_token);
                 
                 tags.map((tag) => {
                    
-                    axios(`https://open.spotify.com/playlist/${keysF(tag)}&limit=10`, {
+                    axios(`https://api.spotify.com/v1/playlists/5KbTzqKBqxQRD8OBtJTZrS/tracks`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
                             
                         }
                     }).then((trackResponse) => {
-                      setMusicList(trackResponse.data.tracks.items)
-                       
+                     musicObject.push(trackResponse.data.items);
+                       console.log(musicObject)
                     }
-                        
 
                     ).catch((e) => console.log(e))
 
@@ -78,24 +77,16 @@ const HomePage = () => {
         } catch (error) {
             console.log(error.response.data);
         }
-
-        
-      
     }, [])
-    
-  
-    console.log(musicList)
-    
-   
 
-    
     return (
         <>
             <Nav />
             <MainWrapper>
             <MainContent>
                 <h1>Good evening,</h1>
-                <CardsWrap>
+                
+                {/* <CardsWrap>
                     <Card>
                         <CardImage src={Spotify}>
 
@@ -120,7 +111,9 @@ const HomePage = () => {
                            <h3>Liked Songs</h3>
                         </CardContent>
                     </Card>
-                </CardsWrap>
+                </CardsWrap> */}
+
+                <ListBox items={musicObject} />
             </MainContent>
             </MainWrapper>
         </>
