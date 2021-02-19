@@ -9,16 +9,9 @@ import Card from '../Card/Card';
 const HomePage = () => {
 
     const[token, setToken] = useState('');
-    
-    const[musicList, setMusicList] = useState({selectedTrack:'', listofTracksFromAPI:[]})
-
-    const musicObject = [];    
-
     const [categoryOne, setCategoryOne] = useState({trackOne:[]});
     const [categoryTwo, setCategoryTwo] = useState({trackTwo:[]});
     const [categoryThree, setCategoryThree] = useState({trackThree:[]});
-
-    
 
     var tags = useSelector(state => state.mood.keywords)
     const user = useSelector(state=> state.auth.user)
@@ -49,7 +42,7 @@ const HomePage = () => {
 
      const categoryOneFetch = (token, tags) => {
         try {
-            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[0])}/tracks?limit=16`, {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[0])}/tracks`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
@@ -67,7 +60,7 @@ const HomePage = () => {
     }
      const categoryTwoFetch = (token, tags) => {
         try {
-            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[1])}/tracks?limit=16`, {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[1])}/tracks`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
@@ -85,7 +78,7 @@ const HomePage = () => {
     }
      const categoryThreeFetch = (token, tags) => {
         try {
-            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[2])}/tracks?limit=16`, {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[2])}/tracks`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
@@ -156,9 +149,13 @@ const HomePage = () => {
       
     }, [])
 
-const trackOne =categoryOne.trackOne.map((item) => item.track)
-const trackTwo =categoryTwo.trackTwo.map((item) => item.track)
-const trackThree =categoryThree.trackThree.map((item) => item.track)
+var trackOne =categoryOne.trackOne.map((item) => item.track)
+var trackTwo =categoryTwo.trackTwo.map((item) => item.track)
+var trackThree =categoryThree.trackThree.map((item) => item.track)
+
+trackOne = trackOne.sort(() => 0.5 - Math.random()).slice(0, 16);
+trackTwo = trackTwo.sort(() => 0.5 - Math.random()).slice(0, 16);
+trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
 
 
     return (
@@ -167,36 +164,17 @@ const trackThree =categoryThree.trackThree.map((item) => item.track)
             <MainWrapper>
             <h1>Good evening, {user.name}</h1>
             <h1>{capitalizeFirstLetter(tags[0])}</h1>
-            <MainContent>
-               
+            <MainContent>    
                 {trackOne.map((item) => 
-                      <Card image={item.album.images[0].url} name={item.name}/>      
+                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
-                {/* <Card>
-                        <CardImage src={Spotify}>
-
-                        </CardImage>
-                        <CardContent>
-                           <h3>Liked Songs</h3>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardImage src={Spotify}>
-
-                        </CardImage>
-                        <CardContent>
-                           <h3>Liked Songs</h3>
-                        </CardContent>
-                    </Card> */}
-               
-               
-            
+ 
             </MainContent>
             <h1>{capitalizeFirstLetter(tags[1])}</h1>
             <MainContent>
                 
             {trackTwo.map((item) => 
-                      <Card image={item.album.images[0].url} name={item.name}/>      
+                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
 
             </MainContent>
@@ -205,26 +183,21 @@ const trackThree =categoryThree.trackThree.map((item) => item.track)
             <MainContent>
                 
             {trackThree.map((item) => 
-                      <Card image={item.album.images[0].url} name={item.name}/>      
+                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
 
             </MainContent>
             </MainWrapper>
         </>
     )
-
-
 }
 
-
-
-//The home page should always have a margin-left of % rem;
 
 export default HomePage;
 
 
 
-const MainWrapper = styled.div`
+export const MainWrapper = styled.div`
 
    background-color: #131313;
     margin-left:5rem;
@@ -241,7 +214,7 @@ const MainWrapper = styled.div`
     
 `
 
-const MainContent = styled.div`
+export const MainContent = styled.div`
     color: white;
     display: flex;
    flex-direction: row;
@@ -257,7 +230,3 @@ const MainContent = styled.div`
     
 `
 
-const HeaderWrapper = styled.div`
-    
-
-`

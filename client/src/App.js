@@ -11,6 +11,7 @@ import store from './store'
 import Header from './components/screens/header'
 import HomePage from './components/screens/HomePage'
 import Nav from './components/Nav/Nav'
+import Movies from './components/screens/Movies';
 const App = () => {
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const App = () => {
         <Switch>
           <PrivateRoute exact path="/" component = {PrivateScreen} />
           <PrivateRoute exact path="/home" component = {HomePage} />
+          <PrivateRoute exact path="/movies" component = {Movies} />
           
          
           <Route path = "*" component={() => "404 not found!"} />
