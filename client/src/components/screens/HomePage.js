@@ -21,12 +21,15 @@ const HomePage = () => {
     
 
     var tags = useSelector(state => state.mood.keywords)
+    const user = useSelector(state=> state.auth.user)
 
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
      });
 
-  
+     function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
      const keysF = (val) => {
          if(val ==='feelgood') return "37i9dQZF1DX3rxVfibe1L0";
@@ -46,7 +49,7 @@ const HomePage = () => {
 
      const categoryOneFetch = (token, tags) => {
         try {
-            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[0])}/tracks?limit=10`, {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[0])}/tracks?limit=16`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
@@ -64,7 +67,7 @@ const HomePage = () => {
     }
      const categoryTwoFetch = (token, tags) => {
         try {
-            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[1])}/tracks?limit=10`, {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[1])}/tracks?limit=16`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
@@ -82,7 +85,7 @@ const HomePage = () => {
     }
      const categoryThreeFetch = (token, tags) => {
         try {
-            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[2])}/tracks?limit=10`, {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[2])}/tracks?limit=16`, {
                         method:'GET',
                         headers:{
                             'Authorization': 'Bearer '+ token,
@@ -153,20 +156,23 @@ const HomePage = () => {
       
     }, [])
 
-const track =categoryThree.trackThree.map((item) => item.track)
-console.log(track)
+const trackOne =categoryOne.trackOne.map((item) => item.track)
+const trackTwo =categoryTwo.trackTwo.map((item) => item.track)
+const trackThree =categoryThree.trackThree.map((item) => item.track)
+
 
     return (
         <>
             <Nav />
             <MainWrapper>
+            <h1>Good evening, {user.name}</h1>
+            <h1>{capitalizeFirstLetter(tags[0])}</h1>
             <MainContent>
-                <h1>Good evening,</h1>
-                {track.map((item) => 
+               
+                {trackOne.map((item) => 
                       <Card image={item.album.images[0].url} name={item.name}/>      
                 )}
-                
-                    {/* <Card>
+                {/* <Card>
                         <CardImage src={Spotify}>
 
                         </CardImage>
@@ -185,6 +191,23 @@ console.log(track)
                
                
             
+            </MainContent>
+            <h1>{capitalizeFirstLetter(tags[1])}</h1>
+            <MainContent>
+                
+            {trackTwo.map((item) => 
+                      <Card image={item.album.images[0].url} name={item.name}/>      
+                )}
+
+            </MainContent>
+
+            <h1>{capitalizeFirstLetter(tags[2])}</h1>
+            <MainContent>
+                
+            {trackThree.map((item) => 
+                      <Card image={item.album.images[0].url} name={item.name}/>      
+                )}
+
             </MainContent>
             </MainWrapper>
         </>
@@ -205,10 +228,15 @@ const MainWrapper = styled.div`
 
    background-color: #131313;
     margin-left:5rem;
+    padding-left:5rem;
     padding-top:80px;
-   height:100vh;
   
-   
+  
+   h1{
+        font-size:1.3rem;
+        padding:16px 50px;
+        color: white;
+    }
     
     
 `
@@ -224,6 +252,12 @@ const MainContent = styled.div`
     h1{
         font-size:1.3rem;
         padding:6px 15px;
+        color: white;
     }
     
+`
+
+const HeaderWrapper = styled.div`
+    
+
 `
