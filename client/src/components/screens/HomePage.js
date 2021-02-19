@@ -14,9 +14,9 @@ const HomePage = () => {
 
     const musicObject = [];    
 
-    const [categoryOne, setCategoryOne] = useState([]);
-    const [categoryTwo, setCategoryTwo] = useState([]);
-    const [categoryThree, setCategoryThree] = useState([]);
+    const [categoryOne, setCategoryOne] = useState({trackOne:[]});
+    const [categoryTwo, setCategoryTwo] = useState({trackTwo:[]});
+    const [categoryThree, setCategoryThree] = useState({trackThree:[]});
 
     
 
@@ -44,12 +44,63 @@ const HomePage = () => {
 
      }
 
+     const categoryOneFetch = (token, tags) => {
+        try {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[0])}/tracks?limit=10`, {
+                        method:'GET',
+                        headers:{
+                            'Authorization': 'Bearer '+ token,
+                        }
+                    }).then((trackResponse) => {
+                        setCategoryOne({trackOne:trackResponse.data.items})
+                    })   
+        .catch ((error) => {
+            console.log(error)
+        })
+
+     } catch (error) {
+         console.log(error);
+     }
+    }
+     const categoryTwoFetch = (token, tags) => {
+        try {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[1])}/tracks?limit=10`, {
+                        method:'GET',
+                        headers:{
+                            'Authorization': 'Bearer '+ token,
+                        }
+                    }).then((trackResponse) => {
+                        setCategoryTwo({trackTwo:trackResponse.data.items})
+                    })   
+        .catch ((error) => {
+            console.log(error)
+        })
+
+     } catch (error) {
+         console.log(error);
+     }
+    }
+     const categoryThreeFetch = (token, tags) => {
+        try {
+            axios(`https://api.spotify.com/v1/playlists/${keysF(tags[2])}/tracks?limit=10`, {
+                        method:'GET',
+                        headers:{
+                            'Authorization': 'Bearer '+ token,
+                        }
+                    }).then((trackResponse) => {
+                        setCategoryThree({trackThree:trackResponse.data.items})
+                    })   
+        .catch ((error) => {
+            console.log(error)
+        })
+
+     } catch (error) {
+         console.log(error);
+     }
+    }
 
 
     useEffect(() => {
-      
-        //get Spotify token
-       
         try {
             axios('https://accounts.spotify.com/api/token', {
                 headers: {
@@ -61,31 +112,38 @@ const HomePage = () => {
             }).then(tokenResponse => {
               
                 setToken(tokenResponse.data.access_token);
+                console.log(tokenResponse)
                 
-                tags.map((tag) => {
+                categoryOneFetch(token, tags);
+                categoryTwoFetch(token, tags);
+                categoryThreeFetch(token, tags);
+           
+                
+                 
+              
+                // tags.map((tag) => {
                    
-                    axios(`https://api.spotify.com/v1/playlists/${keysF(tag)}/tracks?limit=20`, {
-                        method:'GET',
-                        headers:{
-                            'Authorization': 'Bearer '+ token,
+                //     axios(`https://api.spotify.com/v1/playlists/${keysF(tag)}/tracks?limit=20`, {
+                //         method:'GET',
+                //         headers:{
+                //             'Authorization': 'Bearer '+ token,
                             
-                        }
-                    }).then((trackResponse) => {
+                //         }
+                //     }).then((trackResponse) => {
                       
-
-                    //   setMusicList( {
+                      
+                //       setMusicList( {
                         
-                    //       listofTracksFromAPI:trackResponse.data.items
+                //           listofTracksFromAPI:trackResponse.data.items
                              
                           
-                    //   });
+                //       });
                      
-                    //   musicObject.push(musicList.listofTracksFromAPI)
-                    //   console.log(musicObject)
-                    }
-                    ).catch((e) => console.log(e))
+                
+                //     }
+                //     ).catch((e) => console.log(e))
 
-                })
+                // })
 
      
             }).catch((error)=> console.log(error))
@@ -95,10 +153,9 @@ const HomePage = () => {
       
     }, [])
 
-const track = musicList.listofTracksFromAPI.map((item) => item.track)
+const track =categoryThree.trackThree.map((item) => item.track)
+console.log(track)
 
-
-    
     return (
         <>
             <Nav />
