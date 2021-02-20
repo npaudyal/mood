@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import {useSelector} from 'react-redux'
 import dotenv from 'dotenv'
 import{MainWrapper, MainContent} from './HomePage';
@@ -11,7 +11,6 @@ import styled from 'styled-components'
 const Movies = () => {
 
     const API = process.env.REACT_APP_MOVIE;
-    console.log(API)
 
     const user = useSelector(state=> state.auth.user)
     var tags = useSelector(state => state.mood.keywords)

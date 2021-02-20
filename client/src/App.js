@@ -12,6 +12,7 @@ import Header from './components/screens/header'
 import HomePage from './components/screens/HomePage'
 import Nav from './components/Nav/Nav'
 import Movies from './components/screens/Movies';
+import Books from './components/screens/Books'
 const App = () => {
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const App = () => {
           <PrivateRoute exact path="/" component = {PrivateScreen} />
           <PrivateRoute exact path="/home" component = {HomePage} />
           <PrivateRoute exact path="/movies" component = {Movies} />
+          <PrivateRoute exact path="/books" component = {Books} />
           
          
           <Route path = "*" component={() => "404 not found!"} />

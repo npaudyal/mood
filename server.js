@@ -2,7 +2,6 @@ require('dotenv').config({path: "./config.env"});
 const express = require('express');
 const connectDB = require('./config/db')
 const cors = require('cors')
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
 //Connect DB
 
@@ -23,6 +22,8 @@ app.use('/api/auth', require("./routes/auth"))
 app.use('/api/movies', require('./routes/movies'))
 
 app.use('/api/spotify', require('./routes/spotify'))
+
+app.use('/api/books', require('./routes/books'))
 
 // app.use(errorHandler);
 

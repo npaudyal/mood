@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import styled from 'styled-components';
 import Spotify from '../../images/spotify-brands.svg'
 import Card from '../Card/Card';
+
 const HomePage = () => {
 
     const[token, setToken] = useState('');
@@ -38,8 +39,6 @@ const HomePage = () => {
          if(val ==='inspiring') return "2hISpZx8Mk4B5ODBK226Sk";
          if(val ==='romantic') return "5KbTzqKBqxQRD8OBtJTZrS";
      }
-
-
 
      const categoryOneFetch = (token, tags) => {
         try {
