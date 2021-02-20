@@ -5,11 +5,12 @@
     border-bottom:1px solid #474a4d; */
 
 
-    width:5rem;
+    width:7rem;
     height:100vh;
     position:fixed;
-    background-color: #23232e;
+    background-color: black;
     transition: 200ms ease;
+    z-index: 99;
 }
 .navbar:hover {
     width:16rem;

@@ -12,21 +12,17 @@ const app = express();
 
 app.use(express.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-    res.header(
-    "Access-Control-Allow-Header",
-    "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-    });
+app.use(cors());
 
-app.options("*", cors());
+  
 
 app.use('/api/users', require('./routes/users'));
 // app.use('/api/private', require("./routes/private"))
 app.use('/api/auth', require("./routes/auth"))
+
+app.use('/api/movies', require('./routes/movies'))
+
+app.use('/api/spotify', require('./routes/spotify'))
 
 // app.use(errorHandler);
 

@@ -5,21 +5,24 @@ import Nav from '../Nav/Nav'
 import dotenv from 'dotenv'
 import styled from 'styled-components';
 import Spotify from '../../images/spotify-brands.svg'
-import ListBox from '../ListBox';
+import Card from '../Card/Card';
 const HomePage = () => {
 
     const[token, setToken] = useState('');
-    
-    const[musicList, setMusicList] = useState([])
+    const [categoryOne, setCategoryOne] = useState({trackOne:[]});
+    const [categoryTwo, setCategoryTwo] = useState({trackTwo:[]});
+    const [categoryThree, setCategoryThree] = useState({trackThree:[]});
 
     var tags = useSelector(state => state.mood.keywords)
+    const user = useSelector(state=> state.auth.user)
 
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
      });
 
-     let musicObject = [];
-
+     function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
      const keysF = (val) => {
          if(val ==='feelgood') return "37i9dQZF1DX3rxVfibe1L0";
@@ -34,14 +37,53 @@ const HomePage = () => {
          if(val ==='pumped') return "0L33OqcgnqcdtUDhUAyfPW";
          if(val ==='inspiring') return "2hISpZx8Mk4B5ODBK226Sk";
          if(val ==='romantic') return "5KbTzqKBqxQRD8OBtJTZrS";
-
      }
-     
+
+
+
+     const categoryOneFetch = (token, tags) => {
+        try {
+                    axios(`api/spotify?&playlist_id=${keysF(tags[0])}&token=${token}`).then((trackResponse) => {
+                        setCategoryOne({trackOne:trackResponse.data.items})
+                    })   
+        .catch ((error) => {
+            console.log(error)
+        })
+
+     } catch (error) {
+         console.log(error);
+     }
+    }
+     const categoryTwoFetch = (token, tags) => {
+        try {
+            axios(`api/spotify?&playlist_id=${keysF(tags[1])}&token=${token}`).then((trackResponse) => {
+                        setCategoryTwo({trackTwo:trackResponse.data.items})
+                    })   
+        .catch ((error) => {
+            console.log(error)
+        })
+
+     } catch (error) {
+         console.log(error);
+     }
+    }
+     const categoryThreeFetch = (token, tags) => {
+        try {
+            axios(`api/spotify?&playlist_id=${keysF(tags[2])}&token=${token}`).then((trackResponse) => {
+                        setCategoryThree({trackThree:trackResponse.data.items})
+                    })   
+        .catch ((error) => {
+            console.log(error)
+        })
+
+     } catch (error) {
+         console.log(error);
+     }
+    }
+
+
 
     useEffect(() => {
-      
-        //get Spotify token
-       
         try {
             axios('https://accounts.spotify.com/api/token', {
                 headers: {
@@ -54,141 +96,99 @@ const HomePage = () => {
                 
                 setToken(tokenResponse.data.access_token);
                 
-                tags.map((tag) => {
-                   
-                    axios(`https://api.spotify.com/v1/playlists/5KbTzqKBqxQRD8OBtJTZrS/tracks`, {
-                        method:'GET',
-                        headers:{
-                            'Authorization': 'Bearer '+ token,
-                            
-                        }
-                    }).then((trackResponse) => {
-                     musicObject.push(trackResponse.data.items);
-                       console.log(musicObject)
-                    }
-
-                    ).catch((e) => console.log(e))
-
-                })
-
                 
-
+                categoryOneFetch(token, tags);
+                categoryTwoFetch(token, tags);
+                categoryThreeFetch(token, tags);
+           
+                
+                 
+     
             }).catch((error)=> console.log(error))
         } catch (error) {
             console.log(error.response.data);
         }
+      
     }, [])
+
+var trackOne =categoryOne.trackOne.map((item) => item.track)
+var trackTwo =categoryTwo.trackTwo.map((item) => item.track)
+var trackThree =categoryThree.trackThree.map((item) => item.track)
+
+trackOne = trackOne.sort(() => 0.5 - Math.random()).slice(0, 16);
+trackTwo = trackTwo.sort(() => 0.5 - Math.random()).slice(0, 16);
+trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
+
 
     return (
         <>
             <Nav />
             <MainWrapper>
+            <h1>Good evening, {user.name}</h1>
+            <h1>{capitalizeFirstLetter(tags[0])}</h1>
+            <MainContent>    
+                {trackOne.map((item) => 
+                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                )}
+ 
+            </MainContent>
+            <h1>{capitalizeFirstLetter(tags[1])}</h1>
             <MainContent>
-                <h1>Good evening,</h1>
                 
-                {/* <CardsWrap>
-                    <Card>
-                        <CardImage src={Spotify}>
+            {trackTwo.map((item) => 
+                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                )}
 
-                        </CardImage>
-                        <CardContent>
-                           <h3>Hey</h3>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardImage src={Spotify}>
+            </MainContent>
 
-                        </CardImage>
-                        <CardContent>
-                           <h3>Liked Songs</h3>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardImage src={Spotify}>
+            <h1>{capitalizeFirstLetter(tags[2])}</h1>
+            <MainContent>
+                
+            {trackThree.map((item) => 
+                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                )}
 
-                        </CardImage>
-                        <CardContent>
-                           <h3>Liked Songs</h3>
-                        </CardContent>
-                    </Card>
-                </CardsWrap> */}
-
-                <ListBox items={musicObject} />
             </MainContent>
             </MainWrapper>
         </>
     )
-
-
 }
 
-
-
-//The home page should always have a margin-left of % rem;
 
 export default HomePage;
 
 
 
-const MainWrapper = styled.div`
+export const MainWrapper = styled.div`
 
    background-color: #131313;
     margin-left:5rem;
+    padding-left:5rem;
     padding-top:80px;
-   height:100vh;
-   
-   
+  
+  
+   h1{
+        font-size:1.3rem;
+        padding:16px 50px;
+        color: white;
+    }
     
     
 `
 
-const MainContent = styled.div`
+export const MainContent = styled.div`
     color: white;
+    display: flex;
+   flex-direction: row;
+   flex-wrap:wrap;
    
     padding:0.5rem 2rem;
 
     h1{
         font-size:1.3rem;
         padding:6px 15px;
+        color: white;
     }
     
 `
-const CardsWrap = styled.div`
-    display: flex;
-    padding:5px;
-    flex-direction:row;
-    flex-wrap:wrap;
-    
-    
-  
 
-`
-const Card = styled.div`
-    background: #282828;
-    border-radius:10px;
-    width:180px;
-    overflow:hidden;
-    padding:.88rem;
-    box-shadow: 0 10px 30px 0 rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
-    margin:5px;
-
-`
-
-const CardImage = styled.img`
-    height:160px;
-    box-shadow: 0 10px 30px 0 rgba(0,0,0,.3), 0 1px 2px 0 rgba(0,0,0,.2);
-    img{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-    }
-
-
-`
-
-const CardContent = styled.div`
-    padding:0.4rem 0;
-h3{
-    font-weight: 600;
-    font-size:0.9rem;
-}`
