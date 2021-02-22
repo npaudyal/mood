@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
         minLength:6,
         
     },
+    image:String,
     register_date:{
         type:Date,
         default:Date.now,
@@ -31,6 +32,6 @@ const UserSchema = new mongoose.Schema({
     
 });
 
-const User = mongoose.model('user', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

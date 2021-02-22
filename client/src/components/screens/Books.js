@@ -88,7 +88,7 @@ const Books = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
-        <h1>{capitalizeFirstLetter(tags[0])}</h1>
+        <h1>{(tags[0])}</h1>
         <MainContent>
         
        
@@ -102,7 +102,7 @@ const Books = () => {
                 )}
            
         </MainContent>
-        <h1>{capitalizeFirstLetter(tags[1])}</h1>
+        <h1>{(tags[1])}</h1>
         <MainContent>
         {categoryTwo.bookTwo.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
@@ -112,7 +112,7 @@ const Books = () => {
            
         </MainContent>
 
-        <h1>{capitalizeFirstLetter(tags[2])}</h1>
+        <h1>{(tags[2])}</h1>
         <MainContent>
         {categoryThree.bookThree.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 

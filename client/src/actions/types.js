@@ -22,3 +22,7 @@ export const EMOJI = "EMOJI";
 export const KEYWORDS ="KEYWORDS";
 export const CLEAR_MOOD="CLEAR_MOOD"
 
+
+
+export const GET_CHATS='GET_CHATS';
+export const AFTER_POST_MESSAGE='AFTER_POST_MESSAGE';

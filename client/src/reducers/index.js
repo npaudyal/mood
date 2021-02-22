@@ -3,6 +3,7 @@ import isSignUpClicked from './isSignUpClicked';
 import errorReducer from './errorReducer'
 import authReducer from './authReducer'
 import moodReducer from './moodReducer'
+import chat from './chatReducer'
 import {combineReducers} from 'redux'
 
 const allReducers = combineReducers({
@@ -12,6 +13,7 @@ const allReducers = combineReducers({
     error: errorReducer,
     auth: authReducer,
     mood:moodReducer,
+    chat,
 
 
 })

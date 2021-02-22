@@ -124,14 +124,14 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
             <Nav />
             <MainWrapper>
             <h1>Good evening, {user.name}</h1>
-            <h1>{capitalizeFirstLetter(tags[0])}</h1>
+            <h1>{(tags[0])}</h1>
             <MainContent>    
                 {trackOne.map((item) => 
                       <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
  
             </MainContent>
-            <h1>{capitalizeFirstLetter(tags[1])}</h1>
+            <h1>{(tags[1])}</h1>
             <MainContent>
                 
             {trackTwo.map((item) => 
@@ -140,7 +140,7 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
 
             </MainContent>
 
-            <h1>{capitalizeFirstLetter(tags[2])}</h1>
+            <h1>{(tags[2])}</h1>
             <MainContent>
                 
             {trackThree.map((item) => 

@@ -113,14 +113,14 @@ const Movies = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
-        <h1>{capitalizeFirstLetter(tags[0])}</h1>
+        <h1>{(tags[0])}</h1>
         <MainContent>
         {categoryOne.movieOne.map((item) => 
                       <Card link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
         </MainContent>
-        <h1>{capitalizeFirstLetter(tags[1])}</h1>
+        <h1>{(tags[1])}</h1>
         <MainContent>
         {categoryTwo.movieTwo.map((item) => 
                       <Card link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
@@ -128,7 +128,7 @@ const Movies = () => {
 
         </MainContent>
 
-        <h1>{capitalizeFirstLetter(tags[2])}</h1>
+        <h1>{(tags[2])}</h1>
         <MainContent>
        
         {categoryThree.movieThree.map((item) => 
