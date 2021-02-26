@@ -1,14 +1,16 @@
 import React from 'react'
+import { Avatar } from '@material-ui/core'
 import moment from 'moment'
-import {Comment, Tooltip} from 'antd';
-const ChatCard = (props) => {
+
+import './Message.css'
+
+const Message = (props) => {
     return (
-        <div style={{ width:'100%'}}>
-            <Comment 
-            style={{color:'black'}}
-                author={props.sender.name}
-                // avatar = {}
-                content={
+        <div className="message">
+            <Avatar />
+            <div className="message__info">
+                    <h4>{props.sender.name}<span className="message__timestamp">{moment().fromNow()}</span></h4>
+                    {
                     props.message.substring(0,7) === "uploads" ? 
                     props.message.substring(props.message.length -3,props.message.length) === 'mp4' ?
                     <video
@@ -22,15 +24,9 @@ const ChatCard = (props) => {
                     :
                 <p>{props.message}</p>
             }
-                datetime={
-                    <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().fromNow()}</span>
-                    </Tooltip>
-                }
-                />
-            
+            </div>
         </div>
     )
 }
 
-export default ChatCard
+export default Message

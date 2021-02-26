@@ -1,0 +1,53 @@
+.sidebar {
+    display:flex;
+    flex-direction: column;
+    flex:0.25;
+    height:100vh;
+    width:20%;
+    background-color: #2f3135;
+
+}
+
+.sidebar__top{
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+    padding:2rem;
+    background-color: #2f3135;
+    color:white;
+    border-bottom:3px solid #26282c;
+}
+
+.sidebar__top h3 {
+    color: white;
+    font-size:1.5rem;
+}
+
+.sidebar__chatrooms{
+    flex:.2;
+
+}
+
+.sidebar__header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:2rem;
+    background-color:#2f3135;
+    color: grey;
+}
+
+.sidebar__header h4 {
+    color:grey;
+    font-size:1.4rem;
+}
+
+.sidebar__chatroomlist{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items:center;
+    padding:10px;
+    color: white;
+}

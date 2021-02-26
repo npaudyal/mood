@@ -8,7 +8,7 @@ import store from './store'
 import HomePage from './components/screens/HomePage'
 import Movies from './components/screens/Movies';
 import Books from './components/screens/Books'
-import Chat from './components/screens/Chat';
+import ChatContent from './components/Chat/ChatContent'
 const App = () => {
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const App = () => {
           <PrivateRoute exact path="/home" component = {HomePage} />
           <PrivateRoute exact path="/movies" component = {Movies} />
           <PrivateRoute exact path="/books" component = {Books} />
-          <PrivateRoute exact path="/chat" component = {Chat} />
+          <PrivateRoute exact path="/chat" component = {ChatContent} />
           
          
           <Route path = "*" component={() => "404 not found!"} />
