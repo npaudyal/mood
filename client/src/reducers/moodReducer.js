@@ -1,6 +1,5 @@
 import {EMOJI, KEYWORDS,  CLEAR_MOOD} from '../actions/types';
 
-
 const initialState = {
     emojiState: 0,
     keywords:[]

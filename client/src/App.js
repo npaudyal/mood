@@ -4,7 +4,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import PrivateScreen from './components/screens/PrivateScreen';
 import {loadUser} from './actions/authActions';
 import {useEffect} from 'react'
-import store from './store'
+import {store} from './store'
 import HomePage from './components/screens/HomePage'
 import Movies from './components/screens/Movies';
 import Books from './components/screens/Books'

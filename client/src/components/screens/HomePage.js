@@ -40,7 +40,7 @@ const HomePage = () => {
          if(val ==='romantic') return "5KbTzqKBqxQRD8OBtJTZrS";
      }
 
-     const categoryOneFetch = (token, tags) => {
+     const categoryOneFetch =  (token, tags) => {
         try {
                     axios(`api/spotify?&playlist_id=${keysF(tags[0])}&token=${token}`).then((trackResponse) => {
                         setCategoryOne({trackOne:trackResponse.data.items})
@@ -94,21 +94,22 @@ const HomePage = () => {
             }).then(tokenResponse => {
                 
                 setToken(tokenResponse.data.access_token);
+               
                 
-                
-                categoryOneFetch(token, tags);
-                categoryTwoFetch(token, tags);
-                categoryThreeFetch(token, tags);
-           
-                
-                 
-     
+              
             }).catch((error)=> console.log(error))
         } catch (error) {
             console.log(error.response.data);
         }
       
     }, [])
+
+    useEffect(() => {
+        categoryOneFetch(token, tags);
+        categoryTwoFetch(token, tags);
+        categoryThreeFetch(token, tags);
+   
+    }, [token])
 
 var trackOne =categoryOne.trackOne.map((item) => item.track)
 var trackTwo =categoryTwo.trackTwo.map((item) => item.track)

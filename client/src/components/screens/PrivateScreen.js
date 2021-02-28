@@ -78,8 +78,6 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
    
     const handleRedirect = () => {
         
-          
-
        history.push('/home');
       
     }
