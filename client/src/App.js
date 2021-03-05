@@ -9,25 +9,28 @@ import HomePage from './components/screens/HomePage'
 import Movies from './components/screens/Movies';
 import Books from './components/screens/Books'
 import ChatContent from './components/Chat/ChatContent'
+import Webcam from './components/screens/Webcam'
 const App = () => {
 
-  useEffect(() => {
-    store.dispatch(loadUser());
-  }, [])
+  // useEffect(() => {
+  //   store.dispatch(loadUser());
+  // }, [])
 
   return (
     
    <Router>
    
         <Switch>
-          <PrivateRoute exact path="/" component = {PrivateScreen} />
+          {/* <PrivateRoute exact path="/" component = {PrivateScreen} />
           <PrivateRoute exact path="/home" component = {HomePage} />
           <PrivateRoute exact path="/movies" component = {Movies} />
           <PrivateRoute exact path="/books" component = {Books} />
           <PrivateRoute exact path="/chat" component = {ChatContent} />
           
          
-          <Route path = "*" component={() => "404 not found!"} />
+          <Route path = "*" component={() => "404 not found!"} /> */}
+
+          <Webcam />
         </Switch>
      
    </Router>

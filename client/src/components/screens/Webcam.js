@@ -26,9 +26,9 @@ const Webcam = () => {
     
     const startVideo = () => {
         navigator.getUserMedia({
-            video:{},
-        }, stream => 
-            videoRef.current.srcObject = stream
+            video:{}
+        }, stream => videoRef.current.srcObject = stream,
+        () => console.warn("Error getting video")
         )
     }
 
@@ -39,7 +39,7 @@ const Webcam = () => {
             }
             canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
             const displaySize = {
-                wifth:videoWidth,
+                width:videoWidth,
                 height:videoHeight
             }
             faceapi.matchDimensions(canvasRef.current, displaySize);
@@ -56,7 +56,7 @@ const Webcam = () => {
     return (
         <>
           <span>{initializing ? 'Initializing' : 'Ready'}</span> 
-          <div style={{display:'flex', justifyContent='center'}}>
+          <div style={{display:'flex', justifyContent:'center'}}>
           <video ref = {videoRef} autoPlay muted height={videoHeight} width={videoWidth} onPlay={handleVideoOnPlay} />
           <canvas ref = {canvasRef} style={{position:'absolute'}} /> 
           </div>
