@@ -14,7 +14,11 @@ const app = express();
 app.use(cors());
 
 const server1 = require('http').createServer(app);
-const io = require('socket.io')(server1)
+const io = require('socket.io')(server1, {
+    cors:{
+        origin:"*",
+    }
+})
 
 
 app.use(express.json());
@@ -76,7 +80,6 @@ io.on("connection", socket => {
                         return io.emit("Output Chat Message", doc);
                        
                     });
-                   
                 });
 
             } catch (error) {

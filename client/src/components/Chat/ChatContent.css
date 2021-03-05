@@ -3,7 +3,8 @@
     flex-direction: column;
     flex:0.75;
     background-color: #131313;
-    margin-left: 7rem;
+    margin-left: 9rem;
+    
 }
 
 .chat__messages{

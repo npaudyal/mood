@@ -121,7 +121,7 @@ export class ChatContent extends Component  {
                     placeholder ="type something"
 
                    />
-                   <button className="chat__inputButton" onClick ={this.submitMessage} htmlType="submit">
+                   <button className="chat__inputButton" onClick ={this.submitMessage} htmltype="submit">
                         send
                    </button>
                </form>

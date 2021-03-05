@@ -30,10 +30,10 @@ const Movies = () => {
         if(val ==='dark') return "27";
         if(val ==='intense') return "10752";
         if(val ==='touching') return "10751";
-        if(val ==='depressing') return "80";
+        if(val ==='sad') return "80";
         if(val ==='funny') return "35";
         if(val ==='thrilling') return "53";
-        if(val ==='pumped') return "28";
+        if(val ==='rush') return "28";
         if(val ==='inspiring') return "99";
         if(val ==='romantic') return "10749";
 

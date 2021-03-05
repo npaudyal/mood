@@ -429,7 +429,7 @@ align-items: center;
         if(emojiContinueClicked && !causeContinueClicked) {
             return ( <>
                 <Question>
-            <p> What kind of mood based content would you prefer?</p>
+            <p> What kind of mood-based content would you prefer?</p>
             </Question>
             <EmojiButtonWrapper>
             <FeelGoodEmojiButton onClick={() => {dispatch(keyword('feelgood')); setFeelGoodButtonColor((prev) => !prev); setFeelGoodFontColor((prev) => !prev) }}><p>Feel-Good</p></FeelGoodEmojiButton>
@@ -438,11 +438,11 @@ align-items: center;
             <IntenseEmojiButton onClick={() => {dispatch(keyword('intense'));setIntenseButtonColor((prev) => !prev); setIntenseFontColor((prev) => !prev) }}><p>Intense</p></IntenseEmojiButton>
             <TouchingEmojiButton onClick={() => {dispatch(keyword('touching'));setTouchingButtonColor((prev) => !prev); setTouchingFontColor((prev) => !prev) }}><p>Touching</p></TouchingEmojiButton>
             <RomanticEmojiButton onClick={() => {dispatch(keyword('romantic'));setRomanticButtonColor((prev) => !prev); setRomanticFontColor((prev) => !prev) }}><p>Romantic</p></RomanticEmojiButton>
-            <DepressingEmojiButton onClick={() => {dispatch(keyword('depressing'));setDepressingButtonColor((prev) => !prev); setDepressingFontColor((prev) => !prev) }}><p>Depressing</p></DepressingEmojiButton>
+            <DepressingEmojiButton onClick={() => {dispatch(keyword('sad'));setDepressingButtonColor((prev) => !prev); setDepressingFontColor((prev) => !prev) }}><p>Sad</p></DepressingEmojiButton>
             <ThrillingEmojiButton onClick={() => {dispatch(keyword('thrilling'));setThrillingButtonColor((prev) => !prev); setThrillingFontColor((prev) => !prev) }}><p>Thrilling</p></ThrillingEmojiButton>
             <FunnyEmojiButton onClick={() => {dispatch(keyword('funny'));setFunnyButtonColor((prev) => !prev); setFunnyFontColor((prev) => !prev) }}><p>Funny</p></FunnyEmojiButton>
             <InspiringEmojiButton onClick={() => {dispatch(keyword('inspiring'));setInspiringButtonColor((prev) => !prev); setInspiringFontColor((prev) => !prev) }}><p>Inspiring</p></InspiringEmojiButton>
-            <PumpedEmojiButton onClick={() => {dispatch(keyword('pumped'));setPumpedButtonColor((prev) => !prev); setPumpedFontColor((prev) => !prev) }}><p>Pumped-up</p></PumpedEmojiButton>
+            <PumpedEmojiButton onClick={() => {dispatch(keyword('rush'));setPumpedButtonColor((prev) => !prev); setPumpedFontColor((prev) => !prev) }}><p>Rush</p></PumpedEmojiButton>
             <DarkEmojiButton onClick={() => {dispatch(keyword('dark'));setDarkButtonColor((prev) => !prev); setDarkFontColor((prev) => !prev) }}><p>Dark</p></DarkEmojiButton>
            
             </EmojiButtonWrapper>
@@ -523,7 +523,7 @@ const Question = styled.div`
 
 
 const Wrapper = styled.div`
-    height: 83vh;
+    height: 85vh;
     max-height:100vh;
     display: flex;
     flex-direction:column;

@@ -32,10 +32,10 @@ const HomePage = () => {
          if(val ==='dark') return "52fjgY5XTdBKrk71TJks1i";
          if(val ==='intense') return "7EHr7Wvrg1kqIOvLT9PLuh";
          if(val ==='touching') return "41UBp2OCdPC2tcqpQMHVic";
-         if(val ==='depressing') return "0zHkISuEcNr2Zav2X4TXCQ";
+         if(val ==='sad') return "0zHkISuEcNr2Zav2X4TXCQ";
          if(val ==='funny') return "37i9dQZF1DXa2PvUpywmrr";
          if(val ==='thrilling') return "37i9dQZF1DX0KpeLFwA3tO";
-         if(val ==='pumped') return "0L33OqcgnqcdtUDhUAyfPW";
+         if(val ==='rush') return "0L33OqcgnqcdtUDhUAyfPW";
          if(val ==='inspiring') return "2hISpZx8Mk4B5ODBK226Sk";
          if(val ==='romantic') return "5KbTzqKBqxQRD8OBtJTZrS";
      }
@@ -124,7 +124,7 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
         <>
             <Nav />
             <MainWrapper>
-            <h1>Good evening, {user.name}</h1>
+            <h1>Hello, {user.name}</h1>
             <h1>{(tags[0])}</h1>
             <MainContent>    
                 {trackOne.map((item) => 
@@ -162,7 +162,7 @@ export default HomePage;
 export const MainWrapper = styled.div`
 
    background-color: #131313;
-    margin-left:5rem;
+    margin-left:7rem;
     padding-left:5rem;
     padding-top:80px;
   
