@@ -546,7 +546,7 @@ const Feel = styled.div`
 
 `
 
-const Welcome = styled.div`
+ const Welcome = styled.div`
   
     display:flex;
     color:black;

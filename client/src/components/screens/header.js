@@ -2,6 +2,8 @@ import React from 'react';
 import './header.css'
 import mainLogo from '../../images/mainLogo.svg'; 
 import styled from 'styled-components';
+
+
 const Header = () => {
   return (
     <header>

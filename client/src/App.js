@@ -10,6 +10,7 @@ import Movies from './components/screens/Movies';
 import Books from './components/screens/Books'
 import ChatContent from './components/Chat/ChatContent'
 import Webcam from './components/screens/Webcam'
+import Question from './components/screens/Question';
 const App = () => {
 
   // useEffect(() => {
@@ -30,7 +31,7 @@ const App = () => {
          
           <Route path = "*" component={() => "404 not found!"} /> */}
 
-          <Webcam />
+         <Question />
         </Switch>
      
    </Router>
