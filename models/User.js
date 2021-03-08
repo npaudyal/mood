@@ -3,6 +3,23 @@ const crypto = require('crypto');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
 
+
+const BookSchema = new mongoose.Schema({
+    title:String,
+    image:String
+})
+
+const MusicSchema = new mongoose.Schema({
+    title:String,
+    image:String,
+    url:String
+})
+const MoviesSchema = new mongoose.Schema({
+    title:String,
+    image:String
+})
+
+
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -25,6 +42,9 @@ const UserSchema = new mongoose.Schema({
         
     },
     image:String,
+    music:[MusicSchema],
+    movies:[MoviesSchema],
+    books:[BookSchema],
     register_date:{
         type:Date,
         default:Date.now,

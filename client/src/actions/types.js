@@ -23,6 +23,20 @@ export const KEYWORDS ="KEYWORDS";
 export const CLEAR_MOOD="CLEAR_MOOD"
 
 
-
+//Chats
 export const GET_CHATS='GET_CHATS';
 export const AFTER_POST_MESSAGE='AFTER_POST_MESSAGE';
+
+//Favorites
+
+export const BOOK_LOADED = 'BOOK_LOADED';
+export const BOOK_LOADING = 'BOOK_LOADING';
+export const MUSIC_LOADING = 'MUSIC_LOADING';
+export const MUSIC_LOADED = 'MUSIC_LOADED';
+export const MOVIES_LOADED = 'MOVIES_LOADED';
+export const MOVIES_LOADING = 'MOVIES_LOADING';
+export const LOAD_ERROR = 'LOAD_ERROR';
+export const BOOK_ADD_SUCCESS = 'BOOK_ADD_SUCCESS';
+export const ADD_FAIL = 'ADD_FAIL';
+export const MUSIC_ADD_SUCCESS = 'MUSIC_ADD_SUCCESS';
+export const MOVIE_ADD_SUCCESS = 'MOVIE_ADD_SUCCESS';

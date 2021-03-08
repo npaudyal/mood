@@ -15,6 +15,7 @@ import {
 //Check token and load user
 export const loadUser = () => (dispatch,getState) => {
     //User loading
+  return new Promise((resolve, reject) => {
     dispatch({
         type:USER_LOADING,
     });
@@ -31,6 +32,9 @@ export const loadUser = () => (dispatch,getState) => {
                 type: AUTH_ERROR
             })
         })
+    resolve();    
+  })  
+    
 }
 
 export const register = ({name, email, password}) => dispatch => {

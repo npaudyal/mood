@@ -1,6 +1,36 @@
 import React from 'react'
 import styled from 'styled-components'
+import {AiOutlineHeart} from 'react-icons/ai'
+import {useDispatch, useSelector} from 'react-redux'
+import {bookLiked, musicLiked, moviesLiked} from '../../actions/favoriteActions';
+
 const Card = (props) => {
+    const userId = useSelector(state => state.auth.user._id)
+    const dispatch = useDispatch();
+   const favoriteHandler = () => {
+
+       if(props.book) {
+        const newBook = {
+            title:props.name, image:props.image, userId
+          }
+          dispatch(bookLiked(newBook));
+          
+       }
+       if(props.music) {
+        const newMusic = {
+            title:props.name, image:props.image, url:props.link, userId
+          }
+          dispatch(musicLiked(newMusic));
+          
+       }
+       if(props.movies) {
+        const newMovies = {
+            title:props.name, image:props.image, userId
+          }
+          dispatch(moviesLiked(newMovies));
+          
+       }
+   }
     return (
         <a href={props.link} target = "_blank"style={{color: "#FFFFFF",
             textDecoration: "none"}}>
@@ -8,6 +38,7 @@ const Card = (props) => {
                 <CardBody>
                     <CardImage movie={props.movie} src={props.image} />
                     <CardContent> {props.name}</CardContent>
+                    <Heart onClick={favoriteHandler}/>
                 </CardBody>
             </CardsWrap>
         </a>
@@ -40,6 +71,13 @@ const CardBody = styled.div`
 
 `
 
+const Heart = styled(AiOutlineHeart)`
+
+    font-size:1.5rem;
+    padding-bottom:0.2rem;
+
+`
+
 const CardImage = styled.img`
     height:160px;
    width:150px;
@@ -56,6 +94,7 @@ const CardContent = styled.div`
     padding:0.3rem 0.3rem;
     text-overflow:ellipsis;
     overflow:hidden;
+    justify-content:center;
     white-space:nowrap;
 h3{
     font-weight: 600;

@@ -54,6 +54,8 @@ app.use('/api/books', require('./routes/books'))
 
 app.use('/api/chat', require('./routes/chat'))
 
+app.use('/api/favorites', require('./routes/favorites'))
+
 
 app.post('/api/chat/uploadFiles', (req, res) => {
     upload(req, res,err => {

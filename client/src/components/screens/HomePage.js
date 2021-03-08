@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import Nav from '../Nav/Nav'
 import dotenv from 'dotenv'
 import styled from 'styled-components';
 import Spotify from '../../images/spotify-brands.svg'
 import Card from '../Card/Card';
+import { loadMusic } from '../../actions/favoriteActions';
+import {loadUser} from '../../actions/authActions'
 
 const HomePage = () => {
 
@@ -16,6 +18,7 @@ const HomePage = () => {
 
     var tags = useSelector(state => state.mood.keywords)
     const user = useSelector(state=> state.auth.user)
+    const dispatch = useDispatch();
 
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
@@ -83,6 +86,7 @@ const HomePage = () => {
 
 
     useEffect(() => {
+        dispatch(loadUser()).then(() => dispatch(loadMusic(user._id))).catch((error) => console.log(error));
         try {
             axios('https://accounts.spotify.com/api/token', {
                 headers: {
@@ -101,6 +105,9 @@ const HomePage = () => {
         } catch (error) {
             console.log(error.response.data);
         }
+       
+            
+        
       
     }, [])
 
@@ -128,7 +135,7 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
             <h1>{(tags[0])}</h1>
             <MainContent>    
                 {trackOne.map((item) => 
-                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                      <Card music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
  
             </MainContent>
@@ -136,7 +143,7 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
             <MainContent>
                 
             {trackTwo.map((item) => 
-                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                      <Card music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
 
             </MainContent>
@@ -145,7 +152,7 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
             <MainContent>
                 
             {trackThree.map((item) => 
-                      <Card image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                      <Card music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                 )}
 
             </MainContent>

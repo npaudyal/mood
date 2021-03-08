@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import dotenv from 'dotenv'
 import{MainWrapper, MainContent} from './HomePage';
 import Nav from '../Nav/Nav'
 import Card from '../Card/Card'
 import placeholder from '../../images/placeholder.jpg'
 import styled from 'styled-components'
+import { loadMovies } from '../../actions/favoriteActions';
+import {loadUser} from '../../actions/authActions';
 
 const Movies = () => {
 
@@ -14,7 +16,7 @@ const Movies = () => {
 
     const user = useSelector(state=> state.auth.user)
     var tags = useSelector(state => state.mood.keywords)
-
+     const dispatch = useDispatch();
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
      });
@@ -52,7 +54,6 @@ const Movies = () => {
         
         try {
 
-            // axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API}&with_genres=${keysF(tags[0])}&page=${random}`)
             axios.get(`api/movies?&with_genres=${keysF(tags[0])}&page=${random}`)
             .then((response) => {
                 setCategoryOne({movieOne:response.data.results})
@@ -95,9 +96,11 @@ const Movies = () => {
   
 
     useEffect(() => {
+        dispatch(loadUser()).then(() => dispatch(loadMovies(user._id))).catch((error) => console.log(error));
         categoryOneFetch();
         categoryTwofetch();
         categoryThreeFetch();
+       
 
     }, [])
 
@@ -116,14 +119,14 @@ const Movies = () => {
         <h1>{(tags[0])}</h1>
         <MainContent>
         {categoryOne.movieOne.map((item) => 
-                      <Card link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
         </MainContent>
         <h1>{(tags[1])}</h1>
         <MainContent>
         {categoryTwo.movieTwo.map((item) => 
-                      <Card link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
 
         </MainContent>
@@ -132,7 +135,7 @@ const Movies = () => {
         <MainContent>
        
         {categoryThree.movieThree.map((item) => 
-                      <Card link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
         </MainContent>
         </MainWrapper>

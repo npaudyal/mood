@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import dotenv from 'dotenv'
 import{MainWrapper, MainContent} from './HomePage';
 import Nav from '../Nav/Nav'
 import Card from '../Card/Card'
+import {loadBooks} from '../../actions/favoriteActions'
+import { loadUser } from '../../actions/authActions';
 
 const Books = () => {
 
     const user = useSelector(state=> state.auth.user)
     var tags = useSelector(state => state.mood.keywords)
-
+    const dispatch = useDispatch();
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
      });
@@ -77,10 +79,12 @@ const Books = () => {
       }
 
       useEffect(() => {
+        dispatch(loadUser()).then(() => dispatch(loadBooks(user._id))).catch((error) => console.log(error));
             categoryOneFetch();
             categoryTwoFetch();
             categoryThreeFetch();
-
+            
+           
       }, []);
     
     return (
@@ -97,7 +101,7 @@ const Books = () => {
         
         {categoryOne.bookOne.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card link={`https://google.com/search?q=${item.volumeInfo.title}+movie`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} movie="true"/>      
+                     <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+movie`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} movie="true"/>      
    
                 )}
            
@@ -106,7 +110,7 @@ const Books = () => {
         <MainContent>
         {categoryTwo.bookTwo.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card link={`https://google.com/search?q=${item.volumeInfo.title}+movie`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null} name={item.volumeInfo.title} movie="true"/>      
+                     <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+movie`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null} name={item.volumeInfo.title} movie="true"/>      
    
                 )}
            
@@ -116,7 +120,7 @@ const Books = () => {
         <MainContent>
         {categoryThree.bookThree.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card link={`https://google.com/search?q=${item.volumeInfo.title}+movie`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail:null} name={item.volumeInfo.title} movie="true"/>      
+                     <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+movie`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail:null} name={item.volumeInfo.title} movie="true"/>      
    
                 )}
            

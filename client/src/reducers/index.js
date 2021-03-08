@@ -4,6 +4,7 @@ import errorReducer from './errorReducer'
 import authReducer from './authReducer'
 import moodReducer from './moodReducer'
 import chat from './chatReducer'
+import favorites from './favoritesReducer'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import {combineReducers} from 'redux'
@@ -27,6 +28,7 @@ const allReducers = combineReducers({
     auth: authReducer,
     mood:moodReducer,
     chat,
+    favorites,
 
 
 });

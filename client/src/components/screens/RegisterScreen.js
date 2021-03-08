@@ -41,7 +41,6 @@ const registerHandler = () => {
   dispatch(register(newUser));
   
  
- 
 }
 
 

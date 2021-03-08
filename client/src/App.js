@@ -22,16 +22,16 @@ const App = () => {
    <Router>
    
         <Switch>
-          {/* <PrivateRoute exact path="/" component = {PrivateScreen} />
+          <PrivateRoute exact path="/" component = {PrivateScreen} />
           <PrivateRoute exact path="/home" component = {HomePage} />
           <PrivateRoute exact path="/movies" component = {Movies} />
           <PrivateRoute exact path="/books" component = {Books} />
           <PrivateRoute exact path="/chat" component = {ChatContent} />
           
          
-          <Route path = "*" component={() => "404 not found!"} /> */}
+          <Route path = "*" component={() => "404 not found!"} />
 
-         <Question />
+       
         </Switch>
      
    </Router>
