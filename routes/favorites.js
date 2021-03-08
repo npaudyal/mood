@@ -5,7 +5,6 @@ const User = require('../models/User')
 router.post('/addBooks', (req, res) => {
 
     const {title, image} = req.body;
-    console.log(title)
     if(!title)  {
         return res.status(400).json({msg: 'Error getting title'});
     }

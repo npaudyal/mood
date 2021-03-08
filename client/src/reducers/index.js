@@ -10,7 +10,7 @@ import storage from 'redux-persist/lib/storage'
 import {combineReducers} from 'redux'
 import expireIn from "redux-persist-transform-expire-in";
 
-const expireTime = 60 * 60 * 1000; // expire in 1h
+const expireTime = 60 * 60 ; // expire in 1h
 const expirationKey = "expirationKey";
 
 const persistConfig = {

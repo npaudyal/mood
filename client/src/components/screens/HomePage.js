@@ -18,6 +18,7 @@ const HomePage = () => {
 
     var tags = useSelector(state => state.mood.keywords)
     const user = useSelector(state=> state.auth.user)
+    const music = useSelector(state=> state.favorites.music)
     const dispatch = useDispatch();
 
     tags = tags.filter( function( item, index, inputArray ) {
@@ -127,11 +128,18 @@ trackTwo = trackTwo.sort(() => 0.5 - Math.random()).slice(0, 16);
 trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
 
 
+
     return (
         <>
             <Nav />
             <MainWrapper>
             <h1>Hello, {user.name}</h1>
+            <MainContent>    
+                {music.map((item) => 
+                      <Card music image={item.image} name={item.title} link={item.url}/>      
+                )}
+ 
+            </MainContent>
             <h1>{(tags[0])}</h1>
             <MainContent>    
                 {trackOne.map((item) => 
