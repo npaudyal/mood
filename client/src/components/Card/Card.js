@@ -1,47 +1,84 @@
 import React from 'react'
 import styled from 'styled-components'
-import {AiOutlineHeart} from 'react-icons/ai'
+import {AiOutlineHeart, AiFillHeart, AiTwotoneHeart} from 'react-icons/ai'
 import {useDispatch, useSelector} from 'react-redux'
-import {bookLiked, musicLiked, moviesLiked} from '../../actions/favoriteActions';
+import {bookLiked, musicLiked, moviesLiked, moviesRemoved, musicRemoved, bookRemoved} from '../../actions/favoriteActions';
 
 const Card = (props) => {
     const userId = useSelector(state => state.auth.user._id)
+    const favoritesArray = useSelector(state =>state.favorites)
     const dispatch = useDispatch();
+
+    const favoriteDehandler = () => {
+        if(props.movies) {
+            const newMovies = {
+                title:props.name, image:props.image, userId
+              }
+              dispatch(moviesRemoved(newMovies));
+              
+           }
+        if(props.music) {
+            const newMusic = {
+                title:props.name, image:props.image, userId
+              }
+              dispatch(musicRemoved(newMusic));
+              
+           }
+        if(props.book) {
+            const newBook = {
+                title:props.name, image:props.image, userId
+              }
+              dispatch(bookRemoved(newBook));
+              
+           }
+    }
    const favoriteHandler = () => {
 
        if(props.book) {
         const newBook = {
             title:props.name, image:props.image, userId
           }
-          dispatch(bookLiked(newBook));
+
+        if (!favoritesArray.books.map(item =>item.title).includes(newBook.title)) {
+            dispatch(bookLiked(newBook));
+
+        }
           
-       }
+       
+    }
        if(props.music) {
         const newMusic = {
             title:props.name, image:props.image, url:props.link, userId
           }
-          dispatch(musicLiked(newMusic));
+          if (!favoritesArray.music.map(item =>item.title).includes(newMusic.title)) {
+            dispatch(musicLiked(newMusic));
+
+        }
           
        }
        if(props.movies) {
         const newMovies = {
             title:props.name, image:props.image, userId
           }
-          dispatch(moviesLiked(newMovies));
+          if (!favoritesArray.movies.map(item =>item.title).includes(newMovies.title)) {
+            dispatch(moviesLiked(newMovies));
+
+        }
           
        }
    }
     return (
-        <a href={props.link} target = "_blank"style={{color: "#FFFFFF",
-            textDecoration: "none"}}>
+        <>
             <CardsWrap>
                 <CardBody>
-                    <CardImage movie={props.movie} src={props.image} />
+                <a href={props.link} target = "_blank"style={{color: "#FFFFFF",
+            textDecoration: "none"}}> <CardImage movie={props.movie} src={props.image} /> </a>
                     <CardContent> {props.name}</CardContent>
-                    <Heart onClick={favoriteHandler}/>
+                    {props.favorite ?  <HeartRed onClick={favoriteDehandler}/>: <Heart onClick={favoriteHandler}/> }
+                    
                 </CardBody>
             </CardsWrap>
-        </a>
+        </>
     )
 }
 
@@ -75,6 +112,13 @@ const Heart = styled(AiOutlineHeart)`
 
     font-size:1.5rem;
     padding-bottom:0.2rem;
+
+`
+const HeartRed = styled(AiTwotoneHeart)`
+
+    font-size:1.5rem;
+    padding-bottom:0.2rem;
+    color:white;
 
 `
 

@@ -92,14 +92,15 @@ const Books = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
-        <MainContent>  
+        {books ? <MainContent>  
         {books.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card book link={`https://google.com/search?q=${item.title}+book`} image={item.image ? item.image: null} name={item.title} />      
+                     <Card favorite book link={`https://google.com/search?q=${item.title}+book`} image={item.image ? item.image: null} name={item.title} />      
    
                 )}
            
-        </MainContent>
+        </MainContent> : null }
+        
         <h1>{(tags[0])}</h1>
         <MainContent>  
         {categoryOne.bookOne.map(item => 

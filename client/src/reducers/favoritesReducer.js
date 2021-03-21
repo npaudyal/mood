@@ -9,6 +9,9 @@ import {
     BOOK_ADD_SUCCESS,
     MUSIC_ADD_SUCCESS,
     MOVIE_ADD_SUCCESS,
+    MOVIE_REMOVE_SUCCESS,
+    BOOK_REMOVE_SUCCESS,
+    MUSIC_REMOVE_SUCCESS,
     ADD_FAIL
    
 } from "../actions/types";
@@ -66,10 +69,28 @@ const favorites = (state = initialState, action) => {
         case MOVIE_ADD_SUCCESS:
             return {
                 ...state,
-                movies :  action.payload,
+                movies : action.payload,
                 isLoading:false,
-               
             }
+        case MOVIE_REMOVE_SUCCESS:
+            return {
+                ...state,
+                movies : state.movies.filter(element => element.title !== action.payload),
+                isLoading:false,
+            }
+        case MUSIC_REMOVE_SUCCESS:
+            return {
+                ...state,
+                music : state.music.filter(element => element.title !== action.payload),
+                isLoading:false,
+            }
+        case BOOK_REMOVE_SUCCESS:
+            return {
+                ...state,
+                books : state.books.filter(element => element.title !== action.payload),
+                isLoading:false,
+            }
+             
         case LOAD_ERROR:
         case ADD_FAIL:
             return {

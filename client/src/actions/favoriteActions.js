@@ -10,6 +10,9 @@ import {
     BOOK_ADD_SUCCESS,
     MUSIC_ADD_SUCCESS,
     MOVIE_ADD_SUCCESS,
+    MOVIE_REMOVE_SUCCESS,
+    MUSIC_REMOVE_SUCCESS,
+    BOOK_REMOVE_SUCCESS,
     ADD_FAIL
    
 } from "./types";
@@ -145,6 +148,62 @@ export const moviesLiked = ({title, image, userId}) => dispatch => {
                 type: ADD_FAIL,
 
             })
+        })
+}
+
+
+export const moviesRemoved = ({title, userId}) => dispatch => {
+    const config = {
+        headers: {
+            'content-type': 'application/json'
+        }
+    }
+    const body = JSON.stringify({title, userId});
+
+    axios.post('/api/favorites/removeMovies', body, config)
+        .then(res => dispatch({
+            type:MOVIE_REMOVE_SUCCESS,
+            payload:res.data
+        })
+        
+    ).catch(err => {
+           console.log(err)
+        })
+}
+export const musicRemoved = ({title, userId}) => dispatch => {
+    const config = {
+        headers: {
+            'content-type': 'application/json'
+        }
+    }
+    const body = JSON.stringify({title, userId});
+
+    axios.post('/api/favorites/removeMusic', body, config)
+        .then(res => dispatch({
+            type:MUSIC_REMOVE_SUCCESS,
+            payload:res.data
+        })
+        
+    ).catch(err => {
+           console.log(err)
+        })
+}
+export const bookRemoved = ({title, userId}) => dispatch => {
+    const config = {
+        headers: {
+            'content-type': 'application/json'
+        }
+    }
+    const body = JSON.stringify({title, userId});
+
+    axios.post('/api/favorites/removeBooks', body, config)
+        .then(res => dispatch({
+            type:BOOK_REMOVE_SUCCESS,
+            payload:res.data
+        })
+        
+    ).catch(err => {
+           console.log(err)
         })
 }
 

@@ -99,15 +99,11 @@ const HomePage = () => {
             }).then(tokenResponse => {
                 
                 setToken(tokenResponse.data.access_token);
-               
-                
               
             }).catch((error)=> console.log(error))
         } catch (error) {
             console.log(error.response.data);
-        }
-       
-            
+        }      
         
       
     }, [])
@@ -134,12 +130,14 @@ trackThree = trackThree.sort(() => 0.5 - Math.random()).slice(0, 16);
             <Nav />
             <MainWrapper>
             <h1>Hello, {user.name}</h1>
-            <MainContent>    
+
+            {music ?  <MainContent>    
                 {music.map((item) => 
-                      <Card music image={item.image} name={item.title} link={item.url}/>      
+                      <Card favorite music image={item.image} name={item.title} link={item.url}/>      
                 )}
  
-            </MainContent>
+            </MainContent> : null }
+           
             <h1>{(tags[0])}</h1>
             <MainContent>    
                 {trackOne.map((item) => 

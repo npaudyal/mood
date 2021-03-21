@@ -15,7 +15,7 @@ const Movies = () => {
     const API = process.env.REACT_APP_MOVIE;
 
     const user = useSelector(state=> state.auth.user)
-    const movies = useSelector(state=> state.favorites.movies)
+    const movies = useSelector(state=> state.favorites.movies);
     var tags = useSelector(state => state.mood.keywords)
      const dispatch = useDispatch();
     tags = tags.filter( function( item, index, inputArray ) {
@@ -101,8 +101,6 @@ const Movies = () => {
         categoryOneFetch();
         categoryTwofetch();
         categoryThreeFetch();
-       
-
     }, [])
 
 
@@ -118,12 +116,14 @@ const Movies = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
-        <MainContent>
+
+        {movies ? <MainContent>
         {movies.map((item) => 
-                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.image ? item.image: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+                      <Card favorite movies link={`https://google.com/search?q=${item.title}+movie`} image={item.image ? item.image: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
-        </MainContent>
+        </MainContent> : null}
+        
         <h1>{(tags[0])}</h1>
         <MainContent>
         {categoryOne.movieOne.map((item) => 

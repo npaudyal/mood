@@ -13,14 +13,12 @@ import {
 
 
 //Check token and load user
-export const loadUser = () => (dispatch,getState) => {
+export const loadUser = () => (dispatch,getState) => new Promise((resolve, reject) => {
     //User loading
-  return new Promise((resolve, reject) => {
+
     dispatch({
         type:USER_LOADING,
     });
-    
-  
     axios.get('api/auth/user',tokenConfig(getState))
         .then(res => dispatch({
             type:USER_LOADED,
@@ -31,11 +29,13 @@ export const loadUser = () => (dispatch,getState) => {
             dispatch({
                 type: AUTH_ERROR
             })
-        })
-    resolve();    
-  })  
+        });
+
+        resolve();
+      
+  });
     
-}
+
 
 export const register = ({name, email, password}) => dispatch => {
     const config = {
