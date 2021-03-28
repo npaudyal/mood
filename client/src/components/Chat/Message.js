@@ -5,11 +5,15 @@ import moment from 'moment'
 import './Message.css'
 
 const Message = (props) => {
+    
     return (
+
+       
         <div className="message">
             <Avatar />
             <div className="message__info">
-                    <h4>{props.sender.name}<span className="message__timestamp">{moment().fromNow()}</span></h4>
+               
+                   {props.sender ?<h4>{props.sender.name}<span className="message__timestamp">{moment().fromNow()}</span></h4> : null} 
                     {
                     props.message.substring(0,7) === "uploads" ? 
                     props.message.substring(props.message.length -3,props.message.length) === 'mp4' ?

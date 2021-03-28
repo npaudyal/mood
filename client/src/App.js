@@ -11,24 +11,21 @@ import Books from './components/screens/Books'
 import ChatContent from './components/Chat/ChatContent'
 import Webcam from './components/screens/Webcam'
 import Question from './components/screens/Question';
+import { resetState } from './actions/mediaActions';
 const App = () => {
 
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, [])
 
   return (
     
    <Router>
    
         <Switch>
-          <PrivateRoute exact path="/" component = {PrivateScreen} />
+          
+          <PrivateRoute exact path="/" component = {Question} />
           <PrivateRoute exact path="/home" component = {HomePage} />
           <PrivateRoute exact path="/movies" component = {Movies} />
           <PrivateRoute exact path="/books" component = {Books} />
           <PrivateRoute exact path="/chat" component = {ChatContent} />
-          
-         
           <Route path = "*" component={() => "404 not found!"} />
 
        

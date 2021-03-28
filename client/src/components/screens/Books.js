@@ -6,11 +6,13 @@ import Nav from '../Nav/Nav'
 import Card from '../Card/Card'
 import {loadBooks} from '../../actions/favoriteActions'
 import { loadUser } from '../../actions/authActions';
+import { storeBooks } from '../../actions/mediaActions';
 
 const Books = () => {
 
     const user = useSelector(state=> state.auth.user)
     const books = useSelector(state=> state.favorites.books)
+    const existingBooks = useSelector(state => state.media.books)
     var tags = useSelector(state => state.mood.keywords)
     const dispatch = useDispatch();
     tags = tags.filter( function( item, index, inputArray ) {
@@ -29,36 +31,51 @@ const Books = () => {
 
     
     const categoryOneFetch = () => {
-        
-        try {
+       
+        return new Promise((resolve) => {
+            try {
 
            
-            axios.get(`api/books?&book_name=${tags[0]}`)
-            .then((response) => {
-                setCategoryOne({bookOne:response.data.items})
-               
-        }).catch((error) => console.log(error))
+                axios.get(`api/books?&book_name=${tags[0]}`)
+                .then((response) => {
+                    setCategoryOne({bookOne:response.data.items})
+                    dispatch(storeBooks({'category1': response.data.items}))
+                   
+            }).catch((error) => console.log(error))
+    
+            } catch (error) {
+                console.log(error)
+            }
+    
+            resolve();
+        })
+       
 
-        } catch (error) {
-            console.log(error)
-        }
 
     }
-    const categoryTwoFetch = () => {
+
+    const categoryTwoFetch = ()  =>  {
         
+        return new Promise((resolve) => {
         try {
 
            
             axios.get(`api/books?&book_name=${tags[1]}`)
             .then((response) => {
                 setCategoryTwo({bookTwo:response.data.items})
+                dispatch(storeBooks({'category2': response.data.items}))
+
         }).catch((error) => console.log(error))
 
         } catch (error) {
             console.log(error)
         }
 
-    }
+        resolve();
+
+    })
+}
+
     const categoryThreeFetch = () => {
         
         try {
@@ -67,6 +84,8 @@ const Books = () => {
             axios.get(`api/books?&book_name=${tags[2]}`)
             .then((response) => {
                 setCategoryThree({bookThree:response.data.items})
+                dispatch(storeBooks({'category3': response.data.items}))
+
         }).catch((error) => console.log(error))
 
         } catch (error) {
@@ -80,11 +99,13 @@ const Books = () => {
 
       useEffect(() => {
         dispatch(loadUser()).then(() => dispatch(loadBooks(user._id))).catch((error) => console.log(error));
-            categoryOneFetch();
-            categoryTwoFetch();
-            categoryThreeFetch();
-            
-           
+
+        if(existingBooks === undefined ) {
+           categoryOneFetch();
+           categoryTwoFetch();
+           categoryThreeFetch();
+                       
+        }
       }, []);
     
     return (
@@ -92,26 +113,62 @@ const Books = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
+        <h1>Your favorites</h1>
         {books ? <MainContent>  
-        {books.map(item => 
+        {books.map((item,index) => 
                     //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card favorite book link={`https://google.com/search?q=${item.title}+book`} image={item.image ? item.image: null} name={item.title} />      
+                     <Card key={index} favorite book link={`https://google.com/search?q=${item.title}+book`} image={item.image ? item.image: null} name={item.title} />      
    
                 )}
            
         </MainContent> : null }
         
         <h1>{(tags[0])}</h1>
-        <MainContent>  
+        
+        {existingBooks && existingBooks.category1 ? <MainContent>
+          
+          {existingBooks.category1.map((item,index) => 
+                      //  <h1>{item.volumeInfo.title}</h1> 
+                       <Card key={index} book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} />      
+     
+                  )}
+             
+          </MainContent> : null }
+
+          <h1>{(tags[1])}</h1>
+
+          {existingBooks && existingBooks.category2 ?<MainContent>
+          
+          {existingBooks.category2.map((item,index) => 
+                      //  <h1>{item.volumeInfo.title}</h1> 
+                       <Card key={index} book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} />      
+     
+                  )}
+             
+          </MainContent> : null }
+
+          <h1>{(tags[2])}</h1>
+
+          {existingBooks && existingBooks.category3 ? <MainContent>
+          
+          {existingBooks.category3.map((item,index) => 
+                      //  <h1>{item.volumeInfo.title}</h1> 
+                       <Card key ={index} book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} />      
+     
+                  )}
+             
+          </MainContent> : null }
+        
+        {/* <MainContent>  
         {categoryOne.bookOne.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
                      <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} />      
    
                 )}
            
-        </MainContent>
-        <h1>{(tags[1])}</h1>
-        <MainContent>
+        </MainContent> */}
+       
+        {/* <MainContent>
         {categoryTwo.bookTwo.map(item => 
                     //  <h1>{item.volumeInfo.title}</h1> 
                      <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null} name={item.volumeInfo.title}/>      
@@ -128,7 +185,7 @@ const Books = () => {
    
                 )}
            
-        </MainContent>
+        </MainContent> */}
         </MainWrapper>
     </>
     )

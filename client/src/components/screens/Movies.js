@@ -9,6 +9,7 @@ import placeholder from '../../images/placeholder.jpg'
 import styled from 'styled-components'
 import { loadMovies } from '../../actions/favoriteActions';
 import {loadUser} from '../../actions/authActions';
+import {storeMovies} from '../../actions/mediaActions'
 
 const Movies = () => {
 
@@ -16,6 +17,7 @@ const Movies = () => {
 
     const user = useSelector(state=> state.auth.user)
     const movies = useSelector(state=> state.favorites.movies);
+    const existingMovies = useSelector(state=> state.media.movies);
     var tags = useSelector(state => state.mood.keywords)
      const dispatch = useDispatch();
     tags = tags.filter( function( item, index, inputArray ) {
@@ -51,34 +53,44 @@ const Movies = () => {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
     
-    const categoryOneFetch = () => {
-        
+    const categoryOneFetch = ()  => {
+        return new Promise((resolve) => {
         try {
 
             axios.get(`api/movies?&with_genres=${keysF(tags[0])}&page=${random}`)
             .then((response) => {
                 setCategoryOne({movieOne:response.data.results})
+                dispatch(storeMovies({'category1': response.data.results}))
         }).catch((error) => console.log(error))
 
         } catch (error) {
             console.log(error)
         }
+        resolve();
+    })
+}
 
-    }
-    const categoryTwofetch = () => {
+    
+    const categoryTwofetch = ()  => {
         
+        return new Promise((resolve) => {
         try {
 
             axios.get(`api/movies?&with_genres=${keysF(tags[1])}&page=${random}`)
             .then((response) => {
                 setCategoryTwo({movieTwo:response.data.results})
+                dispatch(storeMovies({'category2': response.data.results}))
         }).catch((error) => console.log(error))
 
         } catch (error) {
             console.log(error)
         }
 
-    }
+        resolve();
+
+    })
+}
+
     const categoryThreeFetch = () => {
         
         try {
@@ -86,6 +98,7 @@ const Movies = () => {
             axios.get(`api/movies?&with_genres=${keysF(tags[2])}&page=${random}`)
             .then((response) => {
                 setCategoryThree({movieThree:response.data.results})
+                dispatch(storeMovies({'category3': response.data.results}))
         }).catch((error) => console.log(error))
 
         } catch (error) {
@@ -98,9 +111,14 @@ const Movies = () => {
 
     useEffect(() => {
         dispatch(loadUser()).then(() => dispatch(loadMovies(user._id))).catch((error) => console.log(error));
-        categoryOneFetch();
-        categoryTwofetch();
-        categoryThreeFetch();
+        
+        if( existingMovies===undefined ) {
+           categoryOneFetch();
+           categoryTwofetch();
+           categoryThreeFetch();
+       
+        }
+        
     }, [])
 
 
@@ -116,36 +134,48 @@ const Movies = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
-
+        <h1>Your favorites</h1>
         {movies ? <MainContent>
-        {movies.map((item) => 
-                      <Card favorite movies link={`https://google.com/search?q=${item.title}+movie`} image={item.image ? item.image: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+        {movies.map((item,index) => 
+                      <Card key ={index} favorite movies link={`https://google.com/search?q=${item.title}+movie`} image={item.image ? item.image: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
         </MainContent> : null}
         
         <h1>{(tags[0])}</h1>
-        <MainContent>
+
+        {existingMovies && existingMovies.category1 ?  <MainContent>
+        {existingMovies.category1.map((item,index) => 
+                      <Card key ={index} movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+                )}
+           
+        </MainContent> : null }
+       
+        {/* <MainContent>
         {categoryOne.movieOne.map((item) => 
                       <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
-        </MainContent>
+        </MainContent> */}
         <h1>{(tags[1])}</h1>
-        <MainContent>
-        {categoryTwo.movieTwo.map((item) => 
-                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+
+        {existingMovies && existingMovies.category2 ? <MainContent>
+        {existingMovies.category2.map((item,index) => 
+                      <Card key ={index} movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
 
-        </MainContent>
+        </MainContent> : null}
+        
 
         <h1>{(tags[2])}</h1>
-        <MainContent>
+
+        {existingMovies && existingMovies.category3 ?  <MainContent>
        
-        {categoryThree.movieThree.map((item) => 
-                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
-                )}
-        </MainContent>
+       {existingMovies.category3.map((item,index) => 
+                     <Card key ={index} movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
+               )}
+       </MainContent> : null }
+       
         </MainWrapper>
     </>
     )
