@@ -24,6 +24,8 @@ const PrivateScreen = () => {
 
     const[keyWords, setKeyWords] = useState([]);
 
+    const camera = useSelector(state => state.mood)
+
   const[emojiContinueClicked, setEmojiContinueClicked] = useState(false);
   const[causeContinueClicked, setCauseContinueClicked] = useState(false);
 
@@ -79,6 +81,8 @@ if(value === 100) emoji = <><Awesome /> <p>Awesome</p></>
     const handleRedirect = () => {
         
        history.push('/home');
+       setEmojiContinueClicked(false)
+       setCauseContinueClicked(false)
       
     }
     
@@ -394,6 +398,7 @@ align-items: center;
             return (
                 <>
             <Question>
+                {camera && camera.fromCam ? <p>Since, we were unable to tell by your face,</p> : null}
             <p>How are you doing today?</p>
             </Question>
         <EmojiWrapper>
@@ -523,7 +528,7 @@ const Question = styled.div`
 
 
 const Wrapper = styled.div`
-    height: 85vh;
+    height: 90vh;
     max-height:100vh;
     display: flex;
     flex-direction:column;

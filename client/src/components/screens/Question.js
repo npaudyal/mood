@@ -16,9 +16,10 @@ const Question = () => {
     const canvasRef = useRef();
     const videoHeight = 480;
     const videoWidth = 640;
-    var myStream = null;
-    const manualHandle = () => {
+    const [myStream, setMyStream] = useState(null);
 
+    const manualHandle = () => {
+        history.push('/manual')
     }
 
     const[dataPoints, setDataPoints] = useState([]);
@@ -34,42 +35,72 @@ const Question = () => {
             dispatch(keyword('romantic'))
             dispatch(keyword('thrilling'))
             dispatch(keyword('intense'))
+            history.push('/home');
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         if(gotTag === 'sad') {
             dispatch(keyword('feelgood'))
             dispatch(keyword('romantic'))
             dispatch(keyword('inspiring'))
+            history.push('/home');
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         if(gotTag === 'surprised') {
          dispatch(keyword('dark'))
          dispatch(keyword('rush'))
          dispatch(keyword('sad'))
+         history.push('/home');
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         if(gotTag === 'angry') {
          dispatch(keyword('rush'))
          dispatch(keyword('thrilling'))
          dispatch(keyword('inspiring'))
+         history.push('/home');
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         if(gotTag === 'disgusted') {
          dispatch(keyword('feelgood'))
          dispatch(keyword('thoughtful'))
          dispatch(keyword('funny'))
+         history.push('/home');
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         if(gotTag === 'neutral') {
-            
+            history.push('/manual')
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         if(gotTag === 'fearful') {
          dispatch(keyword('feelgood'))
          dispatch(keyword('romantic'))
          dispatch(keyword('funny'))
+         history.push('/home');
+            setGotTag('');
+            setGotChartData(false)
+            setInitializing(false)
+            setDataPoints([])
         }
         
        
-        history.push('/home');
-        setGotTag('');
-        setGotChartData(false)
-        setInitializing(false)
-        setDataPoints([])
+        
         
  
      }
@@ -146,7 +177,7 @@ const Question = () => {
         navigator.getUserMedia({
             video:{}
         }, (stream) => {
-            myStream = stream;
+           setMyStream(stream);
             videoRef.current.srcObject = stream
         },
         () => console.warn("Error getting video")
@@ -159,9 +190,9 @@ const Question = () => {
         navigator.getUserMedia({ video: true},
             function(stream) {
                  // can also use getAudioTracks() or getVideoTracks()
-                 
-                var track = stream.getTracks()[0]
-                track.stop()
+              
+                 myStream.getTracks()
+                 .forEach((track) => track.stop());
             },
             function(error){
                 console.log('getUserMedia() error', error);
@@ -194,17 +225,25 @@ const Question = () => {
             const tag = (Object.keys(mood).filter(function(x){ return mood[x] == max; })[0]);
             
             const need = Object.values(mood)
-            stopVideo();
             setDataPoints(need)
             setGotTag(tag);
             console.log(tag)
-            setTimeout(function(){  setGotChartData(true); }, 1500);
-            
+           
+            setTimeout(function(){  setGotChartData(true); stopVideo(); }, 500);
+           
           
            
            
     }
   
+    // useEffect(() => {
+        
+    //     return () => {
+    //         myStream.getTracks().forEach(track => track.stop());
+
+    //     }
+    // })
+
     return (
         <>
             <Header />
