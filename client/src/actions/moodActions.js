@@ -1,4 +1,4 @@
-import {EMOJI, KEYWORDS,  CLEAR_MOOD} from './types'
+import {EMOJI, KEYWORDS,  CLEAR_MOOD, CAM} from './types'
 
 export const emojiState = (emojiValue) => {
     return {
@@ -11,6 +11,13 @@ export const keyword = (keywordValue) => {
     return {
         type: KEYWORDS,
         payload: keywordValue
+    }
+}
+
+export const cam = (fromCam) => {
+    return {
+        type: CAM,
+        payload: fromCam
     }
 }
 

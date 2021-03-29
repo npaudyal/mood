@@ -27,8 +27,6 @@ const App = () => {
           <PrivateRoute exact path="/books" component = {Books} />
           <PrivateRoute exact path="/chat" component = {ChatContent} />
           <Route path = "*" component={() => "404 not found!"} />
-
-       
         </Switch>
      
    </Router>

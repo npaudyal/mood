@@ -1,8 +1,9 @@
-import {EMOJI, KEYWORDS,  CLEAR_MOOD} from '../actions/types';
+import {EMOJI, KEYWORDS,  CLEAR_MOOD, CAM} from '../actions/types';
 
 const initialState = {
     emojiState: 0,
-    keywords:[]
+    keywords:[],
+    fromCam:false,
 }
 
 
@@ -24,6 +25,12 @@ const mood = (state=initialState, action) => {
                 return {
                     emojiState:0,
                     keywords:[]
+                }
+
+            case CAM:
+                return {
+                    ...state,
+                    fromCam:true
                 }
 
             default:

@@ -4,6 +4,9 @@ import Header from './header';
 import styled from 'styled-components';
 import { ContinueButton } from './globalStyles';
 import {HorizontalBar  } from 'react-chartjs-2'
+import {useDispatch} from 'react-redux'
+import { keyword, cam } from '../../actions/moodActions';
+import { useHistory } from 'react-router';
 
 
 const Question = () => {
@@ -20,6 +23,56 @@ const Question = () => {
 
     const[dataPoints, setDataPoints] = useState([]);
     const[gotChartData, setGotChartData] = useState(false);
+    const[gotTag, setGotTag] = useState('');
+     const dispatch = useDispatch();
+     const history = useHistory();
+     const faceHandle = () => {
+
+        dispatch(cam(true));
+
+        if(gotTag === 'happy') {
+            dispatch(keyword('romantic'))
+            dispatch(keyword('thrilling'))
+            dispatch(keyword('intense'))
+        }
+        if(gotTag === 'sad') {
+            dispatch(keyword('feelgood'))
+            dispatch(keyword('romantic'))
+            dispatch(keyword('inspiring'))
+        }
+        if(gotTag === 'surprised') {
+         dispatch(keyword('dark'))
+         dispatch(keyword('rush'))
+         dispatch(keyword('sad'))
+        }
+        if(gotTag === 'angry') {
+         dispatch(keyword('rush'))
+         dispatch(keyword('thrilling'))
+         dispatch(keyword('inspiring'))
+        }
+        if(gotTag === 'disgusted') {
+         dispatch(keyword('feelgood'))
+         dispatch(keyword('thoughtful'))
+         dispatch(keyword('funny'))
+        }
+        if(gotTag === 'neutral') {
+            
+        }
+        if(gotTag === 'fearful') {
+         dispatch(keyword('feelgood'))
+         dispatch(keyword('romantic'))
+         dispatch(keyword('funny'))
+        }
+        
+       
+        history.push('/home');
+        setGotTag('');
+        setGotChartData(false)
+        setInitializing(false)
+        setDataPoints([])
+        
+ 
+     }
 
     const chartData = {
          
@@ -116,6 +169,7 @@ const Question = () => {
            
     }
 
+    
 
 
     const handleVideoOnPlay = async () => {
@@ -135,20 +189,22 @@ const Question = () => {
             faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
             faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
             
-            var mood = detections[0].expressions;
-            var need = Object.values(mood)
-            need.map((item) => item = item*100)
-            console.log(need)
+            const mood = detections[0].expressions;
+            const max = Math.max.apply(null,Object.keys(mood).map(function(x){ return mood[x] }));
+            const tag = (Object.keys(mood).filter(function(x){ return mood[x] == max; })[0]);
             
-
+            const need = Object.values(mood)
             stopVideo();
             setDataPoints(need)
+            setGotTag(tag);
+            console.log(tag)
             setTimeout(function(){  setGotChartData(true); }, 1500);
             
-            
+          
            
            
     }
+  
     return (
         <>
             <Header />
@@ -160,7 +216,7 @@ const Question = () => {
             <>
             <GraphWrapper>
             <HorizontalBar   width={80} height={30} data= {chartData} options= {options} />
-            <ContinueButton onClick={manualHandle}>Continue</ContinueButton>
+            <ContinueButton onClick={faceHandle}>Continue</ContinueButton>
             </GraphWrapper>
             </>
             :

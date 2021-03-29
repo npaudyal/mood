@@ -21,6 +21,7 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const EMOJI = "EMOJI";
 export const KEYWORDS ="KEYWORDS";
 export const CLEAR_MOOD="CLEAR_MOOD"
+export const CAM="CAM"
 
 
 //Chats
