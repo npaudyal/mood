@@ -112,7 +112,7 @@ const Movies = () => {
     useEffect(() => {
         dispatch(loadUser()).then(() => dispatch(loadMovies(user._id))).catch((error) => console.log(error));
         
-        if( existingMovies===undefined ) {
+        if( existingMovies===undefined || Object.keys(existingMovies).length ===0) {
            categoryOneFetch();
            categoryTwofetch();
            categoryThreeFetch();

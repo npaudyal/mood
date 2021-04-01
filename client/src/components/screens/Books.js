@@ -100,7 +100,7 @@ const Books = () => {
       useEffect(() => {
         dispatch(loadUser()).then(() => dispatch(loadBooks(user._id))).catch((error) => console.log(error));
 
-        if(existingBooks === undefined ) {
+        if(existingBooks === undefined || Object.keys(existingBooks).length ===0 ) {
            categoryOneFetch();
            categoryTwoFetch();
            categoryThreeFetch();

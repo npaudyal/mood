@@ -17,7 +17,7 @@ const Question = () => {
     const videoHeight = 480;
     const videoWidth = 640;
     const [myStream, setMyStream] = useState(null);
-
+    const [detections, setDetections] = useState([])
     const manualHandle = () => {
         history.push('/manual')
     }
@@ -213,14 +213,21 @@ const Question = () => {
                 height:videoHeight
             }
             faceapi.matchDimensions(canvasRef.current, displaySize);
-            const detections =  await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
+            const detectionss =  await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
+            setDetections(detectionss)
             const resizedDetections = faceapi.resizeResults(detections, displaySize);
             canvasRef.current.getContext('2d').clearRect(0,0,videoWidth, videoHeight);
             faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
             faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
             faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
             
-            const mood = detections[0].expressions;
+            console.log(detectionss)
+            const mood =  detectionss[0].expressions;
+            
+            // If there is noone in the sreen, display
+            
+
+            console.log(mood)
             const max = Math.max.apply(null,Object.keys(mood).map(function(x){ return mood[x] }));
             const tag = (Object.keys(mood).filter(function(x){ return mood[x] == max; })[0]);
             
@@ -229,7 +236,7 @@ const Question = () => {
             setGotTag(tag);
             console.log(tag)
            
-            setTimeout(function(){  setGotChartData(true); stopVideo(); }, 500);
+            setTimeout(function(){  setGotChartData(true); stopVideo(); }, 2000);
            
           
            

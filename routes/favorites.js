@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User')
 const mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
 
 
 router.post('/addBooks', (req, res) => {
@@ -104,7 +105,8 @@ router.post('/removeMovies', (req, res) => {
 
 router.get('/getBooks',  (req, res) => {
 
-    id =  mongoose.Types.ObjectId(req.query.userId );
+    var id = req.query.userId;
+    id = ObjectId(id)
    
     
     User.findById(id)
