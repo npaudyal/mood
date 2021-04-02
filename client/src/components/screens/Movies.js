@@ -142,39 +142,43 @@ const Movies = () => {
            
         </MainContent> : null}
         
-        <h1>{(tags[0])}</h1>
+       
 
-        {existingMovies && existingMovies.category1 ?  <MainContent>
+        {existingMovies && existingMovies.category1 ?
+        <>
+         <h1>{capitalizeFirstLetter(tags[0])}</h1>
+        <MainContent>
         {existingMovies.category1.map((item,index) => 
                       <Card key ={index} movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
-        </MainContent> : null }
+        </MainContent>
+        </> : null }
+    
        
-        {/* <MainContent>
-        {categoryOne.movieOne.map((item) => 
-                      <Card movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
-                )}
-           
-        </MainContent> */}
-        <h1>{(tags[1])}</h1>
 
-        {existingMovies && existingMovies.category2 ? <MainContent>
+        {existingMovies && existingMovies.category2 ? 
+        <>
+         <h1>{capitalizeFirstLetter(tags[1])}</h1>
+        <MainContent>
         {existingMovies.category2.map((item,index) => 
                       <Card key ={index} movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
 
-        </MainContent> : null}
+        </MainContent> </> : null}
         
 
-        <h1>{(tags[2])}</h1>
+      
 
-        {existingMovies && existingMovies.category3 ?  <MainContent>
+        {existingMovies && existingMovies.category3 ?
+        <>
+        <h1>{capitalizeFirstLetter(tags[2])}</h1>
+        <MainContent>
        
        {existingMovies.category3.map((item,index) => 
                      <Card key ={index} movies link={`https://google.com/search?q=${item.title}+movie`} image={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`:"https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                )}
-       </MainContent> : null }
+       </MainContent> </> : null }
        
         </MainWrapper>
     </>

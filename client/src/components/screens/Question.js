@@ -204,9 +204,6 @@ const Question = () => {
 
 
     const handleVideoOnPlay = async () => {
-
-      
-
             canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
             const displaySize = {
                 width:videoWidth,
@@ -236,20 +233,12 @@ const Question = () => {
             setGotTag(tag);
             console.log(tag)
            
-            setTimeout(function(){  setGotChartData(true); stopVideo(); }, 2000);
+            setTimeout(function(){  setGotChartData(true); stopVideo(); }, 560);
            
           
            
            
     }
-  
-    // useEffect(() => {
-        
-    //     return () => {
-    //         myStream.getTracks().forEach(track => track.stop());
-
-    //     }
-    // })
 
     return (
         <>

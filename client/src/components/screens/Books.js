@@ -123,9 +123,11 @@ const Books = () => {
            
         </MainContent> : null }
         
-        <h1>{(tags[0])}</h1>
         
-        {existingBooks && existingBooks.category1 ? <MainContent>
+        {existingBooks && existingBooks.category1 ?
+        <>
+        <h1>{capitalizeFirstLetter(tags[0])}</h1>
+        <MainContent>
           
           {existingBooks.category1.map((item,index) => 
                       //  <h1>{item.volumeInfo.title}</h1> 
@@ -133,11 +135,14 @@ const Books = () => {
      
                   )}
              
-          </MainContent> : null }
+          </MainContent> </> : null }
 
-          <h1>{(tags[1])}</h1>
+          
 
-          {existingBooks && existingBooks.category2 ?<MainContent>
+          {existingBooks && existingBooks.category2 ? 
+          <>
+          <h1>{capitalizeFirstLetter(tags[1])}</h1>
+          <MainContent>
           
           {existingBooks.category2.map((item,index) => 
                       //  <h1>{item.volumeInfo.title}</h1> 
@@ -145,11 +150,14 @@ const Books = () => {
      
                   )}
              
-          </MainContent> : null }
+          </MainContent> </> : null }
 
-          <h1>{(tags[2])}</h1>
+         
 
-          {existingBooks && existingBooks.category3 ? <MainContent>
+          {existingBooks && existingBooks.category3 ?
+          <>
+          <h1>{capitalizeFirstLetter(tags[2])}</h1>
+           <MainContent>
           
           {existingBooks.category3.map((item,index) => 
                       //  <h1>{item.volumeInfo.title}</h1> 
@@ -157,35 +165,7 @@ const Books = () => {
      
                   )}
              
-          </MainContent> : null }
-        
-        {/* <MainContent>  
-        {categoryOne.bookOne.map(item => 
-                    //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail: null} name={item.volumeInfo.title} />      
-   
-                )}
-           
-        </MainContent> */}
-       
-        {/* <MainContent>
-        {categoryTwo.bookTwo.map(item => 
-                    //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : null} name={item.volumeInfo.title}/>      
-   
-                )}
-           
-        </MainContent>
-
-        <h1>{(tags[2])}</h1>
-        <MainContent>
-        {categoryThree.bookThree.map(item => 
-                    //  <h1>{item.volumeInfo.title}</h1> 
-                     <Card book link={`https://google.com/search?q=${item.volumeInfo.title}+book`} image={item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail:null} name={item.volumeInfo.title}/>      
-   
-                )}
-           
-        </MainContent> */}
+          </MainContent> </> : null }
         </MainWrapper>
     </>
     )
