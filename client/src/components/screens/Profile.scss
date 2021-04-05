@@ -1,0 +1,110 @@
+.playlistPage {
+    background-color: rgb(214, 214, 214);
+    .mainInner {
+      background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(0, 0, 0, 0.5)),
+        color-stop(40%, #121212)
+      );
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), #121212 40%);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .playlistPageInfo {
+      // width: 300px;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-left:3rem;
+      display: flex;
+      .playlistPageImage {
+        width: 250px;
+        height: 250px;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          -webkit-box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+    .playlistPageSongs {
+      height: 100%;
+      .playlistButtons {
+        display: flex;
+        align-items: center;
+      }
+      .playIcon {
+        @extend .playIcon;
+        opacity: 1;
+        position: relative;
+        margin-left: 0;
+        height: 56px;
+        width: 56px;
+        right: 0;
+        bottom: 0;
+        svg {
+          height: 26px;
+          width: 26px;
+        }
+      }
+      .icons {
+        .icon {
+          margin-left: 1.5rem;
+        }
+        .iconsHeart {
+          width: 28px;
+          height: 28px;
+          svg {
+            fill: white;
+          }
+        }
+      }
+    }
+    .playlistPageContent {
+      text-align: left;
+      padding: 3.5rem 2rem;
+      
+      h1{
+        font-size: 2rem;
+        text-align: left;
+        margin: 0;
+        line-height: 1;      
+       
+      }
+      .tagline {
+        padding-left: 3.5rem;
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-bottom: 0.5rem;
+        color:white
+      }
+      .playlistPageDesc {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        p {
+          margin: 0;
+        }
+        span {
+          opacity: 0.7;
+          position: relative;
+          padding-left: 20px;
+          &:before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: white;
+            overflow: hidden;
+            border-radius: 50%;
+            position: absolute;
+            margin-left: -10px;
+            top: 9px;
+          }
+        }
+      }
+    }
+  }

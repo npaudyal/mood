@@ -8,7 +8,8 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
-    REGISTER_FAIL
+    REGISTER_FAIL,
+    EDIT_NAME
 } from "./types";
 
 
@@ -114,4 +115,12 @@ export const login = ({ email, password}) => dispatch => {
 
             })
         })
+}
+
+export const editName = (user) => dispatch => {
+
+    dispatch({
+        type:EDIT_NAME,
+        payload:user
+    })
 }

@@ -39,6 +39,7 @@ router.post('/', (req,res) => {
                                 id:user.id,
                                 email:user.email,
                                 name:user.name,
+                                register_date:user.register_date
                             }
                         })
                     }
@@ -49,5 +50,22 @@ router.post('/', (req,res) => {
        })
    })
 })
+
+router.post('/editName', (req,res) => {
+    const {name, email} = req.body;
+    
+ 
+    if(!name)  {
+        return res.status(400).json({msg: 'Please enter name'});
+    }
+ 
+    //Check for existing
+    User.updateOne({email}, {$set: {name}}).then(user => {
+            res.json(name);
+    })
+      
+       
+ })
+
 
 module.exports = router;

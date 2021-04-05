@@ -6,7 +6,8 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
-    REGISTER_FAIL
+    REGISTER_FAIL,
+    EDIT_NAME,
 } from "../actions/types";
 
 
@@ -52,6 +53,11 @@ const initialState = {
                 user:null,
                 isAuthenticated:false,
                 isLoading:false
+            }
+        case EDIT_NAME:
+            return {
+                ...state,
+                user:action.payload 
             }    
         default:
             return state;
