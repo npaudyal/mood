@@ -13,6 +13,8 @@ import Webcam from './components/screens/Webcam'
 import Question from './components/screens/Question';
 import { resetState } from './actions/mediaActions';
 import Profile from './components/screens/Profile'
+import AdminRoute from './components/routing/AdminRoute';
+import Admin from './components/screens/Admin'
 const App = () => {
 
 
@@ -29,6 +31,7 @@ const App = () => {
           <PrivateRoute exact path="/books" component = {Books} />
           <PrivateRoute exact path="/chat" component = {ChatContent} />
           <PrivateRoute exact path="/profile" component = {Profile} />
+          <AdminRoute exact path="/admin" component = {Admin} />
           <Route path = "*" component={() => "404 not found!"} />
         </Switch>
      

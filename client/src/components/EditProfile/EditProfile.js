@@ -21,7 +21,7 @@ const EditProfile = ({changeToFalse}) => {
         const body = JSON.stringify({name, email:user.email});
         //databse work
         axios.post('/api/users/editName', body, config).then(res =>{
-            dispatch(editName({name, email:user.email, id:user.id, register_date:user.register_date }))
+            dispatch(editName({name, email:user.email, id:user.id, register_date:user.register_date, role:user.role }))
             changeToFalse();
         })
         

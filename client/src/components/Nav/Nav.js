@@ -13,7 +13,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {clearModal, modal} from '../../actions/modalAction'
 import {resetState} from '../../actions/mediaActions'
 import styled from 'styled-components';
-import {logout} from '../../actions/authActions';
+import {clearFavorites, logout} from '../../actions/authActions';
 import './Nav.css'
 import { clearMood } from '../../actions/moodActions';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -29,6 +29,7 @@ const Nav = () => {
                dispatch(clearMood());
                dispatch(clearModal());
                dispatch(resetState());
+               dispatch(clearFavorites());
                history.push('/');
     }
     return (

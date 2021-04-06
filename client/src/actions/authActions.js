@@ -9,7 +9,8 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    EDIT_NAME
+    EDIT_NAME,
+    CLEAR_STATE
 } from "./types";
 
 
@@ -37,7 +38,11 @@ export const loadUser = () => (dispatch,getState) => new Promise((resolve, rejec
   });
     
 
-
+export const clearFavorites = () => {
+    return {
+        type:CLEAR_STATE
+    }
+}
 export const register = ({name, email, password}) => dispatch => {
     const config = {
         headers: {

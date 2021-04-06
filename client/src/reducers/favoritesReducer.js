@@ -12,7 +12,8 @@ import {
     MOVIE_REMOVE_SUCCESS,
     BOOK_REMOVE_SUCCESS,
     MUSIC_REMOVE_SUCCESS,
-    ADD_FAIL
+    ADD_FAIL,
+    CLEAR_STATE
    
 } from "../actions/types";
 
@@ -96,6 +97,14 @@ const favorites = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading:false
+            }
+        case CLEAR_STATE:
+            return {
+                isLoading:false,
+                books:[],
+                music:[],
+                movies:[]
+            
             }
         
         default:

@@ -152,8 +152,8 @@ const HomePage = () => {
 
             <h1>Your favorites</h1>
             {music ?  <MainContent>    
-                {music.map((item) => 
-                      <Card favorite music image={item.image} name={item.title} link={item.url}/>      
+                {music.map((item,index) => 
+                      <Card key={index} favorite music image={item.image} name={item.title} link={item.url}/>      
                 )}
  
             </MainContent> : null }
@@ -165,7 +165,7 @@ const HomePage = () => {
                      <h1>{capitalizeFirstLetter(tags[0])}</h1>
                     <MainContent>
                     {exisitngMusic.category1.map((item,index) => 
-                      <Card music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                      <Card  key={index} music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                       )}
                        
                     </MainContent>
@@ -181,7 +181,7 @@ const HomePage = () => {
                     <h1>{capitalizeFirstLetter(tags[1])}</h1>
                     <MainContent>
                     {exisitngMusic.category2.map((item,index) => 
-                      <Card music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                      <Card key={index} music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                       )}
                        
                     </MainContent>
@@ -196,7 +196,7 @@ const HomePage = () => {
                     <h1>{capitalizeFirstLetter(tags[2])}</h1>
                     <MainContent>
                     {exisitngMusic.category3.map((item,index) => 
-                      <Card music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
+                      <Card key={index} music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
                       )}
                        
                     </MainContent>
@@ -214,10 +214,12 @@ export default HomePage;
 
 
 export const MainWrapper = styled.div`
-   background-color: #131313;
+   
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), #121212 10%);
     margin-left:7rem;
     padding-left:5rem;
     padding-top:80px;
+    min-height:100vh;
   
   
    h1{

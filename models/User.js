@@ -41,6 +41,11 @@ const UserSchema = new mongoose.Schema({
         minLength:6,
         
     },
+    role:{
+        type: String,
+        default:'user',
+        enum:["user", "admin"],
+    },
     image:String,
     music:[MusicSchema],
     movies:[MoviesSchema],

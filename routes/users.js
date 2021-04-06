@@ -39,7 +39,8 @@ router.post('/', (req,res) => {
                                 id:user.id,
                                 email:user.email,
                                 name:user.name,
-                                register_date:user.register_date
+                                register_date:user.register_date,
+                                role:user.role
                             }
                         })
                     }
@@ -65,6 +66,25 @@ router.post('/editName', (req,res) => {
     })
       
        
+ })
+
+
+ router.post('/delete',(req, res) => {
+    const {email} = req.body;
+    User.deleteOne({email}).then(user => {
+        res.json(email)
+    })
+
+
+ })
+
+ router.get('/all',(req, res) => {
+
+    User.find({}).then(user => {
+        res.json(user);
+    })
+
+
  })
 
 
