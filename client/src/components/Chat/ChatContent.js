@@ -8,6 +8,7 @@ import moment from 'moment'
 import Dropzone from 'react-dropzone'
 import axios from 'axios';
 import {getChats, afterPostMessage} from '../../actions/chatActions'
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import Nav from '../Nav/Nav'
 
 
@@ -131,14 +132,13 @@ export class ChatContent extends Component  {
                                         <section>
                                             <div {...getRootProps()}>
                                                 <input {...getInputProps()} />
-                                                <CardGiftcard fontSize ="small" />
+                                                <AttachFileIcon fontSize ="small" />
                                             </div>
                                         </section>
                                     )}
                                 </Dropzone>
                    
-                   <Gif fontSize ="large" />
-                   <EmojiEmotions fontSize ="large" />
+                 
                </div>
            </div>
         </div>

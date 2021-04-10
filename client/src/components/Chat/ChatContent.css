@@ -5,13 +5,13 @@
     background-color: #131313;
     margin-left: 9rem;
     
+    
 }
 
 .chat__messages{
    
     height:86vh;
     max-height: 86vh;
-   
     overflow-y: scroll;
 }
 

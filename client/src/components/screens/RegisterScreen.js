@@ -14,6 +14,9 @@ import {register} from '../../actions/authActions'
 import {clearModal} from '../../actions/modalAction'
 import {Redirect} from 'react-router';
 import { clearErrors } from '../../actions/errorActions';
+import {GoogleLogin} from 'react-google-login'
+import SpotifyLogin from 'react-spotify-login';
+
 
 const RegisterScreen = () => {
 
@@ -52,6 +55,29 @@ const dispatch = useDispatch();
     dispatch(clearModal());
      history.push("/");
   }
+
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.accessToken;
+    const newUser = {
+      name:result.givenName, email:result.email,password:'21y6asdbhajda7s619233.1323'
+    }
+    
+   
+    dispatch(register(newUser));
+  }
+
+  const googleFailure = (error) => {
+    console.log(error);
+    console.log("Google sign in unsuccessful")
+  }
+
+  const onSpotifySuccess = async(res) => {
+    console.log(res)
+  }
+   const onSpotifyFailure = () => {
+    console.log("Failed")
+   }
 
 
     return (
@@ -100,15 +126,30 @@ const dispatch = useDispatch();
             <Padding />
            <Divider>Or</Divider>
 
-           <Padding />
-           <SocialMediaButton facebook>
-            <FacebookIcon></FacebookIcon> Continue with Facebook
-           </SocialMediaButton>
+           {/* <Padding />
+           <SpotifyLogin 
+            clientId='09ad4364c3bf49eaa7b59be9245f84e2'
+            redirectUri='http://localhost:3000'
+            onSuccess={onSpotifySuccess}
+            onFailure={onSpotifyFailure}
+           
+            
+           />
+            */}
 
            <Padding />
-           <SocialMediaButton>
-            <GoogleLogo></GoogleLogo> Continue with Google
-           </SocialMediaButton>
+           <GoogleLogin
+              clientId = '489868212133-d9dgrne74ik6165gsq06jr81mtlmoubs.apps.googleusercontent.com'
+              render = {(renderProps) => (
+                <SocialMediaButton onClick={renderProps.onClick} disabled={renderProps.disabled} varient='contained'>
+                <GoogleLogo></GoogleLogo> Continue with Google
+               </SocialMediaButton>
+              )}
+              onSuccess = {googleSuccess}
+              onFailure = {googleFailure}
+              cookiePolicy = 'single_host_origin'
+           />
+         
 
            <Padding />
            <Padding />

@@ -77,7 +77,7 @@ const LoginScreen = () => {
               <Padding />
               <MyButton onClick={loginHandler}> Sign In</MyButton>
               <Padding />
-             <Divider>Or</Divider>
+             {/* <Divider>Or</Divider>
   
              <Padding />
              <SocialMediaButton facebook>
@@ -90,7 +90,7 @@ const LoginScreen = () => {
              </SocialMediaButton>
   
              <Padding />
-             <Padding />
+             <Padding /> */}
              <Padding />
              <Padding />
              
