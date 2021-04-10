@@ -131,7 +131,7 @@ const HomePage = () => {
     }, [])
 
     useEffect(() => {
-
+        dispatch(loadUser()).then(() => dispatch(loadMusic(user._id))).catch((error) => console.log(error));
         if( exisitngMusic===undefined || Object.keys(exisitngMusic).length ===0) {
         categoryOneFetch();
         categoryTwoFetch();
@@ -150,13 +150,16 @@ const HomePage = () => {
             <MainWrapper>
             <h1>Hello, {user.name}</h1>
 
-            <h1>Your favorites</h1>
-            {music ?  <MainContent>    
+           
+            {music && music.length > 0 ?
+            <>
+             <h1>Your favorites</h1>
+             <MainContent>    
                 {music.map((item,index) => 
                       <Card key={index} favorite music image={item.image} name={item.title} link={item.url}/>      
                 )}
  
-            </MainContent> : null }
+            </MainContent> </> :  <FavoritesContainer>You don't have any favorite music</FavoritesContainer> }
            
            
                 {
@@ -244,4 +247,20 @@ export const MainContent = styled.div`
         color: white;
     }
     
+`
+
+export const FavoritesContainer = styled.div`
+
+    height:20vh;
+    width:80vw;
+    border-style:dotted;
+    border-color:white;
+    border-radius:20px;
+    margin-left:3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size:2rem;
+
 `

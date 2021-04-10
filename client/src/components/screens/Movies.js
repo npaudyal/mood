@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import dotenv from 'dotenv'
-import{MainWrapper, MainContent} from './HomePage';
+import{MainWrapper, MainContent, FavoritesContainer} from './HomePage';
 import Nav from '../Nav/Nav'
 import Card from '../Card/Card'
 import placeholder from '../../images/placeholder.jpg'
@@ -134,13 +134,16 @@ const Movies = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
-        <h1>Your favorites</h1>
-        {movies ? <MainContent>
+       
+        {movies && movies.length > 0 ?
+        <>
+         <h1>Your favorites</h1>
+         <MainContent>
         {movies.map((item,index) => 
                       <Card key ={index} favorite movies link={`https://google.com/search?q=${item.title}+movie`} image={item.image ? item.image: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
-        </MainContent> : null}
+        </MainContent> </> : <FavoritesContainer>You don't have any favorite movies</FavoritesContainer>}
         
        
 

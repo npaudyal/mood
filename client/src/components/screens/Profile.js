@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Avatar from '../../images/user.svg'
 import { useSelector } from 'react-redux'
 import Card from '../Card/Card'
-import {MainContent} from './HomePage'
+import {FavoritesContainer, MainContent} from './HomePage'
 import './Profile.scss'
 import EditProfile from '../EditProfile/EditProfile'
 import {BiEdit} from 'react-icons/bi'
@@ -12,7 +12,7 @@ import {BiEdit} from 'react-icons/bi'
 const Profile = () => {
 
     const user = useSelector(state =>state.auth.user)
-    const favorite = useSelector(state =>state.favorites)
+    const favorite = useSelector(state =>state.auth.user)
     
 
     const [editMode, setEditMode] = useState(false)
@@ -48,9 +48,12 @@ const Profile = () => {
         </div>
         </div>
         </div>
-        
-        
-            {favorite.music ?
+
+          {favorite.music.length  === 0 && favorite.movies.length === 0 && favorite.books.length === 0 ? 
+          <FavoritesContainer>You don't have any favorite contents!</FavoritesContainer>  
+            :
+            <div>
+              {favorite.music && favorite.music.length > 0 ?
             <>
             <h1>Your favorite Music</h1>
             <MainContent>    
@@ -60,9 +63,9 @@ const Profile = () => {
  
             </MainContent> </> : null }
             
-
+                
            
-        {favorite.movies ?
+        {favorite.movies && favorite.movies.length > 0  ?
         <>
          <h1>Your favorite movies</h1>
         <MainContent>
@@ -73,8 +76,9 @@ const Profile = () => {
         </MainContent> </> : null}
         
         
-        {favorite.books ?
+        {favorite.books && favorite.books.length > 0  ?
         <>
+        <h1>Your favorite books</h1>
         <MainContent>  
         {favorite.books.map((item,index) => 
                     //  <h1>{item.volumeInfo.title}</h1> 
@@ -83,6 +87,13 @@ const Profile = () => {
                 )}
            
         </MainContent> </> : null }
+              </div>
+            
+        }
+
+
+        
+            
 
 
         </MainWrapper>

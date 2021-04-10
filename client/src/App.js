@@ -14,8 +14,23 @@ import Question from './components/screens/Question';
 import { resetState } from './actions/mediaActions';
 import Profile from './components/screens/Profile'
 import AdminRoute from './components/routing/AdminRoute';
+import {useSelector, useDispatch} from 'react-redux'
 import Admin from './components/screens/Admin'
+import { loadBooks, loadMovies, loadMusic } from './actions/favoriteActions';
+
 const App = () => {
+  const user = useSelector(state=> state.auth.user)
+
+
+    useEffect(() => {
+      
+      store.dispatch(loadUser()).then(() => {
+        store.dispatch(loadMusic(user._id))
+        store.dispatch(loadMovies(user._id))
+        store.dispatch(loadBooks(user._id))
+      } ).catch((error) => console.log(error));
+    
+    }, [])
 
 
   return (

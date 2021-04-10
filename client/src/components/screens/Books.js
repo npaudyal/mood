@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
-import{MainWrapper, MainContent} from './HomePage';
+import{MainWrapper, MainContent, FavoritesContainer} from './HomePage';
 import Nav from '../Nav/Nav'
 import Card from '../Card/Card'
 import {loadBooks} from '../../actions/favoriteActions'
@@ -113,15 +113,18 @@ const Books = () => {
         <Nav />
         <MainWrapper>
         <h1>Good evening, {user.name}</h1>
+        
+        {books && books.length > 0 ?
+        <>
         <h1>Your favorites</h1>
-        {books ? <MainContent>  
+        <MainContent>  
         {books.map((item,index) => 
                     //  <h1>{item.volumeInfo.title}</h1> 
                      <Card key={index} favorite book link={`https://google.com/search?q=${item.title}+book`} image={item.image ? item.image: null} name={item.title} />      
    
                 )}
            
-        </MainContent> : null }
+        </MainContent> </>: <FavoritesContainer>You don't have any favorite books</FavoritesContainer> }
         
         
         {existingBooks && existingBooks.category1 ?
