@@ -79,7 +79,7 @@ io.on("connection", socket => {
                     .populate("sender")
                     .exec((err, docu) => {
                        
-                        return io.emit("Output Chat Message", doc);
+                        return io.emit("Output Chat Message", docu);
                        
                     });
                 });

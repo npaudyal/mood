@@ -62,7 +62,7 @@ router.post('/editName', (req,res) => {
  
     //Check for existing
     User.updateOne({email}, {$set: {name}}).then(user => {
-            res.json(name);
+            res.json(name); 
     })
       
        

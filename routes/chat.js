@@ -10,7 +10,9 @@ router.get("/getChats",  (req, res) => {
                
                 return res.status(400).send(err);
             }
+           
             res.status(200).send(chats)
+           
            
         })
 })
