@@ -25,7 +25,7 @@ const Nav = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const logoutHandler = () => {
-      dispatch(logout());
+                dispatch(logout());
                dispatch(clearMood());
                dispatch(clearModal());
                dispatch(resetState());

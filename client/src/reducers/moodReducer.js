@@ -24,15 +24,16 @@ const mood = (state=initialState, action) => {
             case CLEAR_MOOD:
                 return {
                     emojiState:0,
-                    keywords:[]
+                    keywords:[],
+                    fromCam:false
                 }
 
             case CAM:
                 return {
                     ...state,
-                    fromCam:true
+                    fromCam:action.payload
                 }
-
+          
             default:
             return state;
 

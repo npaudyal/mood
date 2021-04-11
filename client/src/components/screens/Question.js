@@ -19,7 +19,9 @@ const Question = () => {
     const videoWidth = 640;
     const [myStream, setMyStream] = useState(null);
     const [detections, setDetections] = useState([])
+
     const manualHandle = () => {
+        dispatch(cam(false));
         history.push('/manual')
     }
 
@@ -28,14 +30,17 @@ const Question = () => {
     const[gotTag, setGotTag] = useState('');
      const dispatch = useDispatch();
      const history = useHistory();
+
      const faceHandle = () => {
 
-        dispatch(cam(true));
+       
 
         if(gotTag === 'happy') {
+            dispatch(cam(true));
             dispatch(keyword('romantic'))
             dispatch(keyword('thrilling'))
             dispatch(keyword('intense'))
+            dispatch(keyword('happy'))
             history.push('/home');
             setGotTag('');
             setGotChartData(false)
@@ -43,9 +48,11 @@ const Question = () => {
             setDataPoints([])
         }
         if(gotTag === 'sad') {
+            dispatch(cam(true));
             dispatch(keyword('feelgood'))
             dispatch(keyword('romantic'))
             dispatch(keyword('inspiring'))
+            dispatch(keyword('sad'))
             history.push('/home');
             setGotTag('');
             setGotChartData(false)
@@ -53,9 +60,11 @@ const Question = () => {
             setDataPoints([])
         }
         if(gotTag === 'surprised') {
+            dispatch(cam(true));
          dispatch(keyword('dark'))
          dispatch(keyword('rush'))
          dispatch(keyword('sad'))
+         dispatch(keyword('surprised'))
          history.push('/home');
             setGotTag('');
             setGotChartData(false)
@@ -63,9 +72,11 @@ const Question = () => {
             setDataPoints([])
         }
         if(gotTag === 'angry') {
+            dispatch(cam(true));
          dispatch(keyword('rush'))
          dispatch(keyword('thrilling'))
          dispatch(keyword('inspiring'))
+         dispatch(keyword('angry'))
          history.push('/home');
             setGotTag('');
             setGotChartData(false)
@@ -73,9 +84,11 @@ const Question = () => {
             setDataPoints([])
         }
         if(gotTag === 'disgusted') {
+            dispatch(cam(true));
          dispatch(keyword('feelgood'))
          dispatch(keyword('thoughtful'))
          dispatch(keyword('funny'))
+         dispatch(keyword('disgusted'))
          history.push('/home');
             setGotTag('');
             setGotChartData(false)
@@ -83,6 +96,7 @@ const Question = () => {
             setDataPoints([])
         }
         if(gotTag === 'neutral') {
+            dispatch(cam(false));
             history.push('/manual')
             setGotTag('');
             setGotChartData(false)
@@ -90,20 +104,18 @@ const Question = () => {
             setDataPoints([])
         }
         if(gotTag === 'fearful') {
+         dispatch(cam(true));
          dispatch(keyword('feelgood'))
          dispatch(keyword('romantic'))
          dispatch(keyword('funny'))
+         dispatch(keyword('fearful'))
          history.push('/home');
             setGotTag('');
             setGotChartData(false)
             setInitializing(false)
             setDataPoints([])
         }
-        
-       
-        
-        
- 
+
      }
 
     const chartData = {
@@ -238,16 +250,7 @@ const Question = () => {
                 stopVideo();
                 console.log(error);
             }
-            
-            
-            // If there is noone in the sreen, display
-            
-
-           
-           
-          
-           
-           
+       
     }
 
     return (

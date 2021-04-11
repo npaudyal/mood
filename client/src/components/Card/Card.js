@@ -85,6 +85,7 @@ const Card = (props) => {
 export default Card
 
 const CardsWrap = styled.div`
+    
     display: flex;
     padding:5px;
     flex-direction:row;

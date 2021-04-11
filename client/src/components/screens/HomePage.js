@@ -18,8 +18,9 @@ const HomePage = () => {
     const [categoryTwo, setCategoryTwo] = useState({trackTwo:[]});
     const [categoryThree, setCategoryThree] = useState({trackThree:[]});
     const [gotToken, setGotToken] = useState(false);
-    
 
+
+    const fromCamera = useSelector(state => state.mood.fromCam)
     var tags = useSelector(state => state.mood.keywords)
     const user = useSelector(state=> state.auth.user)
     const music = useSelector(state=> state.favorites.music)
@@ -47,6 +48,59 @@ const HomePage = () => {
          if(val ==='rush') return "0L33OqcgnqcdtUDhUAyfPW";
          if(val ==='inspiring') return "2hISpZx8Mk4B5ODBK226Sk";
          if(val ==='romantic') return "5KbTzqKBqxQRD8OBtJTZrS";
+     }
+
+     const HeadingCategory = () => {
+
+        if(fromCamera && tags[3] ==='sad') {
+         return (
+             <h1 style = {{fontSize:'1.5rem', marginBottom:'0px'}}>
+                 Since you're feeling low, here are some mood booster contents for you
+             </h1>
+         )
+        }
+        if(fromCamera && tags[3] ==='happy') {
+         return (
+             <h1 style = {{fontSize:'1.5rem', marginBottom:'0px'}}>
+                 Since you're happy, here are some contents we think you'll get hooked on
+             </h1>
+         )
+        }
+        if(fromCamera && tags[3] ==='fearful') {
+         return (
+             <h1 style = {{fontSize:'1.5rem', marginBottom:'0px'}}>
+                 Since you're feeling scared, here are some contents to make you feel better
+             </h1>
+         )
+        }
+        if(fromCamera && tags[3] ==='disgusted') {
+         return (
+             <h1 style = {{fontSize:'1.5rem', marginBottom:'0px'}}>
+                Since you're feeling disgusted, here are some contents to make you feel better</h1>
+         )
+        }
+        if(fromCamera && tags[3] ==='surprised') {
+         return (
+             <h1 style = {{fontSize:'1.5rem', marginBottom:'0px'}}>
+                 Since you're feeling surprised, here are some contents we think you'll get hooked on
+             </h1>
+         )
+        }
+        if(fromCamera && tags[3] ==='angry') {
+         return (
+             <h1 style = {{fontSize:'1.5rem', marginBottom:'0px'}}>
+                 Since you're feeling angry, here are some contents we think you'll get hooked on
+             </h1>
+         )
+        }
+
+        else {
+            return (
+                <> </>
+            )
+        }
+       
+
      }
 
      const categoryOneFetch =  () => {
@@ -148,24 +202,27 @@ const HomePage = () => {
         <>
             <Nav />
             <MainWrapper>
-            <h1>Hello, {user.name}</h1>
+            <h2 style ={{color:'white', paddingLeft:'3rem'}}>Hello, {user.name}</h2>
+            <hr style={{marginLeft:'3rem', width:'82vw', marginBottom:'2rem'}}></hr>
 
            
             {music && music.length > 0 ?
             <>
-             <h1>Your favorites</h1>
-             <MainContent>    
+             <h1 style = {{marginBottom:'0px', color:'white', opacity:'.7'}}>Your favorites</h1>
+             <MainContentFavorites>    
                 {music.map((item,index) => 
                       <Card key={index} favorite music image={item.image} name={item.title} link={item.url}/>      
                 )}
  
-            </MainContent> </> :  <FavoritesContainer>You don't have any favorite music</FavoritesContainer> }
+            </MainContentFavorites> </> :  <FavoritesContainer>You don't have any favorite music</FavoritesContainer> }
            
-           
+                    <HeadingCategory />
+
                 {
                     exisitngMusic && exisitngMusic.category1 ?
                     <>
-                     <h1>{capitalizeFirstLetter(tags[0])}</h1>
+                     <h2 style={{color:'grey', fontSize:'16px', marginLeft:'3rem'}}>{capitalizeFirstLetter(tags[0])}</h2>
+                     <hr style={{marginLeft:'3rem', width:'82vw'}}></hr>
                     <MainContent>
                     {exisitngMusic.category1.map((item,index) => 
                       <Card  key={index} music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
@@ -181,7 +238,8 @@ const HomePage = () => {
             {
                     exisitngMusic && exisitngMusic.category2 ?
                     <>
-                    <h1>{capitalizeFirstLetter(tags[1])}</h1>
+                    <h2 style={{color:'grey', fontSize:'16px', marginLeft:'3rem'}}>{capitalizeFirstLetter(tags[1])}</h2>
+                     <hr style={{marginLeft:'3rem', width:'82vw'}}></hr>
                     <MainContent>
                     {exisitngMusic.category2.map((item,index) => 
                       <Card key={index} music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
@@ -196,7 +254,8 @@ const HomePage = () => {
             {
                     exisitngMusic && exisitngMusic.category3 ?
                     <>
-                    <h1>{capitalizeFirstLetter(tags[2])}</h1>
+                    <h2 style={{color:'grey', fontSize:'16px', marginLeft:'3rem'}}>{capitalizeFirstLetter(tags[2])}</h2>
+                    <hr style={{marginLeft:'3rem', width:'82vw'}}></hr>
                     <MainContent>
                     {exisitngMusic.category3.map((item,index) => 
                       <Card key={index} music image={item.album.images[0].url} name={item.name} link={item.album.artists[0].external_urls.spotify}/>      
@@ -227,7 +286,7 @@ export const MainWrapper = styled.div`
   
    h1{
         font-size:1.3rem;
-        padding:16px 50px;
+        padding-left:3rem;
         color: white;
     }
     
@@ -239,7 +298,7 @@ export const MainContent = styled.div`
     display: flex;
    flex-direction: row;
    flex-wrap:wrap;
-   
+   margin-bottom:3rem;
     padding:0.5rem 2rem;
     h1{
         font-size:1.3rem;
@@ -253,14 +312,37 @@ export const FavoritesContainer = styled.div`
 
     height:20vh;
     width:80vw;
-    border-style:dotted;
-    border-color:white;
+    margin-left:2rem;
+    padding:0.5rem 0.5rem;
+   margin-bottom:3rem;
+    border:2px solid grey;
     border-radius:20px;
-    margin-left:3rem;
+   
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size:2rem;
+
+`
+export const MainContentFavorites = styled.div`
+     color: white;
+     border:2px solid grey;
+    display: flex;
+   flex-direction: row;
+   border-radius:20px;
+   flex-wrap:wrap;
+   margin-left:2rem;
+   width:85vw;
+   padding:0.5rem 0.5rem;
+   margin-bottom:3rem;
+
+   
+    h1{
+        font-size:1.3rem;
+        padding:6px 15px;
+        color: white;
+    }
+
 
 `
