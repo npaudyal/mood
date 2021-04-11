@@ -17,7 +17,7 @@ const media = useSelector(state => state.media)
        render = {
            props =>isAuth && Object.keys(media).length > 0 ? 
            (
-               <HomePage />
+               <Component {...props} />
            ) : isAuth ? (
                <Component {...props} />
            ):

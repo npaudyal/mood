@@ -115,8 +115,8 @@ const Movies = () => {
 
             axios.get(`api/movies?&with_genres=${keysF(tags[0])}&page=${random}`)
             .then((response) => {
-                setCategoryOne({movieOne:response.data.results})
-                dispatch(storeMovies({'category1': response.data.results}))
+                setCategoryOne({movieOne:response.data.results.slice(0,16)})
+                dispatch(storeMovies({'category1': response.data.results.slice(0,16)}))
         }).catch((error) => console.log(error))
 
         } catch (error) {
@@ -134,8 +134,8 @@ const Movies = () => {
 
             axios.get(`api/movies?&with_genres=${keysF(tags[1])}&page=${random}`)
             .then((response) => {
-                setCategoryTwo({movieTwo:response.data.results})
-                dispatch(storeMovies({'category2': response.data.results}))
+                setCategoryTwo({movieTwo:response.data.results.slice(0,16)})
+                dispatch(storeMovies({'category2': response.data.results.slice(0,16)}))
         }).catch((error) => console.log(error))
 
         } catch (error) {
@@ -153,8 +153,8 @@ const Movies = () => {
 
             axios.get(`api/movies?&with_genres=${keysF(tags[2])}&page=${random}`)
             .then((response) => {
-                setCategoryThree({movieThree:response.data.results})
-                dispatch(storeMovies({'category3': response.data.results}))
+                setCategoryThree({movieThree:response.data.results.slice(0,16)})
+                dispatch(storeMovies({'category3': response.data.results.slice(0,16)}))
         }).catch((error) => console.log(error))
 
         } catch (error) {

@@ -93,8 +93,8 @@ const Books = () => {
            
                 axios.get(`api/books?&book_name=${tags[0]}`)
                 .then((response) => {
-                    setCategoryOne({bookOne:response.data.items})
-                    dispatch(storeBooks({'category1': response.data.items}))
+                    setCategoryOne({bookOne:response.data.items.slice(0,16)})
+                    dispatch(storeBooks({'category1': response.data.items.slice(0,16)}))
                    
             }).catch((error) => console.log(error))
     
@@ -117,8 +117,8 @@ const Books = () => {
            
             axios.get(`api/books?&book_name=${tags[1]}`)
             .then((response) => {
-                setCategoryTwo({bookTwo:response.data.items})
-                dispatch(storeBooks({'category2': response.data.items}))
+                setCategoryTwo({bookTwo:response.data.items.slice(0,16)})
+                dispatch(storeBooks({'category2': response.data.items.slice(0,16)}))
 
         }).catch((error) => console.log(error))
 
@@ -138,8 +138,8 @@ const Books = () => {
            
             axios.get(`api/books?&book_name=${tags[2]}`)
             .then((response) => {
-                setCategoryThree({bookThree:response.data.items})
-                dispatch(storeBooks({'category3': response.data.items}))
+                setCategoryThree({bookThree:response.data.items.slice(0,16)})
+                dispatch(storeBooks({'category3': response.data.items.slice(0,16)}))
 
         }).catch((error) => console.log(error))
 
