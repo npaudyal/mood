@@ -12,6 +12,7 @@ import { useHistory } from 'react-router';
 const Question = () => {
 
     const [initializing, setInitializing] = useState(false);
+    const [camError, setCamError] = useState(false);
     const videoRef = useRef();
     const canvasRef = useRef();
     const videoHeight = 480;
@@ -219,21 +220,30 @@ const Question = () => {
             faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
             
             console.log(detectionss)
-            const mood =  detectionss[0].expressions;
+            try {
+                const mood =  detectionss[0].expressions;
+                console.log(mood)
+                const max = Math.max.apply(null,Object.keys(mood).map(function(x){ return mood[x] }));
+                const tag = (Object.keys(mood).filter(function(x){ return mood[x] == max; })[0]);
+                
+                const need = Object.values(mood)
+                setDataPoints(need)
+                setGotTag(tag);
+                console.log(tag)
+               
+                setTimeout(function(){  setGotChartData(true); stopVideo(); }, 560);
+            }
+            catch (error) {
+                setCamError(true);
+                stopVideo();
+                console.log(error);
+            }
+            
             
             // If there is noone in the sreen, display
             
 
-            console.log(mood)
-            const max = Math.max.apply(null,Object.keys(mood).map(function(x){ return mood[x] }));
-            const tag = (Object.keys(mood).filter(function(x){ return mood[x] == max; })[0]);
-            
-            const need = Object.values(mood)
-            setDataPoints(need)
-            setGotTag(tag);
-            console.log(tag)
            
-            setTimeout(function(){  setGotChartData(true); stopVideo(); }, 560);
            
           
            
@@ -255,6 +265,22 @@ const Question = () => {
             </GraphWrapper>
             </>
             :
+            camError ? <>
+            <CardWrapper>
+                
+                <QuestionArea>
+                   <p>We had a problem detecting your face.</p>
+                   <p> We recommend trying manual mode </p>
+                </QuestionArea>
+  
+                   <ContinueButton onClick={manualHandle}>Okay</ContinueButton>
+                  
+                  
+                 
+               </CardWrapper>
+
+            
+             </> :
             <>
             <CardWrapper>
                 

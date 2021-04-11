@@ -12,7 +12,7 @@ import {BiEdit} from 'react-icons/bi'
 const Profile = () => {
 
     const user = useSelector(state =>state.auth.user)
-    const favorite = useSelector(state =>state.auth.user)
+    const favorite = useSelector(state =>state.favorites)
     
 
     const [editMode, setEditMode] = useState(false)
