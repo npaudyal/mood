@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import { loadMovies } from '../../actions/favoriteActions';
 import {loadUser} from '../../actions/authActions';
 import {storeMovies} from '../../actions/mediaActions'
+import Loading from '../Loading/Loading';
 
 
 const Movies = () => {
@@ -30,6 +31,8 @@ const Movies = () => {
      const [categoryOne, setCategoryOne] = useState({movieOne:[]});
      const [categoryTwo, setCategoryTwo] = useState({movieTwo:[]});
      const [categoryThree, setCategoryThree] = useState({movieThree:[]});
+     const[spinner, setSpinner] = useState(false)
+
 
     const keysF = (val) => {
         if(val ==='feelgood') return "14";
@@ -166,6 +169,7 @@ const Movies = () => {
   
 
     useEffect(() => {
+        setSpinner(true)
         dispatch(loadUser()).then(() => dispatch(loadMovies(user._id))).catch((error) => console.log(error));
         
         if( existingMovies===undefined || Object.keys(existingMovies).length ===0) {
@@ -174,6 +178,9 @@ const Movies = () => {
            categoryThreeFetch();
        
         }
+        setTimeout(() => {
+            setSpinner(false);
+        }, 2000);
         
     }, [])
 
@@ -188,7 +195,9 @@ const Movies = () => {
     return (
         <>
         <Nav />
-        <MainWrapper>
+        {
+            spinner ? <Loading /> : <>
+            <MainWrapper>
             <h2 style ={{color:'white', paddingLeft:'3rem'}}>Hello, {user.name}</h2>
             <hr style={{marginLeft:'3rem', width:'82vw', marginBottom:'2rem'}}></hr>
        
@@ -244,6 +253,11 @@ const Movies = () => {
        </MainContent> </> : null }
        
         </MainWrapper>
+
+            </>
+
+        }
+        
     </>
     )
 }

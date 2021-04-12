@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Avatar from '../../images/user.svg'
 import { useSelector } from 'react-redux'
 import Card from '../Card/Card'
-import {FavoritesContainer, MainContent} from './HomePage'
+import {FavoritesContainer, MainContent, MainContentFavorites} from './HomePage'
 import './Profile.scss'
 import EditProfile from '../EditProfile/EditProfile'
 import {BiEdit} from 'react-icons/bi'
@@ -55,38 +55,38 @@ const Profile = () => {
             <div>
               {favorite.music && favorite.music.length > 0 ?
             <>
-            <h1>Your favorite Music</h1>
-            <MainContent>    
+             <h1 style = {{marginBottom:'0px', color:'white', opacity:'.7'}}>Your favorite music</h1>
+            <MainContentFavorites>    
                 {favorite.music.map((item, index) => 
                       <Card key ={index} favorite music image={item.image} name={item.title} link={item.url}/>      
                 )}
  
-            </MainContent> </> : null }
+            </MainContentFavorites> </> : null }
             
                 
            
         {favorite.movies && favorite.movies.length > 0  ?
         <>
-         <h1>Your favorite movies</h1>
-        <MainContent>
+        <h1 style = {{marginBottom:'0px', color:'white', opacity:'.7'}}>Your favorite movies</h1>
+        <MainContentFavorites>
         {favorite.movies.map((item,index) => 
                       <Card key ={index} favorite movies link={`https://google.com/search?q=${item.title}+movie`} image={item.image ? item.image: "https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.rsquare.w700.jpg"} name={item.title} movie="true"/>      
                 )}
            
-        </MainContent> </> : null}
+        </MainContentFavorites> </> : null}
         
         
         {favorite.books && favorite.books.length > 0  ?
         <>
-        <h1>Your favorite books</h1>
-        <MainContent>  
+        <h1 style = {{marginBottom:'0px', color:'white', opacity:'.7'}}>Your favorite books</h1>
+        <MainContentFavorites>  
         {favorite.books.map((item,index) => 
                     //  <h1>{item.volumeInfo.title}</h1> 
                      <Card key={index} favorite book link={`https://google.com/search?q=${item.title}+book`} image={item.image ? item.image: null} name={item.title} />      
    
                 )}
            
-        </MainContent> </> : null }
+        </MainContentFavorites> </> : null }
               </div>
             
         }

@@ -7,6 +7,7 @@ import Card from '../Card/Card'
 import {loadBooks} from '../../actions/favoriteActions'
 import { loadUser } from '../../actions/authActions';
 import { storeBooks } from '../../actions/mediaActions';
+import Loading from '../Loading/Loading';
 
 const Books = () => {
 
@@ -83,6 +84,8 @@ const Books = () => {
      const [categoryOne, setCategoryOne] = useState({bookOne:[]});
      const [categoryTwo, setCategoryTwo] = useState({bookTwo:[]});
      const [categoryThree, setCategoryThree] = useState({bookThree:[]});
+     const[spinner, setSpinner] = useState(false)
+
 
     
     const categoryOneFetch = () => {
@@ -153,6 +156,8 @@ const Books = () => {
       }
 
       useEffect(() => {
+        setSpinner(true)
+
         dispatch(loadUser()).then(() => dispatch(loadBooks(user._id))).catch((error) => console.log(error));
 
         if(existingBooks === undefined || Object.keys(existingBooks).length ===0 ) {
@@ -161,12 +166,18 @@ const Books = () => {
            categoryThreeFetch();
                        
         }
+        setTimeout(() => {
+            setSpinner(false);
+        }, 2000);
       }, []);
     
     return (
         <>
         <Nav />
-        <MainWrapper>
+        {
+            spinner ? <Loading /> :
+            <>
+                <MainWrapper>
         <h2 style ={{color:'white', paddingLeft:'3rem'}}>Hello, {user.name}</h2>
         <hr style={{marginLeft:'3rem', width:'82vw', marginBottom:'2rem'}}></hr>
         
@@ -231,6 +242,9 @@ const Books = () => {
              
           </MainContent> </> : null }
         </MainWrapper>
+            </>
+        }
+        
     </>
     )
 }

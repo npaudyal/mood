@@ -20,6 +20,7 @@ export class ChatContent extends Component  {
     }
 
     componentDidMount() {
+        
         let server = "http://localhost:9999/";
 
         this.props.dispatch(getChats())
@@ -28,6 +29,8 @@ export class ChatContent extends Component  {
         this.socket.on("Output Chat Message", messageFromBackEnd => {
             this.props.dispatch(afterPostMessage(messageFromBackEnd))
         })
+
+       
     }
 
     componentDidUpdate() {

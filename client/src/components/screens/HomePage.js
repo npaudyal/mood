@@ -10,6 +10,8 @@ import Card from '../Card/Card';
 import { loadMusic } from '../../actions/favoriteActions';
 import {loadUser} from '../../actions/authActions'
 import { storeMusic } from '../../actions/mediaActions';
+import ClipLoader from 'react-spinners/ClipLoader'
+import Loading from '../Loading/Loading';
 
 const HomePage = () => {
 
@@ -18,7 +20,7 @@ const HomePage = () => {
     const [categoryTwo, setCategoryTwo] = useState({trackTwo:[]});
     const [categoryThree, setCategoryThree] = useState({trackThree:[]});
     const [gotToken, setGotToken] = useState(false);
-
+    const[spinner, setSpinner] = useState(false)
 
     const fromCamera = useSelector(state => state.mood.fromCam)
     var tags = useSelector(state => state.mood.keywords)
@@ -154,8 +156,6 @@ const HomePage = () => {
     }
 
     const getToken = () =>{
-        dispatch(loadUser()).then(() => dispatch(loadMusic(user._id))).catch((error) => console.log(error));
-
         try {
             axios('https://accounts.spotify.com/api/token', {
                 headers: {
@@ -179,14 +179,20 @@ const HomePage = () => {
 
 
     useEffect(() => {
-            
+        // dispatch(loadUser()).then(() =>dispatch(loadMusic(user._id))).catch((error) => console.log(error));
+        setSpinner(true)
+        dispatch(loadUser())
         getToken()
+        setTimeout(() => {
+            setSpinner(false);
+        }, 2000);
       
     }, [])
 
+
     useEffect(() => {
-        dispatch(loadUser()).then(() => dispatch(loadMusic(user._id))).catch((error) => console.log(error));
         if( exisitngMusic===undefined || Object.keys(exisitngMusic).length ===0) {
+        dispatch(loadMusic(user._id))
         categoryOneFetch();
         categoryTwoFetch();
         categoryThreeFetch();
@@ -201,6 +207,14 @@ const HomePage = () => {
     return (
         <>
             <Nav />
+            {
+            spinner ?
+            
+            <Loading loading={spinner} />
+
+
+            :
+            <>
             <MainWrapper>
             <h2 style ={{color:'white', paddingLeft:'3rem'}}>Hello, {user.name}</h2>
             <hr style={{marginLeft:'3rem', width:'82vw', marginBottom:'2rem'}}></hr>
@@ -266,6 +280,10 @@ const HomePage = () => {
                     : null
                 }
             </MainWrapper>
+            </>
+
+        }
+           
         </>
     )
 }
@@ -333,8 +351,8 @@ export const MainContentFavorites = styled.div`
    border-radius:20px;
    flex-wrap:wrap;
    margin-left:2rem;
-   width:85vw;
-   padding:0.5rem 0.5rem;
+   width:84vw;
+   padding:0.2rem 1px;
    margin-bottom:3rem;
 
    
