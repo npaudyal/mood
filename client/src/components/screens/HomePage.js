@@ -182,7 +182,10 @@ const HomePage = () => {
         // dispatch(loadUser()).then(() =>dispatch(loadMusic(user._id))).catch((error) => console.log(error));
         setSpinner(true)
         dispatch(loadUser())
-        getToken()
+        if(!token) {
+            getToken()
+
+        }
         setTimeout(() => {
             setSpinner(false);
         }, 2000);
@@ -192,13 +195,20 @@ const HomePage = () => {
 
     useEffect(() => {
         if( exisitngMusic===undefined || Object.keys(exisitngMusic).length ===0) {
-        dispatch(loadMusic(user._id))
+        
         categoryOneFetch();
         categoryTwoFetch();
         categoryThreeFetch();
         }
    
     }, [token])
+
+    useEffect(() => {
+        if(user._id) {
+            dispatch(loadMusic(user._id))
+
+        }
+    }, [user])
 
 
 

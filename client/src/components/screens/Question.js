@@ -231,18 +231,14 @@ const Question = () => {
             faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
             faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
             
-            console.log(detectionss)
             try {
                 const mood =  detectionss[0].expressions;
-                console.log(mood)
                 const max = Math.max.apply(null,Object.keys(mood).map(function(x){ return mood[x] }));
                 const tag = (Object.keys(mood).filter(function(x){ return mood[x] == max; })[0]);
                 
                 const need = Object.values(mood)
                 setDataPoints(need)
-                setGotTag(tag);
-                console.log(tag)
-               
+                setGotTag(tag);               
                 setTimeout(function(){  setGotChartData(true); stopVideo(); }, 560);
             }
             catch (error) {

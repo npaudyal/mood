@@ -10,7 +10,8 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     EDIT_NAME,
-    CLEAR_STATE
+    CLEAR_STATE,
+    CLEAR_ERRORS
 } from "./types";
 
 
@@ -58,6 +59,9 @@ export const register = ({name, email, password}) => dispatch => {
             payload:res.data
         
         });
+        dispatch({
+            type:CLEAR_ERRORS
+        })
         
     
     
@@ -110,6 +114,10 @@ export const login = ({ email, password}) => dispatch => {
             payload:res.data
         
         });
+
+        dispatch({
+            type:CLEAR_ERRORS
+        })
         
     
     
