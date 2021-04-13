@@ -29,6 +29,11 @@ const HomePage = () => {
     const exisitngMusic = useSelector(state=> state.media.music)
     const dispatch = useDispatch();
 
+    const REACT_APP_CLIENT_ID="09ad4364c3bf49eaa7b59be9245f84e2"
+    const REACT_APP_CLIENT_SECRET="74880557f7af46aaaa3253daf11e95e4"
+    const REACT_APP_MOVIE="712d0aea734e24d602ce5540befce25e"
+
+
     tags = tags.filter( function( item, index, inputArray ) {
         return inputArray.indexOf(item) == index;
      });
@@ -160,7 +165,7 @@ const HomePage = () => {
             axios('https://accounts.spotify.com/api/token', {
                 headers: {
                     'Content-Type':'application/x-www-form-urlencoded',
-                    'Authorization': `Basic ` + btoa(process.env.REACT_APP_CLIENT_ID + ':' + process.env.REACT_APP_CLIENT_SECRET)
+                    'Authorization': `Basic ` + btoa(REACT_APP_CLIENT_ID + ':' + REACT_APP_CLIENT_SECRET)
                 },
                 data:'grant_type=client_credentials',
                 method:"POST"
