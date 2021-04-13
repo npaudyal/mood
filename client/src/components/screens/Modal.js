@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useCallback,useState } from 'react'
-import {useSpring, animated} from 'react-spring';
+// import {useSpring, animated} from 'react-spring';
 import styled from 'styled-components';
 import {MdClose} from 'react-icons/md'
 import {useDispatch, useSelector} from 'react-redux'
@@ -14,13 +14,13 @@ const Modal = ({showModal}) => {
     const isSignUpClicked = useSelector(state => state.signUpClicked);
 
     const modalRef  = useRef();
-    const animation = useSpring ({
-        config:{
-            duration:250
-        },
-        opacity:showModal ? 1 : 0,
-        transform: showModal ? `translateY(0%)` : `translateY(-100%)`
-    })
+    // const animation = useSpring ({
+    //     config:{
+    //         duration:250
+    //     },
+    //     opacity:showModal ? 1 : 0,
+    //     transform: showModal ? `translateY(0%)` : `translateY(-100%)`
+    // })
     const dispatch = useDispatch();
 
 
@@ -48,7 +48,7 @@ const Modal = ({showModal}) => {
         <>{ showModal ?
          (
              <Background ref= {modalRef} onClick ={closeModal}>
-                 <animated.div style={animation}>
+                 {/* <animated.div style={animation}> */}
                  <ModalWrapper>
                      <ModalContent>
                          {isSignUpClicked ? 
@@ -62,7 +62,7 @@ const Modal = ({showModal}) => {
                           dispatch(clearErrors());
                      }} />
                       </ModalWrapper>
-                      </animated.div>
+                      {/* </animated.div> */}
              </Background>
          ) : null  
 }</>
