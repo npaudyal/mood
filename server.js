@@ -6,6 +6,7 @@ const Chat = require('./models/Chat');
 const auth = require('./middleware/auth');
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path');
 //Connect DB
 
 connectDB();
@@ -93,6 +94,16 @@ io.on("connection", socket => {
 
 // app.use(errorHandler);
 app.use('/uploads', express.static('uploads'));
+
+
+//Serve static assets if in production
+if(process.env.NODE_ENV === 'production') {
+    //Set static folder
+    app.use(express.static('client/build'));
+    app.get('*', (req,res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
 
 const PORT = process.env.PORT || 5000;
 
