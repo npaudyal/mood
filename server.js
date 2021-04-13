@@ -1,3 +1,4 @@
+const path = require('path');
 require('dotenv').config({path: "./config.env"});
 const express = require('express');
 const connectDB = require('./config/db')
@@ -6,7 +7,6 @@ const Chat = require('./models/Chat');
 const auth = require('./middleware/auth');
 const multer = require('multer');
 const fs = require('fs');
-const path = require('path');
 //Connect DB
 
 connectDB();
