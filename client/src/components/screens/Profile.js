@@ -8,6 +8,7 @@ import {FavoritesContainer, MainContent, MainContentFavorites} from './HomePage'
 import './Profile.scss'
 import EditProfile from '../EditProfile/EditProfile'
 import {BiEdit} from 'react-icons/bi'
+import ProfilePicture from '../../images/profile.png'
 
 const Profile = () => {
 
@@ -32,7 +33,7 @@ const Profile = () => {
         <div className="playlistPageInfo">
           <div className="playlistPageImage">
             <img
-              src="https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80"
+              src={ProfilePicture}
               alt="pic"
             />
           </div>

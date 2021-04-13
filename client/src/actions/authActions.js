@@ -14,11 +14,9 @@ import {
     CLEAR_ERRORS
 } from "./types";
 
-
 //Check token and load user
 export const loadUser = () => (dispatch,getState) => new Promise((resolve, reject) => {
     //User loading
-
     dispatch({
         type:USER_LOADING,
     });
