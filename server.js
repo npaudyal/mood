@@ -69,7 +69,7 @@ app.post('/api/chat/uploadFiles', (req, res) => {
 
 io.on("connection", socket => {
     socket.on("Input Chat Message", msg => {
-        connectDB().then(db => {
+        // connectDB().then(db => {
 
             try {
                 let chat = new Chat({message:msg.chatMessage, sender:msg.userId,type:msg.type})
@@ -90,7 +90,7 @@ io.on("connection", socket => {
             }
         })
     } )
-})
+// })
 
 // app.use(errorHandler);
 app.use('/uploads', express.static('uploads'));
